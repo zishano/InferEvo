@@ -1,0 +1,56 @@
+# Curated component facts and edges scanning cannot see (mechanisms/registry.py).
+# Keys are registry ids. `depends_on` adds edges; other fields are facts the
+# agent reads before planning a change (spec 8.1/8.3: role, interface,
+# state owned, invariants, extension points, known limits).
+
+[component."sim:crates/simthesizer-core/src/model_runners/rooflang.rs"]
+depends_on = ["sim:scripts/rooflang_worker.py"]
+role = "Tier-2 model runner: sends each round to the Python RoofLang worker, receives the priced op graph, executes it on the fluid-shared resource engine"
+interface = "ModelRunner (register name `rooflang`); config: tp, ep, pp, lowering, kv devices"
+state = "per-request logical state (MLA/KDA), stream tails across rounds (PP chaining)"
+invariants = ["device ownership across PP stages", "stream slots exclusive, FIFO by readiness"]
+extension_points = ["new lowering selected by `lowering` and priced in the bridge"]
+
+[component."sim:scripts/rooflang_worker.py"]
+role = "worker process: builds the Kimi/Qwen RoofLang template for a runner and exports per-round operations"
+
+[component."sim:crates/simthesizer-core/src/model_runners/step_model.rs"]
+role = "Tier-1 model runner: round time from fitted linear features; PP via stage_fractions"
+interface = "ModelRunner (register name `step_model`); config: coef, groups, stage, stage_fractions"
+invariants = ["same scheduler/system semantics as Tier-2; only the round duration differs"]
+
+[component."ie:adapters/tier1_engine.py"]
+depends_on = ["sim:crates/simthesizer-core/src/model_runners/step_model.rs"]
+role = "turns a Tier-2 config into a Tier-1 config (step_model runners) and runs it"
+
+[component."ie:adapters/topologies.py"]
+depends_on = ["sim:run_kimi_k3_shared.sh"]
+role = "Deployment (per-side TP/EP/ETP/PP/budgets), legality check, Tier-2 launcher configs (cached)"
+invariants = ["check() rejects what the launcher/engine reject; memory via validation.capacity"]
+
+[component."sim:crates/simthesizer-core/src/kv.rs"]
+role = "KV / recurrent-state runtime: plans (stage-major devices), reservations, versioned MLA append + KDA fixed state, P->D transfer routing"
+state = "per-request reservations per device and stage; transfer pins / ACKs"
+invariants = ["reserved bytes == released bytes per request", "owners cover every layer exactly once"]
+
+[component."sim:crates/simthesizer-core/src/systems/pd_disaggregation.rs"]
+role = "P/D system: prefill instances, decode instances, KV handoff topology"
+interface = "System (register name `pd_disaggregation`); KvTopology per side incl. layer stages"
+
+[component."sim:crates/simthesizer-core/src/schedulers/chunked_prefill.rs"]
+role = "continuous batching with chunked prefill; up to pipeline_depth disjoint batches in flight (PP)"
+interface = "Scheduler (register name `chunked_prefill`); token budget, max batch"
+invariants = ["in-flight KV accounted before admission", "commits FIFO by selection"]
+
+[component."sim:scripts/rooflang_bridge/kimi_k3_shared.py"]
+role = "Kimi-K3 graph template: layers, MLA/KDA attention, MoE dispatch/expert/combine, TP/EP/ETP/PP lowering, per-stage memory"
+interface = "KimiTemplate(tp, ep, hardware, ..., stage, pp, expert_tp, lowering).export(contexts, ids)"
+invariants = ["work (FLOPs, bytes) conserved across lowerings", "experts per group = 896 / (EP/ETP)"]
+extension_points = ["new `lowering` value", "new per-layer kernel organisation (_lower)"]
+
+[component."ie:adapters/steady.py"]
+role = "frozen evaluator metrics: steady window, SLO attainment, per-side throughput, queue/backlog detection, capacity bisection (D22)"
+invariants = ["metric formulas change only through a recorded decision (D9)"]
+
+[component."ie:agent/search.py"]
+role = "agent search primitives: Problem (frozen evaluator), evaluate, diagnose (feedback granularity), resource attribution, moves"

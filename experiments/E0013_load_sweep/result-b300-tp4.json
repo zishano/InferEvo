@@ -1,0 +1,141 @@
+{
+ "experiment": "E0013",
+ "tier": 1,
+ "layout": "b300 TP4/EP16 P1+D1",
+ "rows": [
+  {
+   "ttft_ms": {
+    "p50": 45.84756074431873,
+    "p99": 299.4992081497614
+   },
+   "tpot_ms": {
+    "p50": 8.039021350918143,
+    "p99": 9.897998520426267
+   },
+   "tokens_per_s_gpu": 34.384487791179446,
+   "tokens_per_s_user": 127.5388799071507,
+   "span_s": 21.211418196175558,
+   "multiplier": 0.5,
+   "offered_req_s": 5.439229782207086
+  },
+  {
+   "ttft_ms": {
+    "p50": 72.98463727544835,
+    "p99": 313.48920814975935
+   },
+   "tpot_ms": {
+    "p50": 9.90938725550349,
+    "p99": 11.929854868277477
+   },
+   "tokens_per_s_gpu": 54.54663933763248,
+   "tokens_per_s_user": 102.95824919184015,
+   "span_s": 13.371011649049764,
+   "multiplier": 1,
+   "offered_req_s": 10.878459564414172
+  },
+  {
+   "ttft_ms": {
+    "p50": 366.6850338553393,
+    "p99": 679.2306687900602
+   },
+   "tpot_ms": {
+    "p50": 11.607321823731645,
+    "p99": 133.91743162085652
+   },
+   "tokens_per_s_gpu": 66.05550739317529,
+   "tokens_per_s_user": 79.61629461945084,
+   "span_s": 11.041376847789593,
+   "multiplier": 2,
+   "offered_req_s": 21.756919128828343
+  },
+  {
+   "ttft_ms": {
+    "p50": 1024.3816633095348,
+    "p99": 2295.0323571273243
+   },
+   "tpot_ms": {
+    "p50": 12.475820508183036,
+    "p99": 166.61816991984387
+   },
+   "tokens_per_s_gpu": 67.93583728349826,
+   "tokens_per_s_user": 73.66427592779218,
+   "span_s": 10.735773329125642,
+   "multiplier": 4,
+   "offered_req_s": 43.51383825765669
+  },
+  {
+   "ttft_ms": {
+    "p50": 1427.1317463023747,
+    "p99": 3244.295649543692
+   },
+   "tpot_ms": {
+    "p50": 12.785058919196771,
+    "p99": 166.76745696801956
+   },
+   "tokens_per_s_gpu": 68.9593636182869,
+   "tokens_per_s_user": 72.14707684131461,
+   "span_s": 10.576428083605311,
+   "multiplier": 8,
+   "offered_req_s": 87.02767651531337
+  },
+  {
+   "ttft_ms": {
+    "p50": 1675.15355862526,
+    "p99": 3770.4260019477574
+   },
+   "tpot_ms": {
+    "p50": 12.7956957164423,
+    "p99": 168.88440543347235
+   },
+   "tokens_per_s_gpu": 69.17695529360982,
+   "tokens_per_s_user": 72.04531703294977,
+   "span_s": 10.54316060752348,
+   "multiplier": 16,
+   "offered_req_s": 174.05535303062675
+  }
+ ],
+ "models": {
+  "p": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds"
+  },
+  "d": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "exported-graph lower bound (validation/round_bounds)"
+  }
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "c39474dbf5e5cbd7f876e616fb72b64960a3b418",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

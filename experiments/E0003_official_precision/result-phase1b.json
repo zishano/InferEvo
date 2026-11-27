@@ -1,0 +1,845 @@
+{
+ "label": "phase1b",
+ "simthesizer_tree": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/.worktrees/simthesizer-phase1-base",
+ "cost_model_version": "4022bcbfa6f511e0b3555f2aa1c4e4f0b7e15d76096ecfee652cfb62dce08268",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/.worktrees/simthesizer-phase1-base",
+   "commit": "7fc31a353a1a5d27b08b60bde950f4ec5c640a86",
+   "branch": "inferevo/phase1-base",
+   "dirty": true,
+   "dirty_digest": "9ed82ef2566e430ffd806e7c1a76a6ea78c1ad39cc9e114e022819479542e00c"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/.worktrees/rooflang-phase1-base",
+   "commit": "277bc2f03c51fcb80a16ec96bf2e6777badce6f4",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "roofline": [
+  {
+   "hw": "h200",
+   "stage": "decode",
+   "batch": 64,
+   "tokens": 1,
+   "context": 8192,
+   "serial_roofline_us": 360285.1193333316,
+   "compute_us_by_dtype": {
+    "bf16": 9896.438553742171,
+    "fp32": 6.5102940667340565,
+    "fp4": 6289.446803339078
+   }
+  },
+  {
+   "hw": "h200",
+   "stage": "decode",
+   "batch": 512,
+   "tokens": 1,
+   "context": 131072,
+   "serial_roofline_us": 1725544.0396674294,
+   "compute_us_by_dtype": {
+    "bf16": 397940.98616439395,
+    "fp32": 52.06347945803839,
+    "fp4": 50315.57442671262
+   }
+  },
+  {
+   "hw": "h200",
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 8192,
+   "context": null,
+   "serial_roofline_us": 1890942.1026176906,
+   "compute_us_by_dtype": {
+    "bf16": 957947.4957121996,
+    "fp32": 832.975229023256,
+    "fp4": 805049.1908274019
+   }
+  },
+  {
+   "hw": "h200",
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 32768,
+   "context": null,
+   "serial_roofline_us": 8160285.857879045,
+   "compute_us_by_dtype": {
+    "bf16": 4431819.525032496,
+    "fp32": 3331.8928276319466,
+    "fp4": 3220196.7633096077
+   }
+  },
+  {
+   "hw": "h200",
+   "stage": "prefill",
+   "batch": 4,
+   "tokens": 8192,
+   "context": null,
+   "serial_roofline_us": 7560533.676470834,
+   "compute_us_by_dtype": {
+    "bf16": 3831789.9828487984,
+    "fp32": 3331.8928276319466,
+    "fp4": 3220196.7633096077
+   }
+  },
+  {
+   "hw": "b300",
+   "stage": "decode",
+   "batch": 64,
+   "tokens": 1,
+   "context": 8192,
+   "serial_roofline_us": 216171.07159999933,
+   "compute_us_by_dtype": {
+    "bf16": 4352.233755079157,
+    "fp32": 2.8616359253333394,
+    "fp4": 460.9931564373344
+   }
+  },
+  {
+   "hw": "b300",
+   "stage": "decode",
+   "batch": 512,
+   "tokens": 1,
+   "context": 131072,
+   "serial_roofline_us": 1026205.0442767123,
+   "compute_us_by_dtype": {
+    "bf16": 175005.60258207272,
+    "fp32": 22.88479163733331,
+    "fp4": 3687.945251498675
+   }
+  },
+  {
+   "hw": "b300",
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 8192,
+   "context": null,
+   "serial_roofline_us": 720778.2270984894,
+   "compute_us_by_dtype": {
+    "bf16": 421284.0208921084,
+    "fp32": 366.1388895573331,
+    "fp4": 59007.1240239788
+   }
+  },
+  {
+   "hw": "b300",
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 32768,
+   "context": null,
+   "serial_roofline_us": 2602463.144354676,
+   "compute_us_by_dtype": {
+    "bf16": 1949015.7422310046,
+    "fp32": 1464.552002901331,
+    "fp4": 236028.4960959152
+   }
+  },
+  {
+   "hw": "b300",
+   "stage": "prefill",
+   "batch": 4,
+   "tokens": 8192,
+   "context": null,
+   "serial_roofline_us": 2338751.0432259445,
+   "compute_us_by_dtype": {
+    "bf16": 1685136.0835684335,
+    "fp32": 1464.552002901331,
+    "fp4": 236028.4960959152
+   }
+  }
+ ],
+ "capacity": [
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 294302580608,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -167402580608,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 8,
+   "attn_tp": 1,
+   "ep": 8,
+   "attn_dp": 8
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 237560028096,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -110660028096,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 8,
+   "attn_tp": 2,
+   "ep": 8,
+   "attn_dp": 4
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 209188751840,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -82288751840,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 8,
+   "attn_tp": 4,
+   "ep": 8,
+   "attn_dp": 2
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 195003113712,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -68103113712,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 8,
+   "attn_tp": 8,
+   "ep": 8,
+   "attn_dp": 1
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 203899076480,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -76999076480,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 16,
+   "attn_tp": 1,
+   "ep": 16,
+   "attn_dp": 16
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 147156523968,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -20256523968,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 16,
+   "attn_tp": 2,
+   "ep": 16,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 118785247712,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 8114752288,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 92,
+    "32768": 28,
+    "131072": 8
+   },
+   "hardware": "h200",
+   "n_gpus": 16,
+   "attn_tp": 4,
+   "ep": 16,
+   "attn_dp": 4
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 104599609584,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 22300390416,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 156,
+    "32768": 46,
+    "131072": 12
+   },
+   "hardware": "h200",
+   "n_gpus": 16,
+   "attn_tp": 8,
+   "ep": 16,
+   "attn_dp": 2
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 158697324416,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -31797324416,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 32,
+   "attn_tp": 1,
+   "ep": 32,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 101954771904,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 24945228096,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 864,
+    "32768": 352,
+    "131072": 96
+   },
+   "hardware": "h200",
+   "n_gpus": 32,
+   "attn_tp": 2,
+   "ep": 32,
+   "attn_dp": 16
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 73583495648,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 53316504352,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 1248,
+    "32768": 416,
+    "131072": 112
+   },
+   "hardware": "h200",
+   "n_gpus": 32,
+   "attn_tp": 4,
+   "ep": 32,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 59397857520,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 67502142480,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 952,
+    "32768": 280,
+    "131072": 72
+   },
+   "hardware": "h200",
+   "n_gpus": 32,
+   "attn_tp": 8,
+   "ep": 32,
+   "attn_dp": 4
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 136096448384,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": -9196448384,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "h200",
+   "n_gpus": 64,
+   "attn_tp": 1,
+   "ep": 64,
+   "attn_dp": 64
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 79353895872,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 47546104128,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 3328,
+    "32768": 1312,
+    "131072": 384
+   },
+   "hardware": "h200",
+   "n_gpus": 64,
+   "attn_tp": 2,
+   "ep": 64,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 50982619616,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 75917380384,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 3568,
+    "32768": 1184,
+    "131072": 320
+   },
+   "hardware": "h200",
+   "n_gpus": 64,
+   "attn_tp": 4,
+   "ep": 64,
+   "attn_dp": 16
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 36796981488,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 90103018512,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 2544,
+    "32768": 744,
+    "131072": 192
+   },
+   "hardware": "h200",
+   "n_gpus": 64,
+   "attn_tp": 8,
+   "ep": 64,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 124796010368,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 2103989632,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 384,
+    "32768": 128,
+    "131072": 0
+   },
+   "hardware": "h200",
+   "n_gpus": 128,
+   "attn_tp": 1,
+   "ep": 128,
+   "attn_dp": 128
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 68053457856,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 58846542144,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 8256,
+    "32768": 3264,
+    "131072": 960
+   },
+   "hardware": "h200",
+   "n_gpus": 128,
+   "attn_tp": 2,
+   "ep": 128,
+   "attn_dp": 64
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 39682181600,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 87217818400,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 8192,
+    "32768": 2720,
+    "131072": 736
+   },
+   "hardware": "h200",
+   "n_gpus": 128,
+   "attn_tp": 4,
+   "ep": 128,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 25496543472,
+   "usable_bytes_per_gpu": 126900000000,
+   "free_bytes_per_gpu": 101403456528,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 5712,
+    "32768": 1680,
+    "131072": 432
+   },
+   "hardware": "h200",
+   "n_gpus": 128,
+   "attn_tp": 8,
+   "ep": 128,
+   "attn_dp": 16
+  },
+  {
+   "status": "infeasible_weights_oom",
+   "weight_bytes_per_gpu": 294302580608,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": -35102580608,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": null,
+   "hardware": "b300",
+   "n_gpus": 8,
+   "attn_tp": 1,
+   "ep": 8,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 237560028096,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 21639971904,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 188,
+    "32768": 76,
+    "131072": 20
+   },
+   "hardware": "b300",
+   "n_gpus": 8,
+   "attn_tp": 2,
+   "ep": 8,
+   "attn_dp": 4
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 209188751840,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 50011248160,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 294,
+    "32768": 98,
+    "131072": 26
+   },
+   "hardware": "b300",
+   "n_gpus": 8,
+   "attn_tp": 4,
+   "ep": 8,
+   "attn_dp": 2
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 195003113712,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 64196886288,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 226,
+    "32768": 66,
+    "131072": 17
+   },
+   "hardware": "b300",
+   "n_gpus": 8,
+   "attn_tp": 8,
+   "ep": 8,
+   "attn_dp": 1
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 203899076480,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 55300923520,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 1296,
+    "32768": 640,
+    "131072": 208
+   },
+   "hardware": "b300",
+   "n_gpus": 16,
+   "attn_tp": 1,
+   "ep": 16,
+   "attn_dp": 16
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 147156523968,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 112043476032,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 1968,
+    "32768": 784,
+    "131072": 232
+   },
+   "hardware": "b300",
+   "n_gpus": 16,
+   "attn_tp": 2,
+   "ep": 16,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 118785247712,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 140414752288,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 1648,
+    "32768": 548,
+    "131072": 148
+   },
+   "hardware": "b300",
+   "n_gpus": 16,
+   "attn_tp": 4,
+   "ep": 16,
+   "attn_dp": 4
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 104599609584,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 154600390416,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 1090,
+    "32768": 320,
+    "131072": 84
+   },
+   "hardware": "b300",
+   "n_gpus": 16,
+   "attn_tp": 8,
+   "ep": 16,
+   "attn_dp": 2
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 158697324416,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 100502675584,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 4704,
+    "32768": 2336,
+    "131072": 768
+   },
+   "hardware": "b300",
+   "n_gpus": 32,
+   "attn_tp": 1,
+   "ep": 32,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 101954771904,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 157245228096,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 5536,
+    "32768": 2208,
+    "131072": 640
+   },
+   "hardware": "b300",
+   "n_gpus": 32,
+   "attn_tp": 2,
+   "ep": 32,
+   "attn_dp": 16
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 73583495648,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 185616504352,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 4360,
+    "32768": 1456,
+    "131072": 392
+   },
+   "hardware": "b300",
+   "n_gpus": 32,
+   "attn_tp": 4,
+   "ep": 32,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 59397857520,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 199802142480,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 2820,
+    "32768": 828,
+    "131072": 216
+   },
+   "hardware": "b300",
+   "n_gpus": 32,
+   "attn_tp": 8,
+   "ep": 32,
+   "attn_dp": 4
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 136096448384,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 123103551616,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 11520,
+    "32768": 5760,
+    "131072": 1920
+   },
+   "hardware": "b300",
+   "n_gpus": 64,
+   "attn_tp": 1,
+   "ep": 64,
+   "attn_dp": 64
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 79353895872,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 179846104128,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 12672,
+    "32768": 5056,
+    "131072": 1472
+   },
+   "hardware": "b300",
+   "n_gpus": 64,
+   "attn_tp": 2,
+   "ep": 64,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 50982619616,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 208217380384,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 9792,
+    "32768": 3264,
+    "131072": 880
+   },
+   "hardware": "b300",
+   "n_gpus": 64,
+   "attn_tp": 4,
+   "ep": 64,
+   "attn_dp": 16
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 36796981488,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 222403018512,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 6280,
+    "32768": 1848,
+    "131072": 480
+   },
+   "hardware": "b300",
+   "n_gpus": 64,
+   "attn_tp": 8,
+   "ep": 64,
+   "attn_dp": 8
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 124796010368,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 134403989632,
+   "kda_state_bytes_per_request_per_gpu": 454459392,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 25216,
+    "32768": 12544,
+    "131072": 4096
+   },
+   "hardware": "b300",
+   "n_gpus": 128,
+   "attn_tp": 1,
+   "ep": 128,
+   "attn_dp": 128
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 68053457856,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 191146542144,
+   "kda_state_bytes_per_request_per_gpu": 227229696,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 26944,
+    "32768": 10752,
+    "131072": 3136
+   },
+   "hardware": "b300",
+   "n_gpus": 128,
+   "attn_tp": 2,
+   "ep": 128,
+   "attn_dp": 64
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 39682181600,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 219517818400,
+   "kda_state_bytes_per_request_per_gpu": 113614848,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 20640,
+    "32768": 6880,
+    "131072": 1856
+   },
+   "hardware": "b300",
+   "n_gpus": 128,
+   "attn_tp": 4,
+   "ep": 128,
+   "attn_dp": 32
+  },
+  {
+   "status": "feasible",
+   "weight_bytes_per_gpu": 25496543472,
+   "usable_bytes_per_gpu": 259200000000,
+   "free_bytes_per_gpu": 233703456528,
+   "kda_state_bytes_per_request_per_gpu": 56807424,
+   "mla_kv_bytes_per_token_per_gpu": 27648,
+   "max_requests": {
+    "8192": 13184,
+    "32768": 3872,
+    "131072": 1008
+   },
+   "hardware": "b300",
+   "n_gpus": 128,
+   "attn_tp": 8,
+   "ep": 128,
+   "attn_dp": 16
+  }
+ ]
+}

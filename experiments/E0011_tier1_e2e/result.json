@@ -1,0 +1,262 @@
+{
+ "experiment": "E0011",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "c62365244f2cae0baa113ad8e99cfdc786b8411f",
+   "branch": "inferevo/phase1-base",
+   "dirty": true,
+   "dirty_digest": "0da434b73c00d474bfe7b546de4c39c6a097122c15c20a1d142bdd85b7aeb62e"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "rows": [
+  {
+   "request": 3,
+   "ttft": {
+    "tier1_ms": 18.267128939634336,
+    "tier2_ms": 18.672477145941336,
+    "rel_err": -0.021708325207140815
+   },
+   "tpot": {
+    "tier1_ms": 9.1947432988395,
+    "tier2_ms": 9.396265002816058,
+    "rel_err": -0.021447000900481517
+   },
+   "e2e": {
+    "tier1_ms": 3705.3591917742738,
+    "tier2_ms": 3786.574743275181,
+    "rel_err": -0.021448289551168336
+   }
+  },
+  {
+   "request": 13,
+   "ttft": {
+    "tier1_ms": 13.543911071647763,
+    "tier2_ms": 13.7866540267495,
+    "rel_err": -0.0176070970251924
+   },
+   "tpot": {
+    "tier1_ms": 9.688740596305017,
+    "tier2_ms": 9.96443983741574,
+    "rel_err": -0.027668313082236065
+   },
+   "e2e": {
+    "tier1_ms": 2445.417800744207,
+    "tier2_ms": 2514.8610532181006,
+    "rel_err": -0.02761315675274846
+   }
+  },
+  {
+   "request": 14,
+   "ttft": {
+    "tier1_ms": 122.8889393708017,
+    "tier2_ms": 125.40902808275645,
+    "rel_err": -0.020094954489973095
+   },
+   "tpot": {
+    "tier1_ms": 9.436099578753975,
+    "tier2_ms": 9.644507660546068,
+    "rel_err": -0.02160899126501315
+   },
+   "e2e": {
+    "tier1_ms": 3406.6515927771848,
+    "tier2_ms": 3481.697693952787,
+    "rel_err": -0.02155445640956907
+   }
+  },
+  {
+   "request": 17,
+   "ttft": {
+    "tier1_ms": 83.06139669170665,
+    "tier2_ms": 84.46265322724167,
+    "rel_err": -0.016590250033526967
+   },
+   "tpot": {
+    "tier1_ms": 9.193668949186586,
+    "tier2_ms": 9.385640565489728,
+    "rel_err": -0.020453757520718166
+   },
+   "e2e": {
+    "tier1_ms": 3981.1770311468185,
+    "tier2_ms": 4063.9742529948862,
+    "rel_err": -0.02037346122137745
+   }
+  },
+  {
+   "request": 28,
+   "ttft": {
+    "tier1_ms": 11.85585568412284,
+    "tier2_ms": 11.821522105532889,
+    "rel_err": 0.00290432807919734
+   },
+   "tpot": {
+    "tier1_ms": 10.22118797090397,
+    "tier2_ms": 10.095950261478823,
+    "rel_err": 0.012404747070020029
+   },
+   "e2e": {
+    "tier1_ms": 369.5974346657618,
+    "tier2_ms": 365.17978125729167,
+    "rel_err": 0.012097201529779118
+   }
+  },
+  {
+   "request": 31,
+   "ttft": {
+    "tier1_ms": 177.1055193962674,
+    "tier2_ms": 178.98924923652126,
+    "rel_err": -0.010524262481064745
+   },
+   "tpot": {
+    "tier1_ms": 9.8912736801671,
+    "tier2_ms": 10.319976825809489,
+    "rel_err": -0.041541095767796216
+   },
+   "e2e": {
+    "tier1_ms": 1611.3402030204966,
+    "tier2_ms": 1675.3858889788971,
+    "rel_err": -0.03822742353251797
+   }
+  },
+  {
+   "request": 35,
+   "ttft": {
+    "tier1_ms": 9.202072406855777,
+    "tier2_ms": 8.4443742378153,
+    "rel_err": 0.08972816074960059
+   },
+   "tpot": {
+    "tier1_ms": 11.352046626790402,
+    "tier2_ms": 11.888942585274897,
+    "rel_err": -0.045159269180883296
+   },
+   "e2e": {
+    "tier1_ms": 100.018445421179,
+    "tier2_ms": 103.55591492001449,
+    "rel_err": -0.03415999464219686
+   }
+  },
+  {
+   "request": 81,
+   "ttft": {
+    "tier1_ms": 10.103696233895398,
+    "tier2_ms": 9.693992022115516,
+    "rel_err": 0.04226372487672757
+   },
+   "tpot": {
+    "tier1_ms": 8.358175070454266,
+    "tier2_ms": 8.435184345840174,
+    "rel_err": -0.009129530811485488
+   },
+   "e2e": {
+    "tier1_ms": 1564.724259338389,
+    "tier2_ms": 1578.6382803483878,
+    "rel_err": -0.008813938685769209
+   }
+  },
+  {
+   "request": 86,
+   "ttft": {
+    "tier1_ms": 18.6399321043762,
+    "tier2_ms": 18.953992910205386,
+    "rel_err": -0.01656963824546365
+   },
+   "tpot": {
+    "tier1_ms": 9.054750716240257,
+    "tier2_ms": 8.83058787944968,
+    "rel_err": 0.025384814674937112
+   },
+   "e2e": {
+    "tier1_ms": 226.8991985779021,
+    "tier2_ms": 222.05751413754803,
+    "rel_err": 0.021803740617194256
+   }
+  },
+  {
+   "request": 94,
+   "ttft": {
+    "tier1_ms": 37.152311588908304,
+    "tier2_ms": 37.45456692432114,
+    "rel_err": -0.008069919377884142
+   },
+   "tpot": {
+    "tier1_ms": 8.49721082718686,
+    "tier2_ms": 8.514161183789307,
+    "rel_err": -0.00199084281311471
+   },
+   "e2e": {
+    "tier1_ms": 801.9012860357258,
+    "tier2_ms": 803.7290734653589,
+    "rel_err": -0.002274133772158306
+   }
+  }
+ ],
+ "summary": {
+  "ttft": {
+   "median_abs": 0.017098673529359683,
+   "max_abs": 0.08972816074960059,
+   "mean_signed": 0.0023731766845279684
+  },
+  "tpot": {
+   "median_abs": 0.021527996082747334,
+   "max_abs": 0.045159269180883296,
+   "mean_signed": -0.015120923959677146
+  },
+  "e2e": {
+   "median_abs": 0.0215013729803687,
+   "max_abs": 0.03822742353251797,
+   "mean_signed": -0.01405639124205323
+  }
+ },
+ "aggregate_mean": {
+  "ttft": {
+   "tier1_ms": 50.18207634882164,
+   "tier2_ms": 50.76885099192004
+  },
+  "tpot": {
+   "tier1_ms": 9.488789731482791,
+   "tier2_ms": 9.647565614790997
+  },
+  "e2e": {
+   "tier1_ms": 1821.308644350194,
+   "tier2_ms": 1859.5654196548453
+  }
+ },
+ "tier1_wall_s": 1.2644345872104168,
+ "tier2_reference": "E0008 result-c623652.jsonl (194 s wall, E0008 wall profile)",
+ "models": {
+  "prefill": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds (E0012)"
+  },
+  "decode": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "1599e26d3075c20439a0d697acc93821deb23746ebf0b122f029e5d138d57ad7",
+   "target": "exported-graph lower bound (validation/round_bounds)"
+  }
+ }
+}

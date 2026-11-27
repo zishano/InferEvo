@@ -1,0 +1,4 @@
+('h200', 1, 8192, None) MC-1 only 1608.4 ms MC-1+CM-5 1488.4 ms CM-5 effect 0.925
+('h200', 1, 32768, None) MC-1 only 8470.3 ms MC-1+CM-5 6550.1 ms CM-5 effect 0.773
+('b300', 1, 32768, None) MC-1 only 3468.6 ms MC-1+CM-5 2624.1 ms CM-5 effect 0.757
+('h200', 64, 1, 8192) MC-1 only 348.7 ms MC-1+CM-5 348.7 ms CM-5 effect 1.000

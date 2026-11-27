@@ -1,0 +1,8 @@
+engines/simthesizer/
+engines/rooflang/
+mechanisms/candidates/
+references/*
+!references/README.md
+!references/papers/
+__pycache__/
+*.pyc

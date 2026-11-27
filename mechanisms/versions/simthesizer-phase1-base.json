@@ -1,0 +1,18 @@
+{
+ "repo": "simthesizer",
+ "branch": "inferevo/phase1-base",
+ "path": "engines/simthesizer",
+ "snapshot_commit": "0ccc86691f267afe928a023ded04a35da49bd74e",
+ "source": {
+  "name": "simthesizer",
+  "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/simthesizer",
+  "commit": "b05b76fdfd8373458e6b8d03c5ead1dea3e23120",
+  "branch": "test_dev",
+  "dirty": true,
+  "dirty_digest": "f3b4fa2ed78aa268ce1ddea8a6beea0b4c4a09890c817d5b3220ce0fdaf700d9"
+ },
+ "untracked_copied": 19,
+ "untracked_total": 19,
+ "kind": "baseline",
+ "note": "Worktree moved from .worktrees/ to engines/ on 2026-11-25; branch carries later Phase 1 commits."
+}

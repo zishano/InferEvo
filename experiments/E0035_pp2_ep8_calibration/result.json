@@ -1,0 +1,137 @@
+{
+ "experiment": "E0035",
+ "scales": {
+  "prefill": 1.1159534305334091,
+  "decode": 1.0905661672353744
+ },
+ "runs": {
+  "A": {
+   "tier2": {
+    "ttft_p50": 256.8946009970805,
+    "ttft_p99": 492.04673192907666,
+    "tpot_p50": 8.268940472044807
+   },
+   "tier1": {
+    "ttft_p50": 230.20190418120467,
+    "ttft_p99": 424.86166496405264,
+    "tpot_p50": 7.585679063840473
+   },
+   "tier1_calibrated": {
+    "ttft_p50": 256.89460468633854,
+    "ttft_p99": 491.4499070843865,
+    "tpot_p50": 8.268940451508517
+   },
+   "rel_err": {
+    "ttft_p50": -0.10390524640173027,
+    "ttft_p99": -0.13654204490216604,
+    "tpot_p50": -0.08262986177180354
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 1.4360979294636422e-08,
+    "ttft_p99": -0.0012129434176918474,
+    "tpot_p50": -2.483545591402958e-09
+   }
+  },
+  "B": {
+   "tier2": {
+    "ttft_p50": 515.3531540901515,
+    "ttft_p99": 700.8629427045037,
+    "tpot_p50": 8.271486100079644
+   },
+   "tier1": {
+    "ttft_p50": 464.99959972027847,
+    "ttft_p99": 600.1176323262633,
+    "tpot_p50": 7.5527427287112925
+   },
+   "tier1_calibrated": {
+    "ttft_p50": 518.9178985045069,
+    "ttft_p99": 707.954229894721,
+    "tpot_p50": 8.23471966491717
+   },
+   "rel_err": {
+    "ttft_p50": -0.09770689083832529,
+    "ttft_p99": -0.14374466709494205,
+    "tpot_p50": -0.08689410375258089
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 0.006917090515626834,
+    "ttft_p99": 0.010117937128839127,
+    "tpot_p50": -0.004444961246095724
+   }
+  }
+ },
+ "prefill": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 8,
+   "pp": 2,
+   "groups": 2,
+   "efficiency": {},
+   "cost_model_version": "85c4d6ffaf569f8d4e7428a1ac87a04fa03e0d25ef87953f382b5f7785754e29",
+   "stage": "p",
+   "target": "Tier-2 engine TTFT/rounds, budgets 128/512/2048, prompts to 40k; x1.1160 load calibration (E0035 run A)"
+  },
+  "coef": [
+   0.011331513201809128,
+   0.00018288807939063578,
+   -2.449212202335832e-07,
+   9.756361467234247e-05,
+   1.3423652150316892e-09,
+   0.035552797231816875,
+   3.5159203354248364e-06
+  ],
+  "train_n": 42,
+  "train_median_rel_err": 0.02578879278596189,
+  "train_p90_rel_err": 0.05223129261133318,
+  "notes": []
+ },
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 8,
+   "pp": 2,
+   "groups": 2,
+   "efficiency": {},
+   "cost_model_version": "85c4d6ffaf569f8d4e7428a1ac87a04fa03e0d25ef87953f382b5f7785754e29",
+   "stage": "d",
+   "target": "exported-graph bounds, <=32 requests, KV to 48k; x1.0906 load calibration (E0035 run A)"
+  },
+  "coef": [
+   0.003587450877098009,
+   0.0017855664691113805,
+   -0.0012672349388010617,
+   0.0017855664691667572,
+   0.001267227445140173,
+   -0.10171861612530189,
+   0.0016336471102053492
+  ],
+  "train_n": 96,
+  "train_median_rel_err": 0.013014235741555136,
+  "train_p90_rel_err": 0.034518586740595034,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "29a6e84ee858725a3d2eb7a6a8cfe2c507a5a11b",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

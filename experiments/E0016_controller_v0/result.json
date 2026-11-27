@@ -1,0 +1,145 @@
+{
+ "realistic-x4": {
+  "controller_evaluations": 3,
+  "controller_path": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "baseline",
+    "tokens_per_s_gpu": 27.863639389573034,
+    "ttft_p99_ms": 5444.035676097825,
+    "tpot_p50_ms": 11.346133244486914,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 30.167758634902633,
+    "ttft_p99_ms": 2371.2119199930003,
+    "tpot_p50_ms": 15.620033833022326,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 22.55144907431869,
+    "ttft_p99_ms": 1255.3416833186889,
+    "tpot_p50_ms": 26.211763146279928,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   }
+  ],
+  "controller_archive": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b128-32-m32-32"
+  ],
+  "grid": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 27.863639389573034,
+    "ttft_p99_ms": 5444.035676097825,
+    "tpot_p50_ms": 11.346133244486914,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 30.167758634902633,
+    "ttft_p99_ms": 2371.2119199930003,
+    "tpot_p50_ms": 15.620033833022326,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 22.55144907431869,
+    "ttft_p99_ms": 1255.3416833186889,
+    "tpot_p50_ms": 26.211763146279928,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   }
+  ],
+  "grid_archive": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b128-32-m32-32"
+  ]
+ },
+ "realistic-x1": {
+  "controller_evaluations": 2,
+  "controller_path": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "baseline",
+    "tokens_per_s_gpu": 24.651895030504612,
+    "ttft_p99_ms": 954.6381429131347,
+    "tpot_p50_ms": 10.91933399666623,
+    "bottlenecks": [
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 24.307773549591673,
+    "ttft_p99_ms": 642.9425426548239,
+    "tpot_p50_ms": 12.689770732965512,
+    "bottlenecks": []
+   }
+  ],
+  "controller_archive": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32"
+  ],
+  "grid": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 24.651895030504612,
+    "ttft_p99_ms": 954.6381429131347,
+    "tpot_p50_ms": 10.91933399666623,
+    "bottlenecks": [
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 24.307773549591673,
+    "ttft_p99_ms": 642.9425426548239,
+    "tpot_p50_ms": 12.689770732965512,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "rationale": "grid",
+    "tokens_per_s_gpu": 21.223949541265647,
+    "ttft_p99_ms": 431.3866306918932,
+    "tpot_p50_ms": 17.546408767636507,
+    "bottlenecks": []
+   }
+  ],
+  "grid_archive": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b128-32-m32-32"
+  ]
+ }
+}

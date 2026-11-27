@@ -1,0 +1,192 @@
+{
+ "experiment": "E0007",
+ "cost_model_version": "62e82ce9837c28aebd9ef04bc3439515f4ff1791a042cbc84732043ea092f175",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "d44343c7065cadf91b5f6bfcc693d7dfb54c60c8",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "workload": "examples/workloads/realistic-10-seed42.jsonl",
+ "profiles": {
+  "_note": "Named efficiency settings passed to the engine as hardware.efficiency (CM-4/4b). 'peak' is the roofline upper bound and the default. Values outside 'peak' are calibrated assumptions (D11 CALIBRATED only for the kernel class and hardware they were fitted on).",
+  "peak": {
+   "source": "datasheet peaks",
+   "efficiency": {}
+  },
+  "h200_dense_v1": {
+   "source": "E0006: Frontier H200 Qwen3-235B dense GEMM fit (n=774, median |rel err| 3.3%)",
+   "applies_to": "h200",
+   "efficiency": {
+    "compute": 0.788,
+    "memory": 0.784
+   },
+   "caveats": [
+    "applied to every operator class, incl. MoE/attention (unverified transfer)",
+    "network not calibrated (1.0)",
+    "per-GEMM tail 4.05 us not applied: graph ops are finer than real kernels"
+   ]
+  },
+  "h200_pessimistic_v1": {
+   "source": "E0006: MoE grouped GEMM compute 0.196 / memory 0.588 (poor fit, p90 48%); CUDA-graph kernel gap 0.43 us (Frontier kernel_gap.csv)",
+   "applies_to": "h200",
+   "efficiency": {
+    "compute": 0.196,
+    "memory": 0.588,
+    "kernel_overhead_us": 0.43
+   },
+   "caveats": [
+    "lower band for sensitivity, not a prediction"
+   ]
+  },
+  "b300_transfer_v1": {
+   "source": "h200_dense_v1 factors transferred to B300 (no public B300 kernel tables)",
+   "applies_to": "b300",
+   "efficiency": {
+    "compute": 0.788,
+    "memory": 0.784
+   },
+   "caveats": [
+    "uncalibrated transfer assumption"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "profile": "peak",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 50.76885099192004,
+    "p50": 18.81323502807336,
+    "p99": 174.16702933268243
+   },
+   "tpot_ms": {
+    "mean": 13.521372654129038,
+    "p50": 13.05555664100918,
+    "p99": 22.52086423691341
+   },
+   "tokens_per_s_gpu": 6.546876939279718,
+   "tokens_per_s_user": 81.44175578256565,
+   "makespan_s": 9.16944835786154,
+   "host_wall_s": 165.15414154389873
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "profile": "h200_dense_v1",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 58.76598519481087,
+    "p50": 22.81783025362316,
+    "p99": 194.9011054825111
+   },
+   "tpot_ms": {
+    "mean": 18.103620101316405,
+    "p50": 17.93297555270602,
+    "p99": 27.70257845499218
+   },
+   "tokens_per_s_gpu": 6.188007316454731,
+   "tokens_per_s_user": 58.694934394217896,
+   "makespan_s": 9.701224793378792,
+   "host_wall_s": 142.22319726413116
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "profile": "peak",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 29.706429108310985,
+    "p50": 11.968102064872866,
+    "p99": 99.28586674187076
+   },
+   "tpot_ms": {
+    "mean": 8.685308821849338,
+    "p50": 8.394385510400769,
+    "p99": 14.039065976450447
+   },
+   "tokens_per_s_gpu": 6.746255057429731,
+   "tokens_per_s_user": 124.84443106750632,
+   "makespan_s": 8.89845543771531,
+   "host_wall_s": 160.06164453178644
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "profile": "b300_transfer_v1",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 34.21244127428578,
+    "p50": 14.467743856380721,
+    "p99": 112.41302206432573
+   },
+   "tpot_ms": {
+    "mean": 10.899526359690975,
+    "p50": 10.538314475192871,
+    "p99": 17.989395693819404
+   },
+   "tokens_per_s_gpu": 6.658759024278405,
+   "tokens_per_s_user": 100.63485754847162,
+   "makespan_s": 9.015381061414136,
+   "host_wall_s": 148.00148150604218
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "profile": "peak",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 34.98692992163478,
+    "p50": 15.46496320146934,
+    "p99": 111.4244366925723
+   },
+   "tpot_ms": {
+    "mean": 10.876089691653382,
+    "p50": 10.067792124644969,
+    "p99": 17.77741224760828
+   },
+   "tokens_per_s_gpu": 6.490130078844646,
+   "tokens_per_s_user": 95.27616364705423,
+   "makespan_s": 9.249622006141145,
+   "host_wall_s": 120.19054315937683
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "profile": "b300_transfer_v1",
+   "gpus": 32,
+   "ttft_ms": {
+    "mean": 41.165136452447335,
+    "p50": 18.967592464337045,
+    "p99": 128.78625982658124
+   },
+   "tpot_ms": {
+    "mean": 13.517003345602037,
+    "p50": 12.495220941886396,
+    "p99": 22.538308497305355
+   },
+   "tokens_per_s_gpu": 6.350187968882621,
+   "tokens_per_s_user": 76.89018146605233,
+   "makespan_s": 9.45346032183093,
+   "host_wall_s": 116.31885323673487
+  }
+ ]
+}

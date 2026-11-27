@@ -1,0 +1,18 @@
+{
+ "repo": "rooflang",
+ "branch": "inferevo/phase1-base",
+ "path": "engines/rooflang",
+ "snapshot_commit": "61da263d26e12e32dd8c8db2cec7cdf215395aa6",
+ "source": {
+  "name": "rooflang",
+  "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/rooflang",
+  "commit": "8692f1df78971faa8211f02e3035bfa9b9eaa8b4",
+  "branch": "rooflang",
+  "dirty": true,
+  "dirty_digest": "b635207c10175254e31c023df8c02b2368ee80e9c84f184aceb8f96d37c044de"
+ },
+ "untracked_copied": 0,
+ "untracked_total": 10882,
+ "kind": "baseline",
+ "note": "Worktree moved from .worktrees/ to engines/ on 2026-11-25; branch carries later Phase 1 commits."
+}

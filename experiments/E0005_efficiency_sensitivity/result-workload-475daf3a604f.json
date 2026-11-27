@@ -1,0 +1,284 @@
+{
+ "experiment": "E0005",
+ "label": "workload",
+ "script": "run_kimi_k3_shared_workload.sh",
+ "cost_model_version": "475daf3a604f4cd91d8ba2afd5585e97c105e11399475b127c6666454693ef36",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "3f16e778a1925e9c7219abd794bb1c3c0ebe2a2f",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "a337484dc5bd2a6d600cd80d24bc7ce957fd885f",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "rows": [
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 50.76885099192004,
+    "tpot": 13.521372654129038,
+    "tokens_per_gpu": 6546.8769392797185
+   },
+   "probed_ms": {
+    "ttft": 51.19877909193956,
+    "tpot": 13.519957383669382,
+    "tokens_per_gpu": 6546.8769392797185
+   },
+   "elasticity": {
+    "ttft": 0.0084683441050879,
+    "tpot": -0.00010466914091178392
+   }
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 50.76885099192004,
+    "tpot": 13.521372654129038,
+    "tokens_per_gpu": 6546.8769392797185
+   },
+   "probed_ms": {
+    "ttft": 83.41186090892312,
+    "tpot": 34.07994746277524,
+    "tokens_per_gpu": 4306.844794920288
+   },
+   "elasticity": {
+    "ttft": 0.6429731868896988,
+    "tpot": 1.520450277832421
+   }
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 50.76885099192004,
+    "tpot": 13.521372654129038,
+    "tokens_per_gpu": 6546.8769392797185
+   },
+   "probed_ms": {
+    "ttft": 82.24941739249533,
+    "tpot": 13.725036485350392,
+    "tokens_per_gpu": 6521.472546492824
+   },
+   "elasticity": {
+    "ttft": 0.6200764008936401,
+    "tpot": 0.015062363595101491
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 29.107355428730198,
+    "tpot": 8.414937080342337,
+    "tokens_per_gpu": 6757.36359422888
+   },
+   "probed_ms": {
+    "ttft": 29.107807718881126,
+    "tpot": 8.414933961099925,
+    "tokens_per_gpu": 6757.36359422888
+   },
+   "elasticity": {
+    "ttft": 1.553868925108226e-05,
+    "tpot": -3.706792318647345e-07
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 29.107355428730198,
+    "tpot": 8.414937080342337,
+    "tokens_per_gpu": 6757.36359422888
+   },
+   "probed_ms": {
+    "ttft": 45.956824880430794,
+    "tpot": 16.63442228877427,
+    "tokens_per_gpu": 6453.144919021236
+   },
+   "elasticity": {
+    "ttft": 0.5788732505416638,
+    "tpot": 0.976773222420523
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 29.107355428730198,
+    "tpot": 8.414937080342337,
+    "tokens_per_gpu": 6757.36359422888
+   },
+   "probed_ms": {
+    "ttft": 41.15763670530805,
+    "tpot": 8.546840429373535,
+    "tokens_per_gpu": 6744.257534103556
+   },
+   "elasticity": {
+    "ttft": 0.41399437012005946,
+    "tpot": 0.015674906154596213
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 34.16107464109195,
+    "tpot": 10.47464155663308,
+    "tokens_per_gpu": 6510.529556219489
+   },
+   "probed_ms": {
+    "ttft": 34.16212750314655,
+    "tpot": 10.474633607488668,
+    "tokens_per_gpu": 6510.529556219489
+   },
+   "elasticity": {
+    "ttft": 3.082051913372297e-05,
+    "tpot": -7.58894170171942e-07
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 34.16107464109195,
+    "tpot": 10.47464155663308,
+    "tokens_per_gpu": 6510.529556219489
+   },
+   "probed_ms": {
+    "ttft": 56.99367084629583,
+    "tpot": 23.4286028196007,
+    "tokens_per_gpu": 5076.171018531051
+   },
+   "elasticity": {
+    "ttft": 0.6683805016408595,
+    "tpot": 1.236697331639431
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 34.16107464109195,
+    "tpot": 10.47464155663308,
+    "tokens_per_gpu": 6510.529556219489
+   },
+   "probed_ms": {
+    "ttft": 45.420993584250645,
+    "tpot": 10.583101619905824,
+    "tokens_per_gpu": 6502.291227959298
+   },
+   "elasticity": {
+    "ttft": 0.3296125505845262,
+    "tpot": 0.010354536972586148
+   }
+  }
+ ],
+ "host_wall": [
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": null,
+   "wall_s": 164.02677896991372
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "compute",
+   "wall_s": 168.26318282680586
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "memory",
+   "wall_s": 147.11251651402563
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "network",
+   "wall_s": 210.36833153106272
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": null,
+   "wall_s": 174.48114679614082
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "compute",
+   "wall_s": 155.46740031708032
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "memory",
+   "wall_s": 142.81665173592046
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "network",
+   "wall_s": 186.27505555702373
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": null,
+   "wall_s": 119.33508294634521
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "compute",
+   "wall_s": 124.82049833284691
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "memory",
+   "wall_s": 100.32669952884316
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "network",
+   "wall_s": 152.6245310259983
+  }
+ ]
+}

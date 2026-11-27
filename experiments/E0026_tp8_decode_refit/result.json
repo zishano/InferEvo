@@ -1,0 +1,102 @@
+{
+ "experiment": "E0026",
+ "folds": {
+  "0": {
+   "old": {
+    "median_signed": -0.052035751775499045,
+    "median_abs": 0.052035751775499045,
+    "p90_abs": 0.07534211486062337
+   },
+   "new": {
+    "median_signed": -0.006004051242942294,
+    "median_abs": 0.009689366043475384,
+    "p90_abs": 0.02096693100057141
+   }
+  },
+  "1": {
+   "old": {
+    "median_signed": -0.060391976043166366,
+    "median_abs": 0.060391976043166366,
+    "p90_abs": 0.07288749186254666
+   },
+   "new": {
+    "median_signed": -0.00015306473025908105,
+    "median_abs": 0.006508973847501641,
+    "p90_abs": 0.01617749837066117
+   }
+  },
+  "2": {
+   "old": {
+    "median_signed": -0.05666411823749115,
+    "median_abs": 0.05666411823749115,
+    "p90_abs": 0.0726384775057057
+   },
+   "new": {
+    "median_signed": 0.0023480987379830274,
+    "median_abs": 0.009099746672953313,
+    "p90_abs": 0.01917237713796336
+   }
+  }
+ },
+ "end_to_end": {
+  "old": {
+   "tokens_per_s_gpu": 0.05006985247049501,
+   "ttft_p99_ms": -0.04340956642936842,
+   "tpot_p50_ms": -0.07598955186901139,
+   "goodput": 39.470301109934965
+  },
+  "new": {
+   "tokens_per_s_gpu": 0.00865909573258099,
+   "ttft_p99_ms": -0.04340956642936842,
+   "tpot_p50_ms": 0.00046610996059790014,
+   "goodput": 37.91374272118562
+  }
+ },
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 8,
+   "ep": 16,
+   "groups": 2,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "loaded Tier-2 decode rounds (E0018 TP8) + graph-bound samples (E0020)"
+  },
+  "coef": [
+   0.004764857816749258,
+   8.050230280645207e-05,
+   -1.7725726148065713e-05,
+   8.050230280869021e-05,
+   1.7725787159650295e-05,
+   0.04148170920217995,
+   -0.0002983519039530626
+  ],
+  "train_n": 3208,
+  "train_median_rel_err": 0.00785151514619215,
+  "train_p90_rel_err": 0.01775502395177849,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "09dc44ac00357d3ad512525816a99725cb537550",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

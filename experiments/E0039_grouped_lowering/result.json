@@ -1,0 +1,270 @@
+{
+ "experiment": "E0039",
+ "rows": [
+  {
+   "case": "E0031 1x8K/64 EP16",
+   "request": {
+    "ttft_p50": 2.3663309741461234,
+    "ttft_max": 2.3663309741461234,
+    "tpot_p50": 0.008448299986513193,
+    "n": 1
+   },
+   "grouped": {
+    "ttft_p50": 2.384305979066783,
+    "ttft_max": 2.384305979066783,
+    "tpot_p50": 0.008476613758187292,
+    "n": 1
+   },
+   "delta": {
+    "ttft_p50": 0.007596149954105957,
+    "ttft_max": 0.007596149954105957,
+    "tpot_p50": 0.003351416464767887
+   },
+   "wall_grouped_s": 22.4,
+   "wall_request_s": 49.6
+  },
+  {
+   "case": "E0032 1x8K/64 PP2xEP8",
+   "request": {
+    "ttft_p50": 1.0369804937442035,
+    "ttft_max": 1.0369804937442035,
+    "tpot_p50": 0.008294785176576221,
+    "n": 1
+   },
+   "grouped": {
+    "ttft_p50": 1.09369972107493,
+    "ttft_max": 1.09369972107493,
+    "tpot_p50": 0.008299629482724929,
+    "n": 1
+   },
+   "delta": {
+    "ttft_p50": 0.054696522907515366,
+    "ttft_max": 0.054696522907515366,
+    "tpot_p50": 0.000584018277216769
+   },
+   "wall_grouped_s": 21.4,
+   "wall_request_s": 37.0
+  },
+  {
+   "case": "E0033 burst 8x2K PP1",
+   "request": {
+    "ttft_p50": 2.646388497435372,
+    "ttft_max": 4.701542429793051,
+    "tpot_p50": 0.011402950160125824,
+    "n": 8
+   },
+   "grouped": {
+    "ttft_p50": 2.6661406207963614,
+    "ttft_max": 4.73653935255685,
+    "tpot_p50": 0.011431354604459099,
+    "n": 8
+   },
+   "delta": {
+    "ttft_p50": 0.007463803360742816,
+    "ttft_max": 0.007443710928147329,
+    "tpot_p50": 0.002490973295016241
+   },
+   "wall_grouped_s": 24.7,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0034 A EP16",
+   "request": {
+    "ttft_p50": 2.975090043936547,
+    "ttft_max": 6.183217029898623,
+    "tpot_p50": 0.008402934066934896,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 3.0296976264952513,
+    "ttft_max": 6.283963777432836,
+    "tpot_p50": 0.008431025591947198,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.018354934389296362,
+    "ttft_max": 0.01629358100274625,
+    "tpot_p50": 0.003343061457882879
+   },
+   "wall_grouped_s": 180.5,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0034 A PP2xEP8",
+   "request": {
+    "ttft_p50": 0.2568918987204809,
+    "ttft_max": 0.49204673192907666,
+    "tpot_p50": 0.008268375765166057,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.27109181112263747,
+    "ttft_max": 0.5272874654473689,
+    "tpot_p50": 0.00827458459660236,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.05527582797621511,
+    "ttft_max": 0.07162070435897516,
+    "tpot_p50": 0.0007509130707943346
+   },
+   "wall_grouped_s": 183.3,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0035 B PP2xEP8",
+   "request": {
+    "ttft_p50": 0.5153514766250167,
+    "ttft_max": 0.7008629427045037,
+    "tpot_p50": 0.008269786635366117,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.5437557037211713,
+    "ttft_max": 0.7575991659880792,
+    "tpot_p50": 0.008268925082722083,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.055116223363074424,
+    "ttft_max": 0.08095195198171079,
+    "tpot_p50": -0.00010418075846718722
+   },
+   "wall_grouped_s": 341.8,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0036 A tp4-ep4-pp4",
+   "request": {
+    "ttft_p50": 0.2717690192590849,
+    "ttft_max": 0.35802663998193296,
+    "tpot_p50": 0.009540988279219002,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.2995369324205339,
+    "ttft_max": 0.39965492509791023,
+    "tpot_p50": 0.009560641156953327,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.10217468215159986,
+    "ttft_max": 0.11627147387154757,
+    "tpot_p50": 0.0020598366918791466
+   },
+   "wall_grouped_s": 203.8,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0036 B tp4-ep4-pp4",
+   "request": {
+    "ttft_p50": 0.5453189535542746,
+    "ttft_max": 0.6256837688917471,
+    "tpot_p50": 0.00920680283607117,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.6007955675927596,
+    "ttft_max": 0.7228148926585511,
+    "tpot_p50": 0.009106767486212673,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.10173241490489215,
+    "ttft_max": 0.1552399608173456,
+    "tpot_p50": -0.010865373315758542
+   },
+   "wall_grouped_s": 352.3,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0036 A tp8-ep8-pp2",
+   "request": {
+    "ttft_p50": 0.2609977765945293,
+    "ttft_max": 0.5049956320893791,
+    "tpot_p50": 0.005959246324733547,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.27519921384471613,
+    "ttft_max": 0.5404347500059616,
+    "tpot_p50": 0.005902611017806654,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.05441210049942069,
+    "ttft_max": 0.07017707810650942,
+    "tpot_p50": -0.009503770081097485
+   },
+   "wall_grouped_s": 422.8,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0036 B tp8-ep8-pp2",
+   "request": {
+    "ttft_p50": 0.5228055301366217,
+    "ttft_max": 0.7175405984994221,
+    "tpot_p50": 0.005344268456692813,
+    "n": 24
+   },
+   "grouped": {
+    "ttft_p50": 0.5512236574252087,
+    "ttft_max": 0.7742171188735867,
+    "tpot_p50": 0.005349531018585459,
+    "n": 24
+   },
+   "delta": {
+    "ttft_p50": 0.05435697530047312,
+    "ttft_max": 0.07898719667248244,
+    "tpot_p50": 0.000984711366072144
+   },
+   "wall_grouped_s": 766.7,
+   "wall_request_s": null
+  },
+  {
+   "case": "E0037 A batch<=128",
+   "request": {
+    "ttft_p50": 0.7267967386104814,
+    "ttft_max": 1.385291858898908,
+    "tpot_p50": 0.011868582461603373,
+    "n": 64
+   },
+   "grouped": {
+    "ttft_p50": 0.8947935192693652,
+    "ttft_max": 1.714102253878004,
+    "tpot_p50": 0.010803756136103723,
+    "n": 64
+   },
+   "delta": {
+    "ttft_p50": 0.23114685541939362,
+    "ttft_max": 0.23735820929493445,
+    "tpot_p50": -0.08971807112976804
+   },
+   "wall_grouped_s": 329.4,
+   "wall_request_s": null
+  }
+ ],
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "29a6e84ee858725a3d2eb7a6a8cfe2c507a5a11b",
+   "branch": "inferevo/phase1-base",
+   "dirty": true,
+   "dirty_digest": "e5dc110bd9ab89fcc50771df4e2f1cb636ae0bea5ade053e180969d07221f3a7"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "cost_model_version": "b222ad3cccc2dd2ed8cc74a7ad78498e6df1ae7b512e53fa8d5e392b4d97b463"
+}

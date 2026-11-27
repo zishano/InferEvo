@@ -1,0 +1,54 @@
+{
+ "model": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds (E0012)"
+  },
+  "coef": [
+   0.008487979955072219,
+   0.0002566178120463645,
+   -3.9154453962260397e-07,
+   0.00024315256989203307,
+   5.8423789856878974e-08,
+   0.014197264142444377,
+   -3.925892791670967e-05
+  ],
+  "train_n": 51,
+  "train_median_rel_err": 0.013987210922703585,
+  "train_p90_rel_err": 0.04564447037638214,
+  "notes": []
+ },
+ "n_train": 51,
+ "n_test": 13,
+ "test_median_rel_err": 0.022209874801978783,
+ "test_max_rel_err": 0.08736454608777193,
+ "graph_bound_model_mean_signed_err": -0.24024584795109785,
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "c62365244f2cae0baa113ad8e99cfdc786b8411f",
+   "branch": "inferevo/phase1-base",
+   "dirty": true,
+   "dirty_digest": "0da434b73c00d474bfe7b546de4c39c6a097122c15c20a1d142bdd85b7aeb62e"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

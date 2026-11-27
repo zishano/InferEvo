@@ -1,0 +1,316 @@
+{
+ "realistic-x4": {
+  "grid_front": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+   "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b2048-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b2048-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b512-32-m32-32"
+  ],
+  "controller_archive": [
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+   "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32"
+  ],
+  "controller_evaluations": 6,
+  "grid_evaluations": 9,
+  "front_recall": 0.5714285714285714,
+  "path": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "baseline",
+    "tokens_per_s_gpu": 27.780231170218443,
+    "ttft_p99_ms": 5510.8138502111005,
+    "tpot_p50_ms": 11.309061572791386,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: budget 128->512 (fewer, larger chunks amortize weight reads and MoE dispatch)",
+    "tokens_per_s_gpu": 32.09874079742817,
+    "ttft_p99_ms": 2779.613860957292,
+    "tpot_p50_ms": 12.496322919213918,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 30.143559859224965,
+    "ttft_p99_ms": 2398.5336781716487,
+    "tpot_p50_ms": 15.544411699667055,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: budget 512->2048 (fewer, larger chunks amortize weight reads and MoE dispatch)",
+    "tokens_per_s_gpu": 34.09723230098644,
+    "ttft_p99_ms": 1419.341555146923,
+    "tpot_p50_ms": 13.148573129657352,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 30.86659784110432,
+    "ttft_p99_ms": 1214.6353726301124,
+    "tpot_p50_ms": 16.325876438167597,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['prefill_saturated', 'ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 22.61884821225544,
+    "ttft_p99_ms": 1274.411109113505,
+    "tpot_p50_ms": 25.868431885606547,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   }
+  ],
+  "grid": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 27.780231170218443,
+    "ttft_p99_ms": 5510.8138502111005,
+    "tpot_p50_ms": 11.309061572791386,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 32.09874079742817,
+    "ttft_p99_ms": 2779.613860957292,
+    "tpot_p50_ms": 12.496322919213918,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 34.09723230098644,
+    "ttft_p99_ms": 1419.341555146923,
+    "tpot_p50_ms": 13.148573129657352,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 30.143559859224965,
+    "ttft_p99_ms": 2398.5336781716487,
+    "tpot_p50_ms": 15.544411699667055,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 30.86659784110432,
+    "ttft_p99_ms": 1214.6353726301124,
+    "tpot_p50_ms": 16.325876438167597,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 30.8563836326221,
+    "ttft_p99_ms": 1072.2808089618447,
+    "tpot_p50_ms": 16.596446309667666,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 22.61884821225544,
+    "ttft_p99_ms": 1274.411109113505,
+    "tpot_p50_ms": 25.868431885606547,
+    "bottlenecks": [
+     "prefill_saturated",
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 22.80705496319871,
+    "ttft_p99_ms": 621.5777391823458,
+    "tpot_p50_ms": 25.677087566967142,
+    "bottlenecks": [
+     "prefill_saturated",
+     "p_instance_imbalance"
+    ]
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 22.694192759084647,
+    "ttft_p99_ms": 570.9893497129008,
+    "tpot_p50_ms": 26.371682752341624,
+    "bottlenecks": [
+     "prefill_saturated",
+     "p_instance_imbalance"
+    ]
+   }
+  ]
+ },
+ "realistic-x1": {
+  "grid_front": [
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b2048-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+   "h200-p3x4-d1x4-ep16-b2048-32-m32-32"
+  ],
+  "controller_archive": [
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32"
+  ],
+  "controller_evaluations": 6,
+  "grid_evaluations": 9,
+  "front_recall": 0.5,
+  "path": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "rationale": "baseline",
+    "tokens_per_s_gpu": 24.61431073538791,
+    "ttft_p99_ms": 961.7867842500809,
+    "tpot_p50_ms": 10.926767028936336,
+    "bottlenecks": [
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+    "rationale": "prefill-side bottleneck ['ttft_queueing']: budget 128->512 (fewer, larger chunks amortize weight reads and MoE dispatch)",
+    "tokens_per_s_gpu": 24.934711659363245,
+    "ttft_p99_ms": 569.3378826659083,
+    "tpot_p50_ms": 10.871138258926056,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "rationale": "prefill-side bottleneck ['ttft_queueing']: shift one instance D->P",
+    "tokens_per_s_gpu": 24.250001446368426,
+    "ttft_p99_ms": 650.2580726108338,
+    "tpot_p50_ms": 12.628900256353417,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+    "rationale": "neighbour: D->P",
+    "tokens_per_s_gpu": 23.674827072220076,
+    "ttft_p99_ms": 411.5224031065452,
+    "tpot_p50_ms": 12.745649056205396,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+    "rationale": "neighbour: budget 2048",
+    "tokens_per_s_gpu": 24.939038898037428,
+    "ttft_p99_ms": 444.1144845672618,
+    "tpot_p50_ms": 10.849133017223876,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b512-32-m32-32",
+    "rationale": "neighbour: D->P",
+    "tokens_per_s_gpu": 21.113019742667742,
+    "ttft_p99_ms": 445.60746340390887,
+    "tpot_p50_ms": 17.51989822556207,
+    "bottlenecks": []
+   }
+  ],
+  "grid": [
+   {
+    "key": "h200-p1x4-d3x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 24.61431073538791,
+    "ttft_p99_ms": 961.7867842500809,
+    "tpot_p50_ms": 10.926767028936336,
+    "bottlenecks": [
+     "ttft_queueing"
+    ]
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 24.934711659363245,
+    "ttft_p99_ms": 569.3378826659083,
+    "tpot_p50_ms": 10.871138258926056,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 24.939038898037428,
+    "ttft_p99_ms": 444.1144845672618,
+    "tpot_p50_ms": 10.849133017223876,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 24.250001446368426,
+    "ttft_p99_ms": 650.2580726108338,
+    "tpot_p50_ms": 12.628900256353417,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 23.674827072220076,
+    "ttft_p99_ms": 411.5224031065452,
+    "tpot_p50_ms": 12.745649056205396,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p2x4-d2x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 23.978460809761447,
+    "ttft_p99_ms": 427.5987040028779,
+    "tpot_p50_ms": 12.753956153577732,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b128-32-m32-32",
+    "tokens_per_s_gpu": 21.224871548612526,
+    "ttft_p99_ms": 434.21234747764095,
+    "tpot_p50_ms": 17.51949155243445,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b512-32-m32-32",
+    "tokens_per_s_gpu": 21.113019742667742,
+    "ttft_p99_ms": 445.60746340390887,
+    "tpot_p50_ms": 17.51989822556207,
+    "bottlenecks": []
+   },
+   {
+    "key": "h200-p3x4-d1x4-ep16-b2048-32-m32-32",
+    "tokens_per_s_gpu": 21.112588471502097,
+    "ttft_p99_ms": 310.21643896172435,
+    "tpot_p50_ms": 17.511604784613407,
+    "bottlenecks": []
+   }
+  ]
+ }
+}

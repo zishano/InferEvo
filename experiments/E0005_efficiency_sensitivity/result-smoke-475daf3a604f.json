@@ -1,0 +1,191 @@
+{
+ "experiment": "E0005",
+ "cost_model_version": "475daf3a604f4cd91d8ba2afd5585e97c105e11399475b127c6666454693ef36",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "3f16e778a1925e9c7219abd794bb1c3c0ebe2a2f",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "a337484dc5bd2a6d600cd80d24bc7ce957fd885f",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "workload": "1 request, 5 input / 3 output tokens, routing seed 0",
+ "rows": [
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.829586395891155,
+    "tpot": 9.40724733705589
+   },
+   "probed_ms": {
+    "ttft": 10.829586395891155,
+    "tpot": 9.40724733705589
+   },
+   "elasticity": {
+    "ttft": 0.0,
+    "tpot": 0.0
+   }
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.829586395891155,
+    "tpot": 9.40724733705589
+   },
+   "probed_ms": {
+    "ttft": 19.594206587244535,
+    "tpot": 16.190973500289196
+   },
+   "elasticity": {
+    "ttft": 0.8093217848724819,
+    "tpot": 0.7211170196951953
+   }
+  },
+  {
+   "hardware": "h200",
+   "tp": 4,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.829586395891155,
+    "tpot": 9.40724733705589
+   },
+   "probed_ms": {
+    "ttft": 11.450816524272822,
+    "tpot": 10.686157488166925
+   },
+   "elasticity": {
+    "ttft": 0.05736416015087764,
+    "tpot": 0.13594945527511615
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 7.040872130678721,
+    "tpot": 6.077019698467634
+   },
+   "probed_ms": {
+    "ttft": 7.040872130678721,
+    "tpot": 6.077019698467634
+   },
+   "elasticity": {
+    "ttft": 0.0,
+    "tpot": 0.0
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 7.040872130678721,
+    "tpot": 6.077019698467634
+   },
+   "probed_ms": {
+    "ttft": 12.279365050456237,
+    "tpot": 10.124818745762987
+   },
+   "elasticity": {
+    "ttft": 0.7440119380882064,
+    "tpot": 0.6660829235613694
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 4,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 7.040872130678721,
+    "tpot": 6.077019698467634
+   },
+   "probed_ms": {
+    "ttft": 7.352840673866101,
+    "tpot": 6.71824348514527
+   },
+   "elasticity": {
+    "ttft": 0.04430822452066141,
+    "tpot": 0.10551616063369451
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "compute",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.508048003773585,
+    "tpot": 10.132641721664282
+   },
+   "probed_ms": {
+    "ttft": 10.508048003773585,
+    "tpot": 10.132641721664282
+   },
+   "elasticity": {
+    "ttft": 0.0,
+    "tpot": 0.0
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "memory",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.508048003773585,
+    "tpot": 10.132641721664282
+   },
+   "probed_ms": {
+    "ttft": 19.24204385137451,
+    "tpot": 17.67148574938704
+   },
+   "elasticity": {
+    "ttft": 0.8311720544543031,
+    "tpot": 0.7440156510818094
+   }
+  },
+  {
+   "hardware": "b300",
+   "tp": 2,
+   "probe": "network",
+   "factor": 0.5,
+   "base_ms": {
+    "ttft": 10.508048003773585,
+    "tpot": 10.132641721664282
+   },
+   "probed_ms": {
+    "ttft": 10.795090519480688,
+    "tpot": 11.338442702394481
+   },
+   "elasticity": {
+    "ttft": 0.027316445033751524,
+    "tpot": 0.119001639834172
+   }
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "_note": "Named efficiency settings passed to the engine as hardware.efficiency (CM-4/4b). 'peak' is the roofline upper bound and the default. Values outside 'peak' are calibrated assumptions (D11 CALIBRATED only for the kernel class and hardware they were fitted on).",
+ "peak": {"source": "datasheet peaks", "efficiency": {}},
+ "h200_dense_v1": {
+  "source": "E0006: Frontier H200 Qwen3-235B dense GEMM fit (n=774, median |rel err| 3.3%)",
+  "applies_to": "h200",
+  "efficiency": {"compute": 0.788, "memory": 0.784},
+  "caveats": ["applied to every operator class, incl. MoE/attention (unverified transfer)", "network not calibrated (1.0)", "per-GEMM tail 4.05 us not applied: graph ops are finer than real kernels"]
+ },
+ "h200_pessimistic_v1": {
+  "source": "E0006: MoE grouped GEMM compute 0.196 / memory 0.588 (poor fit, p90 48%); CUDA-graph kernel gap 0.43 us (Frontier kernel_gap.csv)",
+  "applies_to": "h200",
+  "efficiency": {"compute": 0.196, "memory": 0.588, "kernel_overhead_us": 0.43},
+  "caveats": ["lower band for sensitivity, not a prediction"]
+ },
+ "b300_transfer_v1": {
+  "source": "h200_dense_v1 factors transferred to B300 (no public B300 kernel tables)",
+  "applies_to": "b300",
+  "efficiency": {"compute": 0.788, "memory": 0.784},
+  "caveats": ["uncalibrated transfer assumption"]
+ }
+}

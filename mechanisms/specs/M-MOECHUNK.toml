@@ -1,0 +1,48 @@
+id = "M-MOECHUNK"
+name = "Expert-chunk pipelined grouped MoE"
+parent = "simthesizer@e62bb13"
+catalog = "C-OVERLAP"
+class = "COMB (published fine-grained MoE comm/compute overlap: Tutel pipelining degree, Comet; here split by expert subset)"
+bottleneck = "Grouped lowering (MC-5) serializes each expert group's dispatch -> grouped GEMM -> combine; EP16 prefill rounds are network-bound (E0042 elasticity 0.73), and TTFT rose 5-23 % when per-expert overlap was lost (E0039)."
+evidence = ["E0039", "E0042"]
+hypothesis = "Splitting each expert group's experts into k token-balanced subsets, each with its own in-order dispatch, grouped up/down and combine, lets chunk c's compute overlap chunk c+1's dispatch and chunk c-1's combine; expert weights still load once, so work is conserved and only latency/launches grow with k."
+expected_impact = "Prefill round time and TTFT down where the round is network-bound (EP16 > PP2xEP8 > PP4xEP4); neutral or worse for decode (latency-bound transfers, memory-bound rounds)."
+repos = ["simthesizer"]
+resources = "none extra: same bytes moved, same FLOPs and weight reads; k x more transfers and kernels per expert group"
+semantics = [
+  "every routed token is dispatched, computed and combined exactly once",
+  "per-resource work (compute, HBM, link bytes) identical to moe_chunks = 1",
+  "moe_chunks = 1 reproduces the parent byte for byte",
+]
+failure_modes = [
+  "transfer latency x k dominates small (decode) dispatches",
+  "kernel launch overhead (CM-4b, default 0) hides the gain at realistic launch costs",
+  "unbalanced chunks leave the pipeline idle",
+]
+rollback = "moe_chunks = 1 (default); candidate branch is never merged unless VERIFIED"
+
+[components]
+added = []
+modified = [
+  "sim:scripts/rooflang_bridge/kimi_k3_shared.py",
+  "sim:scripts/rooflang_worker.py",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+]
+reused = [
+  "sim:crates/simthesizer-core/src/engine.rs",
+  "sim:crates/simthesizer-core/src/network_sims/flow.rs",
+]
+
+[interface]
+config = ["model_runner.lowering: string | {kind = \"grouped\", moe_chunks = k} (runner forwards it opaquely to the worker)"]
+state = []
+
+[design_variables]
+moe_chunks = { values = [1, 2, 4, 8], default = 1 }
+
+[validation]
+default_off_identity = true
+checks = []
+
+[evaluation]
+script = "experiments/E0044_moe_chunks/run.py"

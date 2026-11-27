@@ -1,0 +1,116 @@
+{
+ "experiment": "E0022",
+ "cross": {
+  "train128_test2048": {
+   "old": {
+    "median_signed": -0.03130758318879782,
+    "median_abs": 0.03130758318879782,
+    "p90_abs": 0.05089618975533523
+   },
+   "new": {
+    "median_signed": 0.0005742659876950079,
+    "median_abs": 0.006848547583486478,
+    "p90_abs": 0.018728039594809537
+   }
+  },
+  "train2048_test128": {
+   "old": {
+    "median_signed": -0.03017420195361916,
+    "median_abs": 0.03017420195361916,
+    "p90_abs": 0.047801525207345465
+   },
+   "new": {
+    "median_signed": -0.0027104684318243286,
+    "median_abs": 0.008277244861152774,
+    "p90_abs": 0.021052576321417122
+   }
+  }
+ },
+ "end_to_end": {
+  "h200-p1x4-d3x4-ep16-b128-32-m32-32": {
+   "tier2": {
+    "tokens_per_s_gpu": 27.212973298128457,
+    "ttft_p99_ms": 5530.810418133994,
+    "tpot_p50_ms": 11.779362898344067
+   },
+   "old": {
+    "tokens_per_s_gpu": 0.020845126545911037,
+    "ttft_p99_ms": -0.003615486051977178,
+    "tpot_p50_ms": -0.0399258711707401
+   },
+   "new": {
+    "tokens_per_s_gpu": 0.002282861742631675,
+    "ttft_p99_ms": -0.003615486051977178,
+    "tpot_p50_ms": -0.0017054989358748981
+   }
+  },
+  "h200-p1x4-d3x4-ep16-b2048-32-m32-32": {
+   "tier2": {
+    "tokens_per_s_gpu": 33.570488780144316,
+    "ttft_p99_ms": 1453.834872818279,
+    "tpot_p50_ms": 13.776921513783156
+   },
+   "old": {
+    "tokens_per_s_gpu": 0.015690671776982697,
+    "ttft_p99_ms": -0.02372574651789058,
+    "tpot_p50_ms": -0.045608765608279846
+   },
+   "new": {
+    "tokens_per_s_gpu": -0.012170146431433906,
+    "ttft_p99_ms": -0.02372574651789058,
+    "tpot_p50_ms": -0.0033141749452305596
+   }
+  }
+ },
+ "n_loaded_rounds": {
+  "128": 3354,
+  "2048": 2611
+ },
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "loaded Tier-2 decode rounds (E0018) + graph-bound samples (E0015)"
+  },
+  "coef": [
+   0.007598703015013978,
+   0.00012997772250586113,
+   9.13459935288557e-06,
+   0.00012997772250313778,
+   -9.158540698056044e-06,
+   0.03461536262146475,
+   -0.0001987978772602251
+  ],
+  "train_n": 6085,
+  "train_median_rel_err": 0.006862005636607461,
+  "train_p90_rel_err": 0.018793993775719428,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "09dc44ac00357d3ad512525816a99725cb537550",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

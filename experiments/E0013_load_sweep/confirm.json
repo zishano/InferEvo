@@ -1,0 +1,88 @@
+{
+ "rows": [
+  {
+   "ttft_ms": {
+    "p50": 256.08435691526665,
+    "p99": 964.3926505187573
+   },
+   "tpot_ms": {
+    "p50": 18.32664305730945,
+    "p99": 167.48289402100383
+   },
+   "tokens_per_s_gpu": 40.28811713122431,
+   "tokens_per_s_user": 52.82303452508001,
+   "span_s": 18.103197715207695,
+   "multiplier": 1.0,
+   "wall_s": 4395.183484826237,
+   "tier1": {
+    "ttft_ms": {
+     "p50": 258.2539400305146,
+     "p99": 989.6654302399819
+    },
+    "tpot_ms": {
+     "p50": 17.210095738398905,
+     "p99": 139.93259740663208
+    },
+    "tokens_per_s_gpu": 41.82931174898382,
+    "tokens_per_s_user": 56.48147589117614,
+    "span_s": 17.436188153818197,
+    "multiplier": 1,
+    "offered_req_s": 10.878459564414172,
+    "wall_s": 1.0653961789794266
+   }
+  },
+  {
+   "ttft_ms": {
+    "p50": 2429.1326233307277,
+    "p99": 5530.676594088391
+   },
+   "tpot_ms": {
+    "p50": 19.67185327115843,
+    "p99": 249.7986085079912
+   },
+   "tokens_per_s_gpu": 42.80316603250419,
+   "tokens_per_s_user": 46.58936705706527,
+   "span_s": 17.039481365610794,
+   "multiplier": 4.0,
+   "wall_s": 4550.955046089366,
+   "tier1": {
+    "ttft_ms": {
+     "p50": 2432.3759556718433,
+     "p99": 5513.477528195068
+    },
+    "tpot_ms": {
+     "p50": 18.33462979588154,
+     "p99": 195.44100773809896
+    },
+    "tokens_per_s_gpu": 44.56017168555172,
+    "tokens_per_s_user": 50.06719557771371,
+    "span_s": 16.367615348225506,
+    "multiplier": 4,
+    "offered_req_s": 43.51383825765669,
+    "wall_s": 1.3050734708085656
+   }
+  }
+ ],
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "600c1129b947ddf3c3a18ecef926a848cb6d0085",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

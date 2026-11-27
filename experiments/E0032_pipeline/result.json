@@ -1,0 +1,84 @@
+{
+ "experiment": "E0032",
+ "isl": 8192,
+ "osl": 64,
+ "rows": [
+  {
+   "key": "h200-p1x4-d1x4-ep16-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 16,
+   "pp": 1,
+   "ttft_ms": 2366.3309741461235,
+   "tpot_ms": 8.448299986513193,
+   "wall_s": 50.4
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep8-pp2-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 8,
+   "pp": 2,
+   "ttft_ms": 1036.9804937442036,
+   "tpot_ms": 8.294785176576221,
+   "wall_s": 37.3
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep4-pp4-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 4,
+   "pp": 4,
+   "ttft_ms": 1096.4037698684645,
+   "tpot_ms": 8.916685154028333,
+   "wall_s": 28.2
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep32-b2048-32-m32-32",
+   "gpus_per_instance": 32,
+   "ep": 32,
+   "pp": 1,
+   "ttft_ms": 3195.2281862541254,
+   "tpot_ms": 8.378477906258007,
+   "wall_s": 58.0
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep16-pp2-b2048-32-m32-32",
+   "gpus_per_instance": 32,
+   "ep": 16,
+   "pp": 2,
+   "ttft_ms": 2368.721249346123,
+   "tpot_ms": 8.469837688099112,
+   "wall_s": 50.0
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep8-pp4-b2048-32-m32-32",
+   "gpus_per_instance": 32,
+   "ep": 8,
+   "pp": 4,
+   "ttft_ms": 1041.7221393442385,
+   "tpot_ms": 8.294690409813517,
+   "wall_s": 38.6
+  }
+ ],
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "53d777f278d0936088255d5746c7890565aabfeb",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "cost_model_version": "85c4d6ffaf569f8d4e7428a1ac87a04fa03e0d25ef87953f382b5f7785754e29"
+}

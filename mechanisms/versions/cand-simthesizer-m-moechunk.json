@@ -1,0 +1,8 @@
+{
+ "kind": "candidate",
+ "repo": "simthesizer",
+ "branch": "inferevo/cand/m-moechunk",
+ "path": "mechanisms/candidates/simthesizer-m-moechunk",
+ "parent_branch": "inferevo/phase1-base",
+ "parent_commit": "e62bb133cc848d1ec9a9ad3a57f120c4d3de8e82"
+}

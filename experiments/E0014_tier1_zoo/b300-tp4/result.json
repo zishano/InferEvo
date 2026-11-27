@@ -1,0 +1,97 @@
+{
+ "hardware": "b300",
+ "tp": 4,
+ "decode": {
+  "key": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "exported-graph lower bound (validation/round_bounds)"
+  },
+  "coef": [
+   0.0053315196967854755,
+   1.5595168719561734e-05,
+   1.443133153124658e-06,
+   1.5595168745871333e-05,
+   -1.4389116658875488e-06,
+   0.017494467718595263,
+   -5.5191513187886955e-05
+  ],
+  "train_n": 120,
+  "train_median_rel_err": 0.007371352146501107,
+  "train_p90_rel_err": 0.0197490571952497,
+  "notes": []
+ },
+ "prefill": {
+  "key": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds"
+  },
+  "coef": [
+   0.005835285978573602,
+   0.00013479360807900525,
+   7.649880874362877e-07,
+   0.00012316714722783562,
+   2.4841815140897785e-08,
+   0.010491131049166472,
+   -3.44462084822428e-05
+  ],
+  "train_n": 51,
+  "train_median_rel_err": 0.015067523490467439,
+  "train_p90_rel_err": 0.04155060020343664,
+  "notes": []
+ },
+ "prefill_test_median_rel_err": 0.023304217967720958,
+ "prefill_test_max_rel_err": 0.08657456185747028,
+ "e2e_differential": {
+  "ttft": {
+   "median_abs": 0.020267568131357157,
+   "max_abs": 0.07274426939755647,
+   "mean_signed": -0.00047656998548009833
+  },
+  "tpot": {
+   "median_abs": 0.011411383700355143,
+   "max_abs": 0.04976965461323262,
+   "mean_signed": -0.0003110105097876197
+  },
+  "e2e": {
+   "median_abs": 0.011221425920685415,
+   "max_abs": 0.0519553895849305,
+   "mean_signed": -0.0003776425844395437
+  }
+ },
+ "tier2_wall_s": 161.5436489772983,
+ "tier1_wall_s": 0.839424136094749,
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "c39474dbf5e5cbd7f876e616fb72b64960a3b418",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}

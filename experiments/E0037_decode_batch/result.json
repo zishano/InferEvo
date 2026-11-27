@@ -1,0 +1,161 @@
+{
+ "layout": {
+  "hardware": "h200",
+  "tp": 4,
+  "ep": 16,
+  "pp": 1,
+  "groups": 4,
+  "efficiency": {},
+  "cost_model_version": "85c4d6ffaf569f8d4e7428a1ac87a04fa03e0d25ef87953f382b5f7785754e29"
+ },
+ "decode_anchors": 109,
+ "decode_heldout": {
+  "median": 0.010745614752777546,
+  "max": 0.03498986518071944
+ },
+ "runs": {
+  "A": {
+   "tier2": {
+    "ttft_p50": 736.1460943973512,
+    "ttft_p99": 1385.291858898908,
+    "tpot_p50": 11.869114789630755
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 0.09947251811091529,
+    "ttft_p99": 0.10329295595966581,
+    "tpot_p50": -0.035225121564406714
+   }
+  },
+  "B": {
+   "tier2": {
+    "ttft_p50": 6435.483491362384,
+    "ttft_p99": 12294.032464099697,
+    "tpot_p50": 8.768507996184985
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": -0.00029748158511511136,
+    "ttft_p99": -0.0003407199909859493,
+    "tpot_p50": 0.009334433581296153
+   }
+  }
+ },
+ "prefill": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "groups": 4,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds, budgets 128/512/2048, prompts to 40k; x1.0000 load calibration (run A)"
+  },
+  "coef": [
+   0.009270256841782173,
+   0.00032719626751301486,
+   -3.9111827617625853e-08,
+   0.0002614969619510721,
+   8.079160756162655e-10,
+   0.005889026273622024,
+   1.1095386272905847e-05
+  ],
+  "train_n": 132,
+  "train_median_rel_err": 0.013841656463376071,
+  "train_p90_rel_err": 0.06702910704864155,
+  "notes": []
+ },
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 16,
+   "pp": 1,
+   "groups": 4,
+   "efficiency": {},
+   "stage": "d",
+   "max_requests": 32,
+   "cost_model_version": "85c4d6ffaf569f8d4e7428a1ac87a04fa03e0d25ef87953f382b5f7785754e29",
+   "target": "loaded Tier-2 decode rounds (run A) + graph bounds, <= 128 requests, KV to 48k"
+  },
+  "coef": [
+   0.007760155642270837,
+   5.96314311219843e-05,
+   -5.4146756214110015e-05,
+   5.963143121499683e-05,
+   5.414785659135967e-05,
+   0.02501224223748111,
+   -3.7395420652573955e-05
+  ],
+  "train_n": 334,
+  "train_median_rel_err": 0.004995174878510974,
+  "train_p90_rel_err": 0.019660727318431846,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "29a6e84ee858725a3d2eb7a6a8cfe2c507a5a11b",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "method": "loaded-round refit (refit.py); run.py scale result kept in scale_attempt",
+ "scale_attempt": {
+  "scales": {
+   "prefill": 1.0,
+   "decode": 1.053370630741119
+  },
+  "runs": {
+   "A": {
+    "tier2": {
+     "ttft_p50": 736.1460943973512,
+     "ttft_p99": 1385.291858898908,
+     "tpot_p50": 11.869114789630755
+    },
+    "rel_err": {
+     "ttft_p50": 0.09947251811091529,
+     "ttft_p99": 0.10329295595966581,
+     "tpot_p50": -0.06709845408607495
+    },
+    "rel_err_calibrated": {
+     "ttft_p50": 0.09947251811091529,
+     "ttft_p99": 0.10329295595966581,
+     "tpot_p50": 5.509556570970631e-07
+    }
+   },
+   "B": {
+    "tier2": {
+     "ttft_p50": 6435.483491362384,
+     "ttft_p99": 12294.032464099697,
+     "tpot_p50": 8.768507996184985
+    },
+    "rel_err": {
+     "ttft_p50": -0.00029748158511511136,
+     "ttft_p99": -0.0003407199909859493,
+     "tpot_p50": 0.009508867601484505
+    },
+    "rel_err_calibrated": {
+     "ttft_p50": -0.00029748158511511136,
+     "ttft_p99": -0.0003407199909859493,
+     "tpot_p50": 0.06274714138882276
+    }
+   }
+  }
+ },
+ "loaded_rounds": 247,
+ "validated_max_requests": 32
+}

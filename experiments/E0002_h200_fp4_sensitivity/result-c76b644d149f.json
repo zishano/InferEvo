@@ -1,0 +1,128 @@
+{
+ "experiment": "E0002_h200_fp4_sensitivity",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/simthesizer",
+   "commit": "b05b76fdfd8373458e6b8d03c5ead1dea3e23120",
+   "branch": "test_dev",
+   "dirty": true,
+   "dirty_digest": "542659c03511b5a449bb061c62746db79080dd3aa2448242fd41ee50d29dbc57"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "277bc2f03c51fcb80a16ec96bf2e6777badce6f4",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "cost_model_version": "c76b644d149fc5ecc17b738f97e1c01b23ae35c48bdc8e0c638e46a3f365ae51",
+ "rows": [
+  {
+   "stage": "decode",
+   "batch": 1,
+   "tokens": 1,
+   "context": 8192,
+   "preset_us": 315079.1311483334,
+   "w4a16_us": 315079.1311483334,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.0001559490880021314
+  },
+  {
+   "stage": "decode",
+   "batch": 1,
+   "tokens": 1,
+   "context": 131072,
+   "preset_us": 316140.8143483332,
+   "w4a16_us": 316140.8143483332,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.00015542537034445267
+  },
+  {
+   "stage": "decode",
+   "batch": 64,
+   "tokens": 1,
+   "context": 8192,
+   "preset_us": 333968.369278336,
+   "w4a16_us": 333968.369278336,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.009416231269041718
+  },
+  {
+   "stage": "decode",
+   "batch": 64,
+   "tokens": 1,
+   "context": 131072,
+   "preset_us": 401916.0940783356,
+   "w4a16_us": 401916.0940783356,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.007824328132171326
+  },
+  {
+   "stage": "decode",
+   "batch": 512,
+   "tokens": 1,
+   "context": 8192,
+   "preset_us": 484325.4574973316,
+   "w4a16_us": 484325.4574973316,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.05194397036933562
+  },
+  {
+   "stage": "decode",
+   "batch": 512,
+   "tokens": 1,
+   "context": 131072,
+   "preset_us": 1027907.2558973301,
+   "w4a16_us": 1027907.2558973301,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.02447476371921742
+  },
+  {
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 2048,
+   "context": null,
+   "preset_us": 482055.39056115004,
+   "w4a16_us": 482055.39056115004,
+   "ratio": 1.0,
+   "fp4_compute_share_preset": 0.2087543274566077
+  },
+  {
+   "stage": "prefill",
+   "batch": 1,
+   "tokens": 8192,
+   "context": null,
+   "preset_us": 1118958.6639010254,
+   "w4a16_us": 1521483.2593147187,
+   "ratio": 1.3597314256546098,
+   "fp4_compute_share_preset": 0.3597314256546167
+  },
+  {
+   "stage": "prefill",
+   "batch": 4,
+   "tokens": 2048,
+   "context": null,
+   "preset_us": 1055353.5913966368,
+   "w4a16_us": 1457878.1868103254,
+   "ratio": 1.3814120676663397,
+   "fp4_compute_share_preset": 0.3814120676663514
+  },
+  {
+   "stage": "prefill",
+   "batch": 4,
+   "tokens": 8192,
+   "context": null,
+   "preset_us": 4472707.312169128,
+   "w4a16_us": 6082805.693823952,
+   "ratio": 1.3599829519973607,
+   "fp4_compute_share_preset": 0.3599829519973563
+  }
+ ]
+}

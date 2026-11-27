@@ -1,0 +1,84 @@
+{
+ "experiment": "E0031",
+ "isl": 8192,
+ "osl": 64,
+ "rows": [
+  {
+   "key": "h200-p1x4-d1x4-ep16-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 16,
+   "etp": 1,
+   "ttft_ms": 2366.3309741461235,
+   "tpot_ms": 8.448299986513193,
+   "wall_s": 49.3
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep8-etp2-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 8,
+   "etp": 2,
+   "ttft_ms": 2376.5704764374905,
+   "tpot_ms": 8.349467333156367,
+   "wall_s": 104.1
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep4-etp4-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 4,
+   "etp": 4,
+   "ttft_ms": 2484.303869687932,
+   "tpot_ms": 8.207465479944027,
+   "wall_s": 146.1
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep2-etp8-b2048-32-m32-32",
+   "gpus_per_instance": 16,
+   "ep": 2,
+   "etp": 8,
+   "ttft_ms": 3482.990704323824,
+   "tpot_ms": 8.188845199150505,
+   "wall_s": 341.4
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep32-b2048-32-m32-32",
+   "gpus_per_instance": 32,
+   "ep": 32,
+   "etp": 1,
+   "ttft_ms": 3195.2281862541254,
+   "tpot_ms": 8.378477906258007,
+   "wall_s": 59.6
+  },
+  {
+   "key": "h200-p1x4-d1x4-ep16-etp2-b2048-32-m32-32",
+   "gpus_per_instance": 32,
+   "ep": 16,
+   "etp": 2,
+   "ttft_ms": 3207.0806238925593,
+   "tpot_ms": 8.293134683124597,
+   "wall_s": 123.9
+  }
+ ],
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "6e06298c14fdd56aa9600ff48bc96b4c85751aa0",
+   "branch": "inferevo/phase1-base",
+   "dirty": true,
+   "dirty_digest": "ba3255593e922b997664deaf4dd778a9ff59d91a4803b93be4a6fb1a3a9794e7"
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ },
+ "cost_model_version": "44e07afec874618fd5c7dea91e613fb524dbc121fc8c01320ca9944507c43bf3"
+}

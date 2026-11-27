@@ -1,0 +1,46 @@
+{
+ "id": "M-MOECHUNK",
+ "step": "evaluate",
+ "time": "2026-11-27T10:21:31",
+ "evaluator": {
+  "adapters/steady.py": "92dc54415fa22bccb9936977ac254ebee11d652d93bc3481e386ed66e2d767cf",
+  "adapters/workloads.py": "389267655aaeba5a8c0e3e095fecef54e977f19082000b4b20e5876e1be391a2",
+  "agent/search.py": "a485c72f74dbadc06ae46329216437383794d450378a459bdb17245e7aafb1be",
+  "adapters/topologies.py": "53791d66c78cc44b96bef50809317da7486c77a824dd15ebeb83fa38b3f27eba",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "9968c910ce7d244bb77f3d009acf4dd07ab49eac61441826907573feae81a295"
+ },
+ "commits": {
+  "simthesizer": "60dc2d034d95333d6b5bedc05df876beb6bf6d99"
+ },
+ "script": "experiments/E0044_moe_chunks/run.py",
+ "script_sha256": "2db6a416a1d49b2cb4662a41f879b5eda851922762402a82d23d2977a0baa9d8",
+ "verdict": {
+  "verdict": "VERIFIED",
+  "best": {
+   "case": "p-PP4xEP4-k8",
+   "layout": "PP4xEP4",
+   "k": 8,
+   "gain": 0.1769943073051986,
+   "sha256": "b20c2fc6f4709806990db5326fe967ce168b703162ed06bc754c7a91a9acfec8"
+  },
+  "D_vs_B": 0.1769943073051986,
+  "conserved": true,
+  "launch_cost_gain": 0.16094996680607299
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0044_moe_chunks/run.py"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 122.0,
+   "tail": [
+    "decode TPOT p50 ms {1: 8.38130254462706, 4: 8.567409676704024} | launch-cost {'layout': 'PP4xEP4', 'k': 8, 'overhead_us': 5.0, 'gain': 0.16094996680607299} | conservation max 3.375077994860476e-14",
+    "{\"verdict\": \"VERIFIED\", \"best\": {\"case\": \"p-PP4xEP4-k8\", \"layout\": \"PP4xEP4\", \"k\": 8, \"gain\": 0.1769943073051986, \"sha256\": \"b20c2fc6f4709806990db5326fe967ce168b703162ed06bc754c7a91a9acfec8\"}, \"D_vs_B\": 0.1769943073051986, \"conserved\": true, \"launch_cost_gain\": 0.16094996680607299}"
+   ]
+  }
+ ]
+}

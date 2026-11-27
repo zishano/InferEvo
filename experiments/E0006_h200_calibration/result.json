@@ -1,0 +1,27 @@
+{
+ "experiment": "E0006",
+ "source": "Frontier H200 Qwen3-235B-A22B kernel_only tables",
+ "frontier_commit": "db5a85b63fb42436da2e3c21cbb42cc53b22a842",
+ "peak_bf16": 989500000000000.0,
+ "hbm_bw": 4800000000000.0,
+ "fits": [
+  {
+   "kernel_class": "dense_gemm_bf16",
+   "alpha_s": 4.05e-06,
+   "eta_compute": 0.788,
+   "eta_memory": 0.784,
+   "n": 774,
+   "median_abs_rel_err": 0.03306085541928673,
+   "p90_abs_rel_err": 0.08249215592647915
+  },
+  {
+   "kernel_class": "moe_grouped_gemm_bf16",
+   "alpha_s": 0.0,
+   "eta_compute": 0.196,
+   "eta_memory": 0.588,
+   "n": 838,
+   "median_abs_rel_err": 0.17799256731237617,
+   "p90_abs_rel_err": 0.4820411325810173
+  }
+ ]
+}

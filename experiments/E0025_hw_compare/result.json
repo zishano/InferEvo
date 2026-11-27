@@ -1,0 +1,310 @@
+{
+ "realistic-x4/h200": {
+  "best": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+  "tokens_per_s_gpu": 33.16193101591515,
+  "ttft_p99_ms": 1419.341555146923,
+  "tpot_p50_ms": 13.731262385679768,
+  "goodput_tokens_per_s_gpu": 33.16193101591515,
+  "slo_attainment": 1.0,
+  "bottlenecks": [
+   "prefill_saturated",
+   "ttft_queueing"
+  ],
+  "grid": {
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 27.27509675377401,
+    "ttft_p99_ms": 5510.8138502111005,
+    "tpot_p50_ms": 11.759273207455657,
+    "goodput_tokens_per_s_gpu": 10.645222860025171,
+    "slo_attainment": 0.39029092934573034
+   },
+   "h200-p1x4-d3x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 31.310692985340797,
+    "ttft_p99_ms": 2779.613860957292,
+    "tpot_p50_ms": 13.065960954605469,
+    "goodput_tokens_per_s_gpu": 23.639646989789203,
+    "slo_attainment": 0.7550023565705472
+   },
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 33.16193101591515,
+    "ttft_p99_ms": 1419.341555146923,
+    "tpot_p50_ms": 13.731262385679768,
+    "goodput_tokens_per_s_gpu": 33.16193101591515,
+    "slo_attainment": 1.0
+   },
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 29.046251954997224,
+    "ttft_p99_ms": 2398.5336781716487,
+    "tpot_p50_ms": 16.69845077382711,
+    "goodput_tokens_per_s_gpu": 27.50178138315818,
+    "slo_attainment": 0.9468271991087879
+   },
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 29.256752886999212,
+    "ttft_p99_ms": 1214.6353726301124,
+    "tpot_p50_ms": 17.563163659948778,
+    "goodput_tokens_per_s_gpu": 29.211624856495252,
+    "slo_attainment": 0.9984575174600454
+   },
+   "h200-p2x4-d2x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 29.398106441566895,
+    "ttft_p99_ms": 1072.2808089618447,
+    "tpot_p50_ms": 17.95261804381454,
+    "goodput_tokens_per_s_gpu": 29.35276037567305,
+    "slo_attainment": 0.9984575174600454
+   },
+   "h200-p3x4-d1x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 21.680769018937422,
+    "ttft_p99_ms": 1274.411109113505,
+    "tpot_p50_ms": 27.389347584375084,
+    "goodput_tokens_per_s_gpu": 20.864221781795898,
+    "slo_attainment": 0.9623377179827756
+   },
+   "h200-p3x4-d1x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 21.847215075946508,
+    "ttft_p99_ms": 621.5777391823458,
+    "tpot_p50_ms": 27.420067513037285,
+    "goodput_tokens_per_s_gpu": 20.458069561027077,
+    "slo_attainment": 0.9364154419640944
+   },
+   "h200-p3x4-d1x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 21.775277760436065,
+    "ttft_p99_ms": 570.9893497129008,
+    "tpot_p50_ms": 27.84961811985693,
+    "goodput_tokens_per_s_gpu": 20.525058290922193,
+    "slo_attainment": 0.9425853721239128
+   }
+  }
+ },
+ "realistic-x4/b300": {
+  "best": "b300-p1x4-d3x4-ep16-b2048-32-m32-32",
+  "tokens_per_s_gpu": 51.36654931805266,
+  "ttft_p99_ms": 430.3436768517708,
+  "tpot_p50_ms": 8.65477525403329,
+  "goodput_tokens_per_s_gpu": 51.36654931805266,
+  "slo_attainment": 1.0,
+  "bottlenecks": [
+   "prefill_saturated",
+   "ttft_queueing"
+  ],
+  "grid": {
+   "b300-p1x4-d3x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 43.4322185544028,
+    "ttft_p99_ms": 2326.767759839454,
+    "tpot_p50_ms": 7.696013309572669,
+    "goodput_tokens_per_s_gpu": 40.763646575868435,
+    "slo_attainment": 0.9385577788251425
+   },
+   "b300-p1x4-d3x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 49.435232438032976,
+    "ttft_p99_ms": 642.7283279029909,
+    "tpot_p50_ms": 8.463261956239453,
+    "goodput_tokens_per_s_gpu": 49.435232438032976,
+    "slo_attainment": 1.0
+   },
+   "b300-p1x4-d3x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 51.36654931805266,
+    "ttft_p99_ms": 430.3436768517708,
+    "tpot_p50_ms": 8.65477525403329,
+    "goodput_tokens_per_s_gpu": 51.36654931805266,
+    "slo_attainment": 1.0
+   },
+   "b300-p2x4-d2x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 44.341153887109776,
+    "ttft_p99_ms": 693.9361481816646,
+    "tpot_p50_ms": 10.104407921068184,
+    "goodput_tokens_per_s_gpu": 44.341153887109776,
+    "slo_attainment": 1.0
+   },
+   "b300-p2x4-d2x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 47.70933365448029,
+    "ttft_p99_ms": 320.6918611549736,
+    "tpot_p50_ms": 10.206347197888162,
+    "goodput_tokens_per_s_gpu": 47.70933365448029,
+    "slo_attainment": 1.0
+   },
+   "b300-p2x4-d2x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 49.15686334330719,
+    "ttft_p99_ms": 341.07870732494393,
+    "tpot_p50_ms": 10.250497633901265,
+    "goodput_tokens_per_s_gpu": 49.15686334330719,
+    "slo_attainment": 1.0
+   },
+   "b300-p3x4-d1x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 34.29113971321986,
+    "ttft_p99_ms": 349.43751665096335,
+    "tpot_p50_ms": 15.108252992124187,
+    "goodput_tokens_per_s_gpu": 33.707842122656935,
+    "slo_attainment": 0.9829898453232786
+   },
+   "b300-p3x4-d1x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 34.356145296265865,
+    "ttft_p99_ms": 228.73761938543691,
+    "tpot_p50_ms": 15.13405496196733,
+    "goodput_tokens_per_s_gpu": 33.77174195068047,
+    "slo_attainment": 0.9829898453232786
+   },
+   "b300-p3x4-d1x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 34.321405735927684,
+    "ttft_p99_ms": 180.8277013880937,
+    "tpot_p50_ms": 15.294421216825683,
+    "goodput_tokens_per_s_gpu": 33.73759331563704,
+    "slo_attainment": 0.9829898453232786
+   }
+  }
+ },
+ "tiled-4/h200": {
+  "best": "h200-p1x4-d3x4-ep16-b2048-32-m32-32",
+  "tokens_per_s_gpu": 60.23305692758091,
+  "ttft_p99_ms": 4284.09342471202,
+  "tpot_p50_ms": 21.328913390095394,
+  "goodput_tokens_per_s_gpu": 40.832613584298954,
+  "slo_attainment": 0.6779103646257337,
+  "bottlenecks": [
+   "prefill_saturated",
+   "ttft_queueing"
+  ],
+  "grid": {
+   "h200-p1x4-d3x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 39.280756686744525,
+    "ttft_p99_ms": 21381.056522103998,
+    "tpot_p50_ms": 13.680033784977157,
+    "goodput_tokens_per_s_gpu": 4.6519564455273095,
+    "slo_attainment": 0.11842838167873516
+   },
+   "h200-p1x4-d3x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 52.75239111550612,
+    "ttft_p99_ms": 11089.238243484895,
+    "tpot_p50_ms": 16.75401878301096,
+    "goodput_tokens_per_s_gpu": 12.335411736272961,
+    "slo_attainment": 0.2338360683833926
+   },
+   "h200-p1x4-d3x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 60.23305692758091,
+    "ttft_p99_ms": 4284.09342471202,
+    "tpot_p50_ms": 21.328913390095394,
+    "goodput_tokens_per_s_gpu": 40.832613584298954,
+    "slo_attainment": 0.6779103646257337
+   },
+   "h200-p2x4-d2x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 44.14883597869655,
+    "ttft_p99_ms": 6636.234558254474,
+    "tpot_p50_ms": 34.835810495929785,
+    "goodput_tokens_per_s_gpu": 19.593540557322033,
+    "slo_attainment": 0.4438065041347101
+   },
+   "h200-p2x4-d2x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 42.48757639338687,
+    "ttft_p99_ms": 1958.319127901733,
+    "tpot_p50_ms": 41.64402789901853,
+    "goodput_tokens_per_s_gpu": 32.38178100996046,
+    "slo_attainment": 0.7621470500021423
+   },
+   "h200-p2x4-d2x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 42.89649447345488,
+    "ttft_p99_ms": 823.3284346735913,
+    "tpot_p50_ms": 42.15140336999946,
+    "goodput_tokens_per_s_gpu": 32.052902491374866,
+    "slo_attainment": 0.7472149620806375
+   },
+   "h200-p3x4-d1x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 27.21676966970194,
+    "ttft_p99_ms": 2038.6375652590018,
+    "tpot_p50_ms": 102.00722115423514,
+    "goodput_tokens_per_s_gpu": 8.69772811951977,
+    "slo_attainment": 0.3195723895625348
+   },
+   "h200-p3x4-d1x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 27.259582464115212,
+    "ttft_p99_ms": 702.6513298509585,
+    "tpot_p50_ms": 100.81941489047408,
+    "goodput_tokens_per_s_gpu": 8.658266626954285,
+    "slo_attainment": 0.3176228630189811
+   },
+   "h200-p3x4-d1x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 26.53189296573954,
+    "ttft_p99_ms": 535.4571198468054,
+    "tpot_p50_ms": 101.59772460777916,
+    "goodput_tokens_per_s_gpu": 8.37228496162776,
+    "slo_attainment": 0.31555550794806975
+   }
+  }
+ },
+ "tiled-4/b300": {
+  "best": "b300-p1x4-d3x4-ep16-b2048-32-m32-32",
+  "tokens_per_s_gpu": 94.27407837105368,
+  "ttft_p99_ms": 409.08366303222186,
+  "tpot_p50_ms": 11.246140860912195,
+  "goodput_tokens_per_s_gpu": 94.24681284858038,
+  "slo_attainment": 0.9997107845237585,
+  "bottlenecks": [
+   "prefill_saturated",
+   "ttft_queueing"
+  ],
+  "grid": {
+   "b300-p1x4-d3x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 66.9630117312328,
+    "ttft_p99_ms": 7918.87560729062,
+    "tpot_p50_ms": 8.904078630649147,
+    "goodput_tokens_per_s_gpu": 19.326571276472176,
+    "slo_attainment": 0.28861562192039075
+   },
+   "b300-p1x4-d3x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 92.88633963138386,
+    "ttft_p99_ms": 1252.9358633568056,
+    "tpot_p50_ms": 11.120612802548415,
+    "goodput_tokens_per_s_gpu": 92.86445031016305,
+    "slo_attainment": 0.9997643429452847
+   },
+   "b300-p1x4-d3x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 94.27407837105368,
+    "ttft_p99_ms": 409.08366303222186,
+    "tpot_p50_ms": 11.246140860912195,
+    "goodput_tokens_per_s_gpu": 94.24681284858038,
+    "slo_attainment": 0.9997107845237585
+   },
+   "b300-p2x4-d2x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 68.29120011046038,
+    "ttft_p99_ms": 665.657087723746,
+    "tpot_p50_ms": 18.332217432155787,
+    "goodput_tokens_per_s_gpu": 66.48728713783521,
+    "slo_attainment": 0.9735849865032777
+   },
+   "b300-p2x4-d2x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 71.18664923704975,
+    "ttft_p99_ms": 333.9352591762914,
+    "tpot_p50_ms": 19.11496680820592,
+    "goodput_tokens_per_s_gpu": 69.16289750095213,
+    "slo_attainment": 0.9715711898538927
+   },
+   "b300-p2x4-d2x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 70.80359108658418,
+    "ttft_p99_ms": 243.13191154405533,
+    "tpot_p50_ms": 19.60649722500877,
+    "goodput_tokens_per_s_gpu": 68.7308136064047,
+    "slo_attainment": 0.9707249667937786
+   },
+   "b300-p3x4-d1x4-ep16-b128-32-m32-32": {
+    "tokens_per_s_gpu": 39.569107074582064,
+    "ttft_p99_ms": 316.5282758122121,
+    "tpot_p50_ms": 55.5414124539473,
+    "goodput_tokens_per_s_gpu": 26.28008211518608,
+    "slo_attainment": 0.6641565619778054
+   },
+   "b300-p3x4-d1x4-ep16-b512-32-m32-32": {
+    "tokens_per_s_gpu": 39.62551731243289,
+    "ttft_p99_ms": 202.2147493076414,
+    "tpot_p50_ms": 56.2940259300742,
+    "goodput_tokens_per_s_gpu": 26.227562666058322,
+    "slo_attainment": 0.6618856849050945
+   },
+   "b300-p3x4-d1x4-ep16-b2048-32-m32-32": {
+    "tokens_per_s_gpu": 39.58184784897652,
+    "ttft_p99_ms": 180.89249618250312,
+    "tpot_p50_ms": 56.534544328820246,
+    "goodput_tokens_per_s_gpu": 26.288543984104837,
+    "slo_attainment": 0.6641565619778054
+   }
+  }
+ }
+}

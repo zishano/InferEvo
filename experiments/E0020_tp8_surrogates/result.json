@@ -1,0 +1,92 @@
+{
+ "experiment": "E0020",
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 8,
+   "ep": 16,
+   "groups": 2,
+   "stage": "d",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "exported-graph lower bound (validation/round_bounds)"
+  },
+  "coef": [
+   0.004787242555435268,
+   2.6480185445311556e-05,
+   -2.341989606600205e-05,
+   2.6480185803126405e-05,
+   2.342553352265294e-05,
+   0.03443538729447488,
+   -0.00018979749235707063
+  ],
+  "train_n": 120,
+  "train_median_rel_err": 0.0066380978505923135,
+  "train_p90_rel_err": 0.020734302766130665,
+  "notes": []
+ },
+ "prefill": {
+  "key": {
+   "hardware": "h200",
+   "tp": 8,
+   "ep": 16,
+   "groups": 2,
+   "stage": "p",
+   "efficiency": {},
+   "cost_model_version": "cdc3208569a0d6cde407a773b6608999b63df52f047e78cd0d0057fc820d4d12",
+   "target": "Tier-2 engine TTFT/rounds, budgets 128/512/2048"
+  },
+  "coef": [
+   0.007970799122184014,
+   -0.00014340509790294992,
+   1.5685165573816552e-07,
+   0.00024015959133029117,
+   1.3441248663827682e-09,
+   0.004713956835999401,
+   3.6038171883035965e-05
+  ],
+  "train_n": 72,
+  "train_median_rel_err": 0.018009801458582393,
+  "train_p90_rel_err": 0.058795506192999586,
+  "notes": []
+ },
+ "heldout_by_budget": {
+  "128": {
+   "n_test": 6,
+   "median": 0.01862682256052966,
+   "max": 0.03855192161848031
+  },
+  "512": {
+   "n_test": 6,
+   "median": 0.0278151069357342,
+   "max": 0.06655134281980397
+  },
+  "2048": {
+   "n_test": 6,
+   "median": 0.019733459985735897,
+   "max": 0.11749252719204675
+  }
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "09dc44ac00357d3ad512525816a99725cb537550",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "commit": "uncommitted"
+  }
+ }
+}
