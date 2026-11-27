@@ -1,0 +1,17 @@
+{
+ "hardware": "h200",
+ "prefill_instances": 2,
+ "decode_instances": 6,
+ "prefill_tp": 4,
+ "decode_tp": 4,
+ "prefill_ep": 4,
+ "decode_ep": 16,
+ "prefill_etp": 1,
+ "decode_etp": 1,
+ "prefill_pp": 4,
+ "decode_pp": 1,
+ "prefill_budget": 2048,
+ "decode_budget": 64,
+ "prefill_max_batch": 32,
+ "decode_max_batch": 64
+}
