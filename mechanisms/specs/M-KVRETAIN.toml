@@ -1,0 +1,57 @@
+id = "M-KVRETAIN"
+name = "Session KV retention on prefill instances (stream prefix cache with KDA state snapshots)"
+parent = "simthesizer@88f77c2"
+catalog = "C-KVRETAIN"
+class = "PUB/COMB (prefix caching / RadixAttention, Mooncake KV reuse; hybrid-state snapshots as in vLLM hybrid prefix caching)"
+bottleneck = "Agent sessions re-prefill their whole history every turn (~88k prefill tokens per 8-turn session vs ~19k new tokens); the agent optimum is prefill-bound (E0058: P5:D3 H200, P6:D2 B300)."
+evidence = ["E0028", "E0058"]
+hypothesis = "If a prefill instance keeps a session's prompt KV and the KDA recurrent state at a 64-token boundary, and P/D routes the session's next call there when that is the least work (cache-aware, load-aware), the call prefills only from that boundary (previous output, tool output, user tokens) on top of the resident prefix; prefill work per session falls ~4x at the cost of instance memory for idle sessions (LRU-evicted under pressure)."
+expected_impact = "Agent-workload capacity up strongly where prefill-bound (H200), P:D shifts back toward decode; JCT and TTFT down. No effect on workloads without token streams."
+repos = ["simthesizer"]
+resources = "prefill-instance HBM for retained sessions: per-token KV of cached blocks + one KDA state snapshot (fixed per-request bytes) per cached prefix end; LRU-evicted before admission fails"
+semantics = [
+  "a call declares `token_stream`: its input is positions [0, input) of that stream; block hashes are synthesized from (stream, block index)",
+  "for models with fixed per-request state (KDA), a cache hit is valid only up to a block holding a state snapshot (taken at the last state_checkpoint_tokens boundary of each cached prefix); snapshots are charged their state bytes and evicted with their block",
+  "routing (prefill_routing = stream): a stream's call goes to the prefill instance minimising queued + running tokens + its uncached tokens, assuming the instance of the stream's previous call holds that prompt (pure hash affinity was rejected: +13..18 % TTFT from imbalance, worse than no retention under memory pressure)",
+  "the full prompt KV is still handed off to decode (decode keeps no sessions)",
+  "Tier-1 only: shared Tier-2 execution rejects prefix caching (existing engine limit); the changed cost, a prefill continuation chunk, is what the Tier-1 prefill surrogates were fitted and validated on against Tier-2",
+  "prefix caching off (default) or no token_stream: results byte-identical to the parent",
+]
+failure_modes = [
+  "routing estimates the cached prefix from the previous call; evicted prefixes are over-credited until the next call",
+  "memory pressure evicts sessions and turns hits into full re-prefills",
+  "a snapshot every 64 tokens is a modelling assumption (KDA chunked kernels materialize state at chunk boundaries)",
+]
+rollback = "kv_retention off (default): prefix caching disabled, round-robin routing"
+
+[components]
+added = []
+modified = [
+  "sim:crates/simthesizer-core/src/types.rs",
+  "sim:crates/simthesizer-core/src/systems/agent_dag.rs",
+  "sim:crates/simthesizer-core/src/systems/pd_disaggregation.rs",
+  "sim:crates/simthesizer-core/src/schedulers/chunked_prefill.rs",
+  "sim:crates/simthesizer-core/src/schedulers/prefix_cache.rs",
+  "sim:crates/simthesizer-core/src/systems/single_instance.rs",
+  "sim:crates/simthesizer-core/src/systems/moe_ep_multi_instance.rs",
+  "sim:crates/simthesizer-core/src/models/llama3_1.rs",
+]
+reused = ["sim:crates/simthesizer-core/src/kv.rs", "sim:crates/simthesizer-core/src/model_runners/step_model.rs"]
+
+[interface]
+config = [
+  "workload llm sub-request: token_stream (optional u64)",
+  "system (pd_disaggregation): prefill_routing = \"round_robin\" (default) | \"stream\"",
+  "scheduler (chunked_prefill): state_checkpoint_tokens (default block_size)",
+]
+state = ["prefix cache: state snapshots per cached prefix end (hybrid models)"]
+
+[design_variables]
+kv_retention = { values = [false, true], default = false }
+
+[validation]
+default_off_identity = true
+checks = []
+
+[evaluation]
+script = "experiments/E0059_kv_retention/run.py"

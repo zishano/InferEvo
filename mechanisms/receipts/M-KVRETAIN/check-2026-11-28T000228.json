@@ -1,0 +1,881 @@
+{
+ "id": "M-KVRETAIN",
+ "step": "check",
+ "time": "2026-11-28T00:02:28",
+ "evaluator": {
+  "adapters/steady.py": "0d3c1698a27a98649635058849d613b06b52353aab8dbee2ad9013eb8ef83f5b",
+  "adapters/workloads.py": "a0e047484e767b0ecbed328a1b7e8ae48b7adfe014b17e937398aed3591d3752",
+  "agent/search.py": "14fcca6862877383e76293244e541f5311a2154b6b1ac8ee41dd0a1094c93534",
+  "adapters/topologies.py": "c1af3bcb30b1850f580a09e0c7c36acaeed93c900e8d29598dd0bf10ef018d6d",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "255131058ecf76480c8fd56fb6c2023af1b95117179fd2c55b4cddf9eb568d9f"
+ },
+ "commits": {
+  "simthesizer": "9a9b3b72a747eef174984bfc9feb66d35025277f"
+ },
+ "changed": [
+  "sim:crates/simthesizer-core/src/models/llama3_1.rs",
+  "sim:crates/simthesizer-core/src/schedulers/chunked_prefill.rs",
+  "sim:crates/simthesizer-core/src/schedulers/prefix_cache.rs",
+  "sim:crates/simthesizer-core/src/systems/agent_dag.rs",
+  "sim:crates/simthesizer-core/src/systems/moe_ep_multi_instance.rs",
+  "sim:crates/simthesizer-core/src/systems/pd_disaggregation.rs",
+  "sim:crates/simthesizer-core/src/systems/single_instance.rs",
+  "sim:crates/simthesizer-core/src/types.rs",
+  "sim:crates/simthesizer-core/tests/models.rs",
+  "sim:crates/simthesizer-core/tests/qwen3_235b_a22b.rs",
+  "sim:crates/simthesizer-core/tests/scheduling.rs"
+ ],
+ "undeclared": [],
+ "declared_unchanged": [],
+ "impact": [
+  "ie:adapters/fit_layout.py",
+  "ie:adapters/tier1_engine.py",
+  "ie:agent/controller.py",
+  "ie:agent/llm_policy.py",
+  "ie:agent/search.py",
+  "ie:mechanisms/identity.py",
+  "ie:mechanisms/manage.py",
+  "ie:mechanisms/registry.py",
+  "ie:mechanisms/spec.py",
+  "ie:tests/test_controller.py",
+  "ie:tests/test_llm_policy.py",
+  "ie:tests/test_mechanisms.py",
+  "ie:tests/test_search.py",
+  "ie:tools/optimize.py",
+  "ie:tools/simulate.py",
+  "sim:crates/simthesizer-cli/src/main.rs",
+  "sim:crates/simthesizer-cli/src/write_jsonl.rs",
+  "sim:crates/simthesizer-cli/tests/arrival_roundtrip.rs",
+  "sim:crates/simthesizer-cli/tests/graph_trace.rs",
+  "sim:crates/simthesizer-cli/tests/progress.rs",
+  "sim:crates/simthesizer-cli/tests/trace.rs",
+  "sim:crates/simthesizer-cli/tests/wall_profile.rs",
+  "sim:crates/simthesizer-core/src/compute_sims/compute_sim.rs",
+  "sim:crates/simthesizer-core/src/compute_sims/mod.rs",
+  "sim:crates/simthesizer-core/src/compute_sims/table_lookup.rs",
+  "sim:crates/simthesizer-core/src/engine.rs",
+  "sim:crates/simthesizer-core/src/kv.rs",
+  "sim:crates/simthesizer-core/src/lib.rs",
+  "sim:crates/simthesizer-core/src/model_runners/mod.rs",
+  "sim:crates/simthesizer-core/src/model_runners/model_runner.rs",
+  "sim:crates/simthesizer-core/src/model_runners/moe_ep.rs",
+  "sim:crates/simthesizer-core/src/model_runners/ring.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang/program.rs",
+  "sim:crates/simthesizer-core/src/model_runners/step_model.rs",
+  "sim:crates/simthesizer-core/src/models/llama3_1.rs",
+  "sim:crates/simthesizer-core/src/models/mod.rs",
+  "sim:crates/simthesizer-core/src/models/model.rs",
+  "sim:crates/simthesizer-core/src/models/nemotron_h.rs",
+  "sim:crates/simthesizer-core/src/models/python.rs",
+  "sim:crates/simthesizer-core/src/models/qwen3_235b_a22b.rs",
+  "sim:crates/simthesizer-core/src/models/qwen3_moe.rs",
+  "sim:crates/simthesizer-core/src/module.rs",
+  "sim:crates/simthesizer-core/src/network_sims/flow.rs",
+  "sim:crates/simthesizer-core/src/network_sims/mod.rs",
+  "sim:crates/simthesizer-core/src/network_sims/network_sim.rs",
+  "sim:crates/simthesizer-core/src/policies/candidate/mod.rs",
+  "sim:crates/simthesizer-core/src/policies/environment.rs",
+  "sim:crates/simthesizer-core/src/policies/mod.rs",
+  "sim:crates/simthesizer-core/src/resources.rs",
+  "sim:crates/simthesizer-core/src/routers/mod.rs",
+  "sim:crates/simthesizer-core/src/routers/moe_load_balancing.rs",
+  "sim:crates/simthesizer-core/src/routers/round_robin.rs",
+  "sim:crates/simthesizer-core/src/routers/router.rs",
+  "sim:crates/simthesizer-core/src/schedulers/chunked_prefill.rs",
+  "sim:crates/simthesizer-core/src/schedulers/mod.rs",
+  "sim:crates/simthesizer-core/src/schedulers/prefix_cache.rs",
+  "sim:crates/simthesizer-core/src/schedulers/scheduler.rs",
+  "sim:crates/simthesizer-core/src/systems/agent_dag.rs",
+  "sim:crates/simthesizer-core/src/systems/mod.rs",
+  "sim:crates/simthesizer-core/src/systems/moe_ep_multi_instance.rs",
+  "sim:crates/simthesizer-core/src/systems/multi_instance.rs",
+  "sim:crates/simthesizer-core/src/systems/pd_disaggregation.rs",
+  "sim:crates/simthesizer-core/src/systems/single_instance.rs",
+  "sim:crates/simthesizer-core/src/systems/system.rs",
+  "sim:crates/simthesizer-core/src/types.rs",
+  "sim:crates/simthesizer-core/tests/common/mod.rs",
+  "sim:crates/simthesizer-core/tests/engine.rs",
+  "sim:crates/simthesizer-core/tests/execution.rs",
+  "sim:crates/simthesizer-core/tests/models.rs",
+  "sim:crates/simthesizer-core/tests/network.rs",
+  "sim:crates/simthesizer-core/tests/observations.rs",
+  "sim:crates/simthesizer-core/tests/qwen3_235b_a22b.rs",
+  "sim:crates/simthesizer-core/tests/requests.rs",
+  "sim:crates/simthesizer-core/tests/routers.rs",
+  "sim:crates/simthesizer-core/tests/scheduling.rs",
+  "sim:crates/simthesizer-core/tests/systems.rs",
+  "sim:tests/test_kimi_k3_shared.py",
+  "sim:tests/test_qwen3_shared.py",
+  "sim:tests/test_qwen_deployment.py",
+  "sim:tests/test_rooflang.py",
+  "sim:tests/test_rooflang_pd.py",
+  "sim:tests/test_rooflang_shared.py"
+ ],
+ "tests": [
+  "ie:tests/test_controller.py",
+  "ie:tests/test_llm_policy.py",
+  "ie:tests/test_mechanisms.py",
+  "ie:tests/test_search.py",
+  "sim:tests/test_kimi_k3_shared.py",
+  "sim:tests/test_qwen3_shared.py",
+  "sim:tests/test_qwen_deployment.py",
+  "sim:tests/test_rooflang.py",
+  "sim:tests/test_rooflang_pd.py",
+  "sim:tests/test_rooflang_shared.py",
+  "sim:crates/simthesizer-cli/tests/arrival_roundtrip.rs",
+  "sim:crates/simthesizer-cli/tests/graph_trace.rs",
+  "sim:crates/simthesizer-cli/tests/progress.rs",
+  "sim:crates/simthesizer-cli/tests/trace.rs",
+  "sim:crates/simthesizer-cli/tests/wall_profile.rs",
+  "sim:crates/simthesizer-core/tests/engine.rs",
+  "sim:crates/simthesizer-core/tests/execution.rs",
+  "sim:crates/simthesizer-core/tests/models.rs",
+  "sim:crates/simthesizer-core/tests/network.rs",
+  "sim:crates/simthesizer-core/tests/observations.rs",
+  "sim:crates/simthesizer-core/tests/qwen3_235b_a22b.rs",
+  "sim:crates/simthesizer-core/tests/requests.rs",
+  "sim:crates/simthesizer-core/tests/routers.rs",
+  "sim:crates/simthesizer-core/tests/scheduling.rs",
+  "sim:crates/simthesizer-core/tests/systems.rs",
+  "sim:crates/simthesizer-core/src/compute_sims/table_lookup.rs",
+  "sim:crates/simthesizer-core/src/engine.rs",
+  "sim:crates/simthesizer-core/src/kv.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang/program.rs",
+  "sim:crates/simthesizer-core/src/model_runners/step_model.rs",
+  "sim:crates/simthesizer-core/src/models/llama3_1.rs",
+  "sim:crates/simthesizer-core/src/models/nemotron_h.rs",
+  "sim:crates/simthesizer-core/src/policies/mod.rs",
+  "sim:crates/simthesizer-core/src/resources.rs",
+  "sim:crates/simthesizer-core/src/schedulers/chunked_prefill.rs",
+  "sim:crates/simthesizer-core/src/schedulers/prefix_cache.rs",
+  "sim:crates/simthesizer-core/src/systems/pd_disaggregation.rs",
+  "sim:crates/simthesizer-core/src/systems/single_instance.rs"
+ ],
+ "identity": {
+  "t2-tp4-ep16": {
+   "identical": true,
+   "config_identical": false,
+   "base_sha256": "bd3cd69319dcab1d3e9896bb44c40c910a8fe285318f91b2eadad5db63c0ba9e",
+   "candidate_sha256": "bd3cd69319dcab1d3e9896bb44c40c910a8fe285318f91b2eadad5db63c0ba9e"
+  },
+  "t2-tp4-pp2-ep8": {
+   "identical": true,
+   "config_identical": false,
+   "base_sha256": "9fe3c0e3ec59d2ca99ff9032ba73ad984a6f92556cadac837d0b162d66401c14",
+   "candidate_sha256": "9fe3c0e3ec59d2ca99ff9032ba73ad984a6f92556cadac837d0b162d66401c14"
+  },
+  "t1-optimum": {
+   "identical": true,
+   "config_identical": true,
+   "base_sha256": "f44782922fd3a3a924639705507ffae3c6e53f47987e27f74cfff1808c2e4042",
+   "candidate_sha256": "f44782922fd3a3a924639705507ffae3c6e53f47987e27f74cfff1808c2e4042"
+  }
+ },
+ "log": [
+  {
+   "cmd": [
+    "cargo",
+    "build",
+    "--locked",
+    "--release"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "warning: `simthesizer-core` (lib) generated 1 warning",
+    "    Finished `release` profile [optimized] target(s) in 0.06s"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "build",
+    "--locked"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 2.8,
+   "tail": [
+    "   Compiling simthesizer-cli v0.1.0 (/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain/crates/simthesizer-cli)",
+    "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.78s"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "arrival_roundtrip"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.3,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s",
+    "     Running tests/arrival_roundtrip.rs (target/debug/deps/arrival_roundtrip-7a12eea436628b10)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "graph_trace"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.32s",
+    "     Running tests/graph_trace.rs (target/debug/deps/graph_trace-e454acb08daac8a0)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "progress"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s",
+    "     Running tests/progress.rs (target/debug/deps/progress-6414f9e39247cc95)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "trace"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s",
+    "     Running tests/trace.rs (target/debug/deps/trace-4f682237a8002a60)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "wall_profile"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s",
+    "     Running tests/wall_profile.rs (target/debug/deps/wall_profile-b150c37cbe3631be)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "engine"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 7.0,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.96s",
+    "     Running tests/engine.rs (target/debug/deps/engine-c865fdf284b49112)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "execution"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.8,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.74s",
+    "     Running tests/execution.rs (target/debug/deps/execution-929acca73cdb42ee)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "models"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.5,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.51s",
+    "     Running tests/models.rs (target/debug/deps/models-09997a6c494ffb3f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "network"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.6,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.54s",
+    "     Running tests/network.rs (target/debug/deps/network-b5ae5430b306e3dd)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "observations"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.7,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.71s",
+    "     Running tests/observations.rs (target/debug/deps/observations-0a43fad6c97186e3)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "qwen3_235b_a22b"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.40s",
+    "     Running tests/qwen3_235b_a22b.rs (target/debug/deps/qwen3_235b_a22b-58a308562672e293)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "requests"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.7,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.71s",
+    "     Running tests/requests.rs (target/debug/deps/requests-32f83ffb1fcd34bc)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "routers"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.7,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.71s",
+    "     Running tests/routers.rs (target/debug/deps/routers-263869f14f5e2847)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "scheduling"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.5,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.47s",
+    "     Running tests/scheduling.rs (target/debug/deps/scheduling-24018dac4f004f17)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--test",
+    "systems"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.9,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.86s",
+    "     Running tests/systems.rs (target/debug/deps/systems-4dc8c96947cde387)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "compute_sims::table_lookup::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "engine::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.0,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "kv::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "model_runners::rooflang::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "model_runners::rooflang::program::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "model_runners::step_model::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "models::llama3_1::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "models::nemotron_h::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.0,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "policies::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "resources::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.5,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "schedulers::chunked_prefill::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "schedulers::prefix_cache::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "systems::pd_disaggregation::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "systems::single_instance::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_controller"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_llm_policy"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_search"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 1.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_mechanisms"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 3.0,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang_pd"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 11.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 19.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 29.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen_deployment"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 45.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen3_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 119.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_kimi_k3_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain",
+   "rc": 0,
+   "wall_s": 398.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  }
+ ],
+ "problems": []
+}

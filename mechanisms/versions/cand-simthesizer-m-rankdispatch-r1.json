@@ -1,0 +1,8 @@
+{
+ "kind": "candidate",
+ "repo": "simthesizer",
+ "branch": "inferevo/cand/m-rankdispatch-r1",
+ "path": "mechanisms/candidates/simthesizer-m-rankdispatch-r1",
+ "parent_branch": "inferevo/phase1-base",
+ "parent_commit": "60dc2d034d95333d6b5bedc05df876beb6bf6d99"
+}

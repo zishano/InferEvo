@@ -1,0 +1,8 @@
+{
+ "kind": "candidate",
+ "repo": "simthesizer",
+ "branch": "inferevo/cand/m-kvretain",
+ "path": "mechanisms/candidates/simthesizer-m-kvretain",
+ "parent_branch": "inferevo/phase1-base",
+ "parent_commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975"
+}

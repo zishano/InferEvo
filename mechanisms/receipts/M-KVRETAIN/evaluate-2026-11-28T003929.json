@@ -1,0 +1,47 @@
+{
+ "id": "M-KVRETAIN",
+ "step": "evaluate",
+ "time": "2026-11-28T00:39:29",
+ "evaluator": {
+  "adapters/steady.py": "0d3c1698a27a98649635058849d613b06b52353aab8dbee2ad9013eb8ef83f5b",
+  "adapters/workloads.py": "a0e047484e767b0ecbed328a1b7e8ae48b7adfe014b17e937398aed3591d3752",
+  "agent/search.py": "14fcca6862877383e76293244e541f5311a2154b6b1ac8ee41dd0a1094c93534",
+  "adapters/topologies.py": "c1af3bcb30b1850f580a09e0c7c36acaeed93c900e8d29598dd0bf10ef018d6d",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "255131058ecf76480c8fd56fb6c2023af1b95117179fd2c55b4cddf9eb568d9f"
+ },
+ "commits": {
+  "simthesizer": "9a9b3b72a747eef174984bfc9feb66d35025277f"
+ },
+ "script": "experiments/E0059_kv_retention/run.py",
+ "script_sha256": "f7a150b12cdbf3b9231358c2bb0d57f0ad33fe093ce8da39dce159eeecb72a52",
+ "verdict": {
+  "verdict": "FAILED",
+  "reason": "evaluation script exit 1"
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0059_kv_retention/run.py"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 1,
+   "wall_s": 1071.1,
+   "tail": [
+    "    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/adapters/tier1_engine.py\", line 103, in run",
+    "    return subprocess.run([str(binary), \"--config\", str(config), \"--workload\", str(workload),",
+    "           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "                           \"--output-jsonl\", str(output), *extra], check=True,",
+    "                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "                          capture_output=True, text=True)",
+    "                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/ai_lab/.local/share/uv/python/cpython-3.14.5-linux-x86_64-gnu/lib/python3.14/subprocess.py\", line 578, in run",
+    "    raise CalledProcessError(retcode, process.args,",
+    "                             output=stdout, stderr=stderr)",
+    "subprocess.CalledProcessError: Command '['/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-kvretain/target/release/simthesizer', '--config', '/tmp/e0059-qo4dgc_q/c.toml', '--workload', '/tmp/e0059-qo4dgc_q/w.jsonl', '--output-jsonl', '/tmp/e0059-qo4dgc_q/r.jsonl']' returned non-zero exit status 1."
+   ]
+  }
+ ]
+}

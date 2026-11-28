@@ -1,0 +1,53 @@
+id = "M-FP8LINEAR"
+name = "Block-FP8 (W8A8) non-expert linear layers"
+parent = "simthesizer@8d70c15"
+catalog = "C-PREC"
+class = "SEM (semantics-changing precision; published recipe: DeepSeek-V3 FP8 framework)"
+bottleneck = "Decode is HBM-bound (E0042 elasticity 0.95); at the operating point (EP16 TP4, 64 calls, 8.7K context) BF16 non-expert linears are ~28 % of decode HBM time, MXFP4 routed experts 63 %, MLA KV ~4 %, KDA state ~4 % (decode breakdown, this spec's evidence)."
+evidence = ["E0042", "decode HBM breakdown 2026-11-27 (PROGRESS)"]
+hypothesis = "Storing the token-mixing and FFN projections in FP8 E4M3 with 128x128 block scales and running them W8A8 (1x128 activation tiles) halves their weight and input bytes and doubles their MMA rate, cutting decode round time by up to ~14 % and the compute-bound part of prefill linears by ~2x; experts, router, LM head, embedding, norms, KDA gates and attention operators keep their precision."
+expected_impact = "Decode TPOT ~-10..-14 % at batch 64 / 8K context (weight-read share), larger decode capacity per GPU; prefill: compute-bound linear GEMMs faster."
+repos = ["simthesizer"]
+resources = "resident non-expert weights halve (not credited to admission in this version: KV capacity stays the official-precision value, conservative)"
+semantics = [
+  "FLOPs of every kernel unchanged; converted GEMMs: weight bytes K*N*1 + ue8m0 block scales, input bytes M*K*1, outputs BF16",
+  "embedding, logits (output head), router gate, KDA beta/forget-gate projections, norms, AttnRes and attention operators unchanged (DeepSeek-V3 3.3.1 retention list + conservative KDA gates)",
+  "linear = bf16 reproduces the parent byte for byte",
+  "numerics change: model quality is NOT simulated; activation quantization passes are not priced (optimistic, as CM-1 dequant)",
+]
+failure_modes = [
+  "post-training FP8 of a BF16-trained model may lose accuracy (the cited <0.25 % is FP8 training)",
+  "activation quantize/dequantize traffic omitted",
+  "memory admission ignores the freed weight bytes (conservative)",
+]
+rollback = "linear = \"bf16\" (default, official checkpoint precision, U1)"
+
+[quality]
+status = "UNVERIFIED"
+evidence = [
+  "DeepSeek-V3 Technical Report (arXiv 2412.19437) 3.3.1: original precision kept for the embedding module, the output head, MoE gating modules, normalization operators, and attention operators",
+  "ibid. 3.3.2: activations 1x128 tiles, weights 128x128 blocks",
+  "ibid. 3.3: relative loss error of FP8 training vs BF16 consistently below 0.25 % (validated at DeepSeek-V2-Lite / V2 scale, ~1T tokens): training, not post-training quantization",
+  "Kimi-K2 checkpoints are distributed in block-FP8 format (MoonshotAI Kimi-K2 README)",
+]
+use = "opt-in only: searches and simulations use it only when explicitly allowed (official precision stays the baseline)"
+
+[components]
+added = []
+modified = ["sim:scripts/rooflang_bridge/kimi_k3_shared.py"]
+reused = ["sim:scripts/rooflang_worker.py", "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+          "sim:scripts/rooflang/language/kernels/forward.py", "sim:scripts/rooflang/language/utils.py"]
+
+[interface]
+config = ["model_runner.lowering = {kind = \"grouped\", linear = \"bf16\" | \"fp8\", ...}"]
+state = []
+
+[design_variables]
+linear = { values = ["bf16", "fp8"], default = "bf16" }
+
+[validation]
+default_off_identity = true
+checks = []
+
+[evaluation]
+script = "experiments/E0049_fp8_linear/run.py"

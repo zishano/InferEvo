@@ -1,0 +1,47 @@
+{
+ "id": "M-RANKDISPATCH",
+ "step": "evaluate",
+ "time": "2026-11-27T11:43:24",
+ "evaluator": {
+  "adapters/steady.py": "92dc54415fa22bccb9936977ac254ebee11d652d93bc3481e386ed66e2d767cf",
+  "adapters/workloads.py": "389267655aaeba5a8c0e3e095fecef54e977f19082000b4b20e5876e1be391a2",
+  "agent/search.py": "8bdf3936af9ccfdaac72cb2ca66d3faf99360460697a57c0a9fb89bea3035613",
+  "adapters/topologies.py": "836470b1ba90df92ee5c1e70667bfa2f1545f4375537efdeb1f632bb35d869f9",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "b1afe8137880ba46de754bb6aef8efd9a679f6ace59b5bf7d53139094627fa6f"
+ },
+ "commits": {
+  "simthesizer": "54eecb08769513c6ddba1469b1226a13739162ee"
+ },
+ "script": "experiments/E0047_rank_dispatch/run.py",
+ "script_sha256": "c2384323ba104b4e22fcce203e5cf2fc6fb2f5beea73782a0e19b545a89e4a01",
+ "verdict": {
+  "verdict": "FAILED",
+  "reason": "evaluation script exit 1"
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0047_rank_dispatch/run.py"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 1,
+   "wall_s": 436.7,
+   "tail": [
+    "    return fn(*args, **kwargs)",
+    "  File \"/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/experiments/E0047_rank_dispatch/run.py\", line 71, in run",
+    "    subprocess.run([str(SIMTHESIZER / \"target/release/simthesizer\"), \"--config\", str(tmp / \"c.toml\"),",
+    "    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "                    \"--workload\", str(wl), \"--output-jsonl\", str(tmp / \"r.jsonl\")],",
+    "                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "                   check=True, capture_output=True)",
+    "                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/ai_lab/.local/share/uv/python/cpython-3.14.5-linux-x86_64-gnu/lib/python3.14/subprocess.py\", line 578, in run",
+    "    raise CalledProcessError(retcode, process.args,",
+    "                             output=stdout, stderr=stderr)",
+    "subprocess.CalledProcessError: Command '['/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-rankdispatch-r1/target/release/simthesizer', '--config', '/tmp/e0047-1a5nm8h8/c.toml', '--workload', '/tmp/e0047-1a5nm8h8/w.jsonl', '--output-jsonl', '/tmp/e0047-1a5nm8h8/r.jsonl']' returned non-zero exit status 1."
+   ]
+  }
+ ]
+}

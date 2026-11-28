@@ -1,0 +1,42 @@
+id = "M-RANKDISPATCH"
+name = "MoE dispatch/combine from every attention TP rank"
+parent = "simthesizer@60dc2d0"
+catalog = "C-DISPATCH"
+class = "PUB (DeepEP-style all-to-all from every rank; sequence-parallel token shards)"
+bottleneck = "Grouped lowering sends every routed token from the attention group's leader and returns every result to it, then broadcasts; one NIC/NVLink port carries the group's whole all-to-all. EP16 prefill rounds are network-bound (E0042 elasticity 0.73); E0011 found dispatch stretched 22x on the leader NIC."
+evidence = ["E0011", "E0042", "E0044"]
+hypothesis = "After attention every TP rank holds the full hidden state, so rank r can dispatch its 1/TP token share and receive its share back; the combine runs per share and an all-gather of shares replaces the leader's broadcast (same bytes). Egress/ingress spreads over TP ports, cutting the network-bound part of the MoE up to TP-fold."
+expected_impact = "Prefill TTFT down most where rounds are network-bound (PP1xEP16 cross-node), smaller for in-node layouts; complementary to M-MOECHUNK (which hides the non-bottleneck resource). Decode: little (latency-bound small messages)."
+repos = ["simthesizer"]
+resources = "none extra: same bytes and FLOPs; TP x more (smaller) transfers"
+semantics = [
+  "every routed token is dispatched and combined exactly once (shares partition each expert's tokens)",
+  "compute identical to dispatch = leader; moved bytes identical except shares already on their head GPU (local, free)",
+  "dispatch = leader reproduces the parent byte for byte",
+]
+failure_modes = [
+  "router decisions are computed on the leader; other ranks wait on it (metadata transfer not priced)",
+  "share split is uniform per expert (balanced), real routing skew per rank ignored",
+  "more, smaller transfers: latency-bound decode may slow down",
+]
+rollback = "dispatch = \"leader\" (default)"
+
+[components]
+added = []
+modified = ["sim:scripts/rooflang_bridge/kimi_k3_shared.py"]
+reused = ["sim:scripts/rooflang_worker.py", "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+          "sim:crates/simthesizer-core/src/network_sims/flow.rs"]
+
+[interface]
+config = ["model_runner.lowering = {kind = \"grouped\", dispatch = \"leader\" | \"ranks\", moe_chunks = k}"]
+state = []
+
+[design_variables]
+dispatch = { values = ["leader", "ranks"], default = "leader" }
+
+[validation]
+default_off_identity = true
+checks = []
+
+[evaluation]
+script = "experiments/E0047_rank_dispatch/run.py"

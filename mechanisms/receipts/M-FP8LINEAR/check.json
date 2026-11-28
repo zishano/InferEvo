@@ -1,0 +1,586 @@
+{
+ "id": "M-FP8LINEAR",
+ "step": "check",
+ "time": "2026-11-27T14:14:03",
+ "evaluator": {
+  "adapters/steady.py": "92dc54415fa22bccb9936977ac254ebee11d652d93bc3481e386ed66e2d767cf",
+  "adapters/workloads.py": "389267655aaeba5a8c0e3e095fecef54e977f19082000b4b20e5876e1be391a2",
+  "agent/search.py": "ed0260dcc52f0db1760978d8a80d9b72b4a31bdbdc40af0ca3eddbc193bd9509",
+  "adapters/topologies.py": "42a371e0fb60e756811b868e6500cca57a4bb6ff268a3b6a42bdccdb57e493bc",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "b1afe8137880ba46de754bb6aef8efd9a679f6ace59b5bf7d53139094627fa6f"
+ },
+ "commits": {
+  "simthesizer": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975"
+ },
+ "changed": [
+  "sim:scripts/rooflang_bridge/kimi_k3_shared.py",
+  "sim:tests/test_kimi_k3_shared.py"
+ ],
+ "undeclared": [],
+ "declared_unchanged": [],
+ "impact": [
+  "ie:adapters/fit_layout.py",
+  "ie:adapters/tier1.py",
+  "ie:adapters/tier1_engine.py",
+  "ie:adapters/topologies.py",
+  "ie:agent/controller.py",
+  "ie:agent/llm_policy.py",
+  "ie:agent/search.py",
+  "ie:mechanisms/identity.py",
+  "ie:mechanisms/manage.py",
+  "ie:mechanisms/registry.py",
+  "ie:mechanisms/spec.py",
+  "ie:tests/test_controller.py",
+  "ie:tests/test_llm_policy.py",
+  "ie:tests/test_mechanisms.py",
+  "ie:tests/test_phase0.py",
+  "ie:tests/test_search.py",
+  "ie:tests/test_tier1.py",
+  "ie:tests/test_topologies.py",
+  "ie:tools/optimize.py",
+  "ie:tools/simulate.py",
+  "ie:validation/capacity.py",
+  "sim:crates/simthesizer-cli/src/main.rs",
+  "sim:crates/simthesizer-cli/tests/arrival_roundtrip.rs",
+  "sim:crates/simthesizer-cli/tests/graph_trace.rs",
+  "sim:crates/simthesizer-cli/tests/progress.rs",
+  "sim:crates/simthesizer-cli/tests/trace.rs",
+  "sim:crates/simthesizer-cli/tests/wall_profile.rs",
+  "sim:crates/simthesizer-core/src/lib.rs",
+  "sim:crates/simthesizer-core/src/model_runners/mod.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang.rs",
+  "sim:run.sh",
+  "sim:run_kimi_k3_shared.sh",
+  "sim:run_kimi_k3_shared_workload.sh",
+  "sim:run_qwen3_235b_shared.sh",
+  "sim:run_qwen3_235b_shared_workload.sh",
+  "sim:run_rooflang_pd.sh",
+  "sim:run_rooflang_pd_workload.sh",
+  "sim:run_rooflang_shared.sh",
+  "sim:run_rooflang_shared_workload.sh",
+  "sim:scripts/inspect_rooflang.py",
+  "sim:scripts/rooflang_bridge/configuration.py",
+  "sim:scripts/rooflang_bridge/kimi_k3_scalar.py",
+  "sim:scripts/rooflang_bridge/kimi_k3_shared.py",
+  "sim:scripts/rooflang_worker.py",
+  "sim:tests/test_draw_shared.py",
+  "sim:tests/test_inspect_modes.py",
+  "sim:tests/test_inspect_progress.py",
+  "sim:tests/test_kimi_k3_fast.py",
+  "sim:tests/test_kimi_k3_shared.py",
+  "sim:tests/test_qwen3_compact_work.py",
+  "sim:tests/test_qwen3_ep.py",
+  "sim:tests/test_qwen3_shared.py",
+  "sim:tests/test_qwen_deployment.py",
+  "sim:tests/test_rooflang.py",
+  "sim:tests/test_rooflang_pd.py",
+  "sim:tests/test_rooflang_pd_topology.py",
+  "sim:tests/test_rooflang_shared.py",
+  "sim:tests/test_wall_profile_worker.py"
+ ],
+ "tests": [
+  "ie:tests/test_controller.py",
+  "ie:tests/test_llm_policy.py",
+  "ie:tests/test_mechanisms.py",
+  "ie:tests/test_phase0.py",
+  "ie:tests/test_search.py",
+  "ie:tests/test_tier1.py",
+  "ie:tests/test_topologies.py",
+  "sim:tests/test_draw_shared.py",
+  "sim:tests/test_inspect_modes.py",
+  "sim:tests/test_inspect_progress.py",
+  "sim:tests/test_kimi_k3_fast.py",
+  "sim:tests/test_kimi_k3_shared.py",
+  "sim:tests/test_qwen3_compact_work.py",
+  "sim:tests/test_qwen3_ep.py",
+  "sim:tests/test_qwen3_shared.py",
+  "sim:tests/test_qwen_deployment.py",
+  "sim:tests/test_rooflang.py",
+  "sim:tests/test_rooflang_pd.py",
+  "sim:tests/test_rooflang_pd_topology.py",
+  "sim:tests/test_rooflang_shared.py",
+  "sim:tests/test_wall_profile_worker.py",
+  "sim:crates/simthesizer-cli/tests/arrival_roundtrip.rs",
+  "sim:crates/simthesizer-cli/tests/graph_trace.rs",
+  "sim:crates/simthesizer-cli/tests/progress.rs",
+  "sim:crates/simthesizer-cli/tests/trace.rs",
+  "sim:crates/simthesizer-cli/tests/wall_profile.rs",
+  "sim:crates/simthesizer-core/src/model_runners/rooflang.rs"
+ ],
+ "identity": {
+  "t2-tp4-ep16": {
+   "identical": true,
+   "config_identical": false,
+   "base_sha256": "bd3cd69319dcab1d3e9896bb44c40c910a8fe285318f91b2eadad5db63c0ba9e",
+   "candidate_sha256": "bd3cd69319dcab1d3e9896bb44c40c910a8fe285318f91b2eadad5db63c0ba9e"
+  },
+  "t2-tp4-pp2-ep8": {
+   "identical": true,
+   "config_identical": false,
+   "base_sha256": "9fe3c0e3ec59d2ca99ff9032ba73ad984a6f92556cadac837d0b162d66401c14",
+   "candidate_sha256": "9fe3c0e3ec59d2ca99ff9032ba73ad984a6f92556cadac837d0b162d66401c14"
+  },
+  "t1-optimum": {
+   "identical": true,
+   "config_identical": true,
+   "base_sha256": "ba44150c5a8ee2e0488eddbc216963d76e378e3975362fd7d4ba1c0edf3178a6",
+   "candidate_sha256": "ba44150c5a8ee2e0488eddbc216963d76e378e3975362fd7d4ba1c0edf3178a6"
+  }
+ },
+ "log": [
+  {
+   "cmd": [
+    "cargo",
+    "build",
+    "--locked",
+    "--release"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 41.9,
+   "tail": [
+    "   Compiling simthesizer-cli v0.1.0 (/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear/crates/simthesizer-cli)",
+    "    Finished `release` profile [optimized] target(s) in 41.87s"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "build",
+    "--locked"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 11.0,
+   "tail": [
+    "   Compiling simthesizer-cli v0.1.0 (/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear/crates/simthesizer-cli)",
+    "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.98s"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "arrival_roundtrip"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s",
+    "     Running tests/arrival_roundtrip.rs (target/debug/deps/arrival_roundtrip-7a12eea436628b10)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "graph_trace"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s",
+    "     Running tests/graph_trace.rs (target/debug/deps/graph_trace-e454acb08daac8a0)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "progress"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.4,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.36s",
+    "     Running tests/progress.rs (target/debug/deps/progress-6414f9e39247cc95)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "trace"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.3,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.28s",
+    "     Running tests/trace.rs (target/debug/deps/trace-4f682237a8002a60)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-cli",
+    "--test",
+    "wall_profile"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.5,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s",
+    "     Running tests/wall_profile.rs (target/debug/deps/wall_profile-b150c37cbe3631be)"
+   ]
+  },
+  {
+   "cmd": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "simthesizer-core",
+    "--lib",
+    "model_runners::rooflang::"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 10.9,
+   "tail": [
+    "    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.80s",
+    "     Running unittests src/lib.rs (target/debug/deps/simthesizer_core-85c31b407db3ab4f)"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_draw_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_llm_policy"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_controller"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_tier1"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_kimi_k3_fast"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.2,
+   "tail": [
+    "",
+    "OK (skipped=5)"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_inspect_progress"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 0.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_phase0"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_topologies"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 0.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_search"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 1.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "./ie.sh",
+    "-m",
+    "unittest",
+    "tests.test_mechanisms"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 3.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen3_compact_work"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 4.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen3_ep"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 4.7,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_inspect_modes"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 17.2,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang_pd"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 14.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 16.9,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_wall_profile_worker"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 2.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "test_rooflang_pd_topology"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear/tests",
+   "rc": 0,
+   "wall_s": 22.1,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_rooflang_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 31.6,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen_deployment"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 51.5,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_qwen3_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 131.3,
+   "tail": [
+    "",
+    "OK"
+   ]
+  },
+  {
+   "cmd": [
+    "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_kimi_k3_shared"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-fp8linear",
+   "rc": 0,
+   "wall_s": 415.0,
+   "tail": [
+    "",
+    "OK"
+   ]
+  }
+ ],
+ "problems": []
+}

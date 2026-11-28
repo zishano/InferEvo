@@ -1,0 +1,34 @@
+{
+ "id": "M-KVRETAIN",
+ "step": "replay",
+ "time": "2026-11-28T01:17:03",
+ "evaluator": {
+  "adapters/steady.py": "0d3c1698a27a98649635058849d613b06b52353aab8dbee2ad9013eb8ef83f5b",
+  "adapters/workloads.py": "a0e047484e767b0ecbed328a1b7e8ae48b7adfe014b17e937398aed3591d3752",
+  "agent/search.py": "14fcca6862877383e76293244e541f5311a2154b6b1ac8ee41dd0a1094c93534",
+  "adapters/topologies.py": "c1af3bcb30b1850f580a09e0c7c36acaeed93c900e8d29598dd0bf10ef018d6d",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "255131058ecf76480c8fd56fb6c2023af1b95117179fd2c55b4cddf9eb568d9f"
+ },
+ "commits": {
+  "simthesizer": "a2f0da6bc324a44ecf9f976583a597ab4601b4ef"
+ },
+ "verdict": {
+  "verdict": "REPRODUCED"
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0059_kv_retention/run.py",
+    "--replay"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 7.1,
+   "tail": [
+    "{\"verdict\": \"REPRODUCED\"}"
+   ]
+  }
+ ]
+}

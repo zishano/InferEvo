@@ -1,0 +1,46 @@
+{
+ "id": "M-RANKDISPATCH",
+ "step": "evaluate",
+ "time": "2026-11-27T11:19:23",
+ "evaluator": {
+  "adapters/steady.py": "92dc54415fa22bccb9936977ac254ebee11d652d93bc3481e386ed66e2d767cf",
+  "adapters/workloads.py": "389267655aaeba5a8c0e3e095fecef54e977f19082000b4b20e5876e1be391a2",
+  "agent/search.py": "8bdf3936af9ccfdaac72cb2ca66d3faf99360460697a57c0a9fb89bea3035613",
+  "adapters/topologies.py": "836470b1ba90df92ee5c1e70667bfa2f1545f4375537efdeb1f632bb35d869f9",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "9968c910ce7d244bb77f3d009acf4dd07ab49eac61441826907573feae81a295"
+ },
+ "commits": {
+  "simthesizer": "041540fdc9a4ebe39809a2044698eb39e04fe36e"
+ },
+ "script": "experiments/E0047_rank_dispatch/run.py",
+ "script_sha256": "5083554da590f5bf66b87947e3cdf496f7a631f62dd67c1dc6f5f60e31bddf2f",
+ "verdict": {
+  "verdict": "VERIFIED",
+  "best": {
+   "case": "p-PP4xEP4-ranks-k8",
+   "layout": "PP4xEP4",
+   "variant": "ranks-k8",
+   "sha256": "5f806cf18014f69d77116b83175fe76eb332417b0ba92daf64c513af128b05b3"
+  },
+  "max_gain": 0.5715657339758413,
+  "D_vs_B": 0.11547034864759465,
+  "conserved": true,
+  "launch_cost_gain": 0.559281083979478
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0047_rank_dispatch/run.py"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 363.2,
+   "tail": [
+    "decode TPOT {'leader-k1': 8.38130254462706, 'ranks-k1': 8.38130254462706} | launch-cost {'layout': 'PP1xEP16', 'k': 8, 'overhead_us': 5.0, 'gain': 0.559281083979478} | conservation {\"PP1xEP16\": {\"hbm\": \"-2.1e-06\", \"fabric\": \"-3.0e-06\", \"compute\": \"1.5e-14\"}, \"PP2xEP8\": {\"hbm\": \"-2.3e-06\", \"fabric\": \"-1.2e-05\", \"compute\": \"1.5e-14\"}, \"PP4xEP4\": {\"hbm\": \"-9.9e-06\", \"fabric\": \"-5.3e-05\", \"compute\": \"-8.5e-15\"}}",
+    "{\"verdict\": \"VERIFIED\", \"best\": {\"case\": \"p-PP4xEP4-ranks-k8\", \"layout\": \"PP4xEP4\", \"variant\": \"ranks-k8\", \"sha256\": \"5f806cf18014f69d77116b83175fe76eb332417b0ba92daf64c513af128b05b3\"}, \"max_gain\": 0.5715657339758413, \"D_vs_B\": 0.11547034864759465, \"conserved\": true, \"launch_cost_gain\": 0.559281083979478}"
+   ]
+  }
+ ]
+}

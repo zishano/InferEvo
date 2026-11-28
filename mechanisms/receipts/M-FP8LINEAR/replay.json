@@ -1,0 +1,35 @@
+{
+ "id": "M-FP8LINEAR",
+ "step": "replay",
+ "time": "2026-11-27T14:43:47",
+ "evaluator": {
+  "adapters/steady.py": "92dc54415fa22bccb9936977ac254ebee11d652d93bc3481e386ed66e2d767cf",
+  "adapters/workloads.py": "389267655aaeba5a8c0e3e095fecef54e977f19082000b4b20e5876e1be391a2",
+  "agent/search.py": "ed0260dcc52f0db1760978d8a80d9b72b4a31bdbdc40af0ca3eddbc193bd9509",
+  "adapters/topologies.py": "42a371e0fb60e756811b868e6500cca57a4bb6ff268a3b6a42bdccdb57e493bc",
+  "mechanisms/identity.py": "0363f6866b917d95f885cfbf0dbd0bffd7e8313fceec906f27c836880bf89362",
+  "mechanisms/manage.py": "fe49737a5ba8edf2f35bee4043ebfedc8edd6ee487814d017c395fc8efd0bfb5"
+ },
+ "commits": {
+  "simthesizer": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975"
+ },
+ "verdict": {
+  "verdict": "REPRODUCED",
+  "case": "d-b64-fp8"
+ },
+ "log": [
+  {
+   "cmd": [
+    "./ie.sh",
+    "experiments/E0049_fp8_linear/run.py",
+    "--replay"
+   ],
+   "cwd": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "rc": 0,
+   "wall_s": 187.0,
+   "tail": [
+    "{\"verdict\": \"REPRODUCED\", \"case\": \"d-b64-fp8\"}"
+   ]
+  }
+ ]
+}
