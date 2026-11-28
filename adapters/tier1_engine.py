@@ -35,11 +35,15 @@ def _scalar_model(model: dict) -> dict:
     return model
 
 
-def tier1_config(tier2: dict, models: dict[str, Tier1Model]) -> dict:
-    """models: {"p": prefill model, "d": decode model}."""
+def tier1_config(tier2: dict, models: dict[str, Tier1Model], retention: bool = False) -> dict:
+    """models: {"p": prefill model, "d": decode model}. `retention`
+    (M-KVRETAIN): prefill schedulers cache stream prefixes with KDA state
+    snapshots every KDA chunk, and P/D routes a stream to one prefill instance."""
     cfg = copy.deepcopy(tier2)
     system = cfg["system"]
     system["shared_execution"] = False
+    if retention:
+        system["prefill_routing"] = "stream"
     for key in ("allow_gpu_sharing", "kv_handoff"):
         system.pop(key, None)
     system["model"] = _scalar_model(system["model"])
@@ -55,9 +59,9 @@ def tier1_config(tier2: dict, models: dict[str, Tier1Model]) -> dict:
             if (m.key["tp"], m.key["ep"], m.key.get("pp", 1)) != (runner["tp"], runner["ep"], pp):
                 raise ValueError(f"{stage} surrogate layout {m.key} != runner TP/EP/PP")
             lowering = runner.get("lowering")
-            chunks = lowering.get("moe_chunks", 1) if isinstance(lowering, dict) else 1
-            if m.key.get("moe_chunks", 1) != chunks:
-                raise ValueError(f"{stage} surrogate fitted at MoE chunks {m.key.get('moe_chunks', 1)}, runner uses {chunks}")
+            used = {k: v for k, v in lowering.items() if k != "kind"} if isinstance(lowering, dict) else {}
+            if fitted_options(m.key) != used:
+                raise ValueError(f"{stage} surrogate fitted with lowering options {fitted_options(m.key)}, runner uses {used}")
             stages = layer_stages(pp)
             leaf["model_runner"] = {
                 "kind": "step_model", "tp": runner["tp"], "ep": runner["ep"],
@@ -69,11 +73,19 @@ def tier1_config(tier2: dict, models: dict[str, Tier1Model]) -> dict:
             # The legacy scheduler treats batch/token limits as per-rank and
             # multiplies them by EP; shared Kimi applies them per instance.
             sched, ep = leaf["scheduler"], runner["ep"]
+            if retention and side == "prefill_instances":
+                sched["enable_prefix_caching"] = True
+                sched["state_checkpoint_tokens"] = 64       # KDA chunk: state materialized there
             for key in ("max_batch", "max_num_batched_tokens"):
                 if sched[key] % ep:
                     raise ValueError(f"{key}={sched[key]} not divisible by EP={ep}")
                 sched[key] //= ep
     return cfg
+
+
+def fitted_options(key: dict) -> dict:
+    """Lowering options a surrogate was fitted with (E0045 keys carry moe_chunks directly)."""
+    return key.get("options", {"moe_chunks": key["moe_chunks"]} if "moe_chunks" in key else {})
 
 
 def write_config(cfg: dict, path: Path) -> None:

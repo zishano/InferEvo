@@ -19,3 +19,7 @@ listed here; a change here re-evaluates every compared baseline.
 | MC-4 | model contract: pipeline parallelism for Kimi-K3 (MC-4.md) | APPLIED (InferEvo) | simthesizer 53d777f |
 | MC-5 | model contract: grouped Tier-2 lowering is the reference (MC-5.md) | APPLIED (InferEvo) | simthesizer 996bee1, 8c62d1f |
 | SIM-DEFECT-3 | Tier-1 preempted P/D decode emits zero-gap tokens; trigger fixed (DP-aware scalar state), guard in steady (SIM-DEFECT-3.md) | MITIGATED | simthesizer kimi_k3_scalar |
+| M-MOECHUNK | mechanism, default off (lowering option moe_chunks; spec mechanisms/specs/M-MOECHUNK.toml, receipts mechanisms/receipts/M-MOECHUNK/) | PROMOTED | simthesizer 60dc2d0; default-off identity byte-identical |
+| M-RANKDISPATCH | mechanism, default off (lowering option dispatch; spec mechanisms/specs/M-RANKDISPATCH.toml) | PROMOTED | simthesizer 8d70c15; default-off identity byte-identical |
+| M-FP8LINEAR | mechanism, default off, semantics-changing (lowering option linear; quality UNVERIFIED, opt-in) | PROMOTED | simthesizer 88f77c2; default-off identity byte-identical |
+| M-KVRETAIN | mechanism, default off (workload token_stream, scheduler state snapshots, P/D stream routing; spec mechanisms/specs/M-KVRETAIN.toml) | PROMOTED | simthesizer 9a9b3b7 + a2f0da6; default-off identity byte-identical |

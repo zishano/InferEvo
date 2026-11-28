@@ -27,7 +27,7 @@ from pathlib import Path
 
 from adapters import steady, tier1_engine as te, workloads
 from adapters.engines import SIMTHESIZER
-from adapters.topologies import Deployment, check, tier2_config
+from adapters.topologies import Deployment, check, precision_changed, tier2_config
 from agent.controller import models_for
 
 a = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -47,8 +47,19 @@ for s, side in (("p", "prefill"), ("d", "decode")):
     a.add_argument(f"--{s}-max-batch", type=int, default=32, help=f"{side} max requests per round")
     a.add_argument(f"--{s}-moe-chunks", type=int, default=1,
                    help=f"{side} expert-chunk pipelined MoE (M-MOECHUNK): 1 (off), 2, 4, 8")
+    a.add_argument(f"--{s}-linear", default="bf16", choices=["bf16", "fp8"],
+                   help=f"{side} non-expert linear precision (M-FP8LINEAR; fp8 changes numerics, quality UNVERIFIED)")
+    if s == "p":
+        a.add_argument("--kv-retention", action="store_true",
+                       help="M-KVRETAIN (Tier-1): prefill instances keep session prefixes between agent turns")
+    a.add_argument(f"--{s}-dispatch", default="leader", choices=["leader", "ranks"],
+                   help=f"{side} MoE dispatch/combine from the group leader or every TP rank (M-RANKDISPATCH)")
 a.add_argument("--p-budget", "--budget", type=int, default=2048, help="prefill tokens per round")
 a.add_argument("--d-budget", type=int, help="decode tokens per round (default = decode max batch)")
+a.add_argument("--workload", default="fixed", choices=["fixed", "agent"],
+               help="fixed: --requests calls of --isl/--osl at --rate req/s; agent: --requests closed-loop "
+                    "coding sessions of --turns calls at --rate sessions/s (context 2k -> ~20k, tools 0.2-3 s)")
+a.add_argument("--turns", type=int, default=8)
 a.add_argument("--isl", type=int, default=8192)
 a.add_argument("--osl", type=int, default=1024)
 a.add_argument("--requests", type=int, default=600)
@@ -82,7 +93,9 @@ dep = Deployment(hardware=args.hardware, prefill_instances=args.p, decode_instan
                  prefill_etp=petp, decode_etp=detp, prefill_pp=ppp, decode_pp=dpp,
                  prefill_budget=args.p_budget, decode_budget=args.d_budget or args.d_max_batch,
                  prefill_max_batch=args.p_max_batch, decode_max_batch=args.d_max_batch,
-                 prefill_moe_chunks=args.p_moe_chunks, decode_moe_chunks=args.d_moe_chunks)
+                 prefill_moe_chunks=args.p_moe_chunks, decode_moe_chunks=args.d_moe_chunks,
+                 prefill_dispatch=args.p_dispatch, decode_dispatch=args.d_dispatch,
+                 prefill_linear=args.p_linear, decode_linear=args.d_linear, kv_retention=args.kv_retention)
 slo = {"ttft_s": args.ttft_slo, "tpot_s": args.tpot_slo}
 
 hw = args.hardware.upper()
@@ -93,11 +106,19 @@ for name, side, n in (("prefill", "prefill", args.p), ("decode ", "decode", args
     print(f"  {name}: {n} instance{'s' * (n != 1)} x {dep.width(side)} GPUs | PP{pp} x (attention TP{tp} x DP{w // tp}), "
           f"MoE EP{ep} x ETP{etp} ({896 // ep} experts/group, {'whole experts' if etp == 1 else f'1/{etp} of each'} per GPU) | "
           f"{getattr(dep, side + '_budget')} tokens/round, max batch {getattr(dep, side + '_max_batch')}"
-          + (f", MoE chunks {getattr(dep, side + '_moe_chunks')}" if getattr(dep, side + "_moe_chunks") > 1 else ""))
-print(f"  workload: {args.requests} requests, ISL {args.isl}, OSL {args.osl}, {args.rate} req/s | "
+          + (f", MoE chunks {getattr(dep, side + '_moe_chunks')}" if getattr(dep, side + "_moe_chunks") > 1 else "")
+          + (", dispatch from every TP rank" if getattr(dep, side + "_dispatch") == "ranks" else "")
+          + (", FP8 linears" if getattr(dep, side + "_linear") == "fp8" else ""))
+if precision_changed(dep):
+    print("  NOTE: FP8 linears change numerics vs the official checkpoint; model quality is not simulated (UNVERIFIED)")
+AGENT = args.workload == "agent"
+UNIT = "sessions/s" if AGENT else "req/s"
+CONTEXT = workloads.agent_max_context(args.turns) if AGENT else args.isl + args.osl
+print("  workload: " + (f"{args.requests} agent sessions x {args.turns} turns, {args.rate} sessions/s | " if AGENT
+                        else f"{args.requests} requests, ISL {args.isl}, OSL {args.osl}, {args.rate} req/s | ") +
       f"SLO TTFT<={args.ttft_slo}s TPOT<={args.tpot_slo*1e3:.0f}ms | Tier-{args.tier}")
 
-errors = check(dep, args.isl + args.osl)
+errors = check(dep, CONTEXT)
 if errors:
     sys.exit("invalid configuration:\n" + "\n".join(f"  {e}" for e in errors))
 models = None
@@ -111,17 +132,21 @@ if args.tier == 1:
 def run(rate, requests=None):
     requests = requests or args.requests
     t2 = tier2_config(dep)
-    cfg = t2 if args.tier == 2 else te.tier1_config(t2, models)
+    cfg = t2 if args.tier == 2 else te.tier1_config(t2, models, retention=dep.kv_retention)
+    if AGENT:                                   # agent programs via the agent_dag front end (D20)
+        cfg = dict(cfg, system={"kind": "agent_dag", "inner": cfg["system"]})
     with tempfile.TemporaryDirectory(prefix="sim-") as tmp:
         tmp = Path(tmp)
         te.write_config(cfg, tmp / "c.toml")
-        wl = workloads.write(workloads.fixed(requests, rate, args.isl, args.osl, seed=1), tmp / "w.jsonl")
+        rows = (workloads.agent_sessions(requests, args.turns, rate, seed=1, streams=dep.kv_retention) if AGENT
+                else workloads.fixed(requests, rate, args.isl, args.osl, seed=1))
+        wl = workloads.write(rows, tmp / "w.jsonl")
         if args.tier == 2:
             subprocess.run([str(SIMTHESIZER / "target/release/simthesizer"), "--config", str(tmp / "c.toml"),
                             "--workload", str(wl), "--output-jsonl", str(tmp / "r.jsonl")], check=True)
         else:
             te.run(tmp / "c.toml", wl, tmp / "r.jsonl")
-        if requests < 10:               # too few for a steady window: report per request
+        if requests < 10 and not AGENT:  # too few for a steady window: report per request
             for line in (tmp / "r.jsonl").read_text().splitlines():
                 lat = json.loads(line)["sub_requests"][0]["token_latency"]
                 print(f"  request: TTFT {lat[0]*1e3:.1f} ms, TPOT {statistics.fmean(lat[1:])*1e3:.2f} ms, "
@@ -132,12 +157,14 @@ def run(rate, requests=None):
 
 
 def show(m, rate):
-    print(f"  rate {rate:.3f} req/s | tok/s/GPU {m['tokens_per_s_gpu']:.1f} | tok/s/user {m['tokens_per_s_user']['p50']:.1f} | "
+    print(f"  rate {rate:.3f} {UNIT} | tok/s/GPU {m['tokens_per_s_gpu']:.1f} | tok/s/user {m['tokens_per_s_user']['p50']:.1f} | "
           f"TTFT p50/p99 {m['ttft_ms']['p50']:.0f}/{m['ttft_ms']['p99']:.0f} ms | TPOT p50/p99 "
           f"{m['tpot_ms']['p50']:.1f}/{m['tpot_ms']['p99']:.1f} ms | SLO attain {m['slo_attainment']:.2f} | "
           f"{'stable' if m['stable'] else 'queue growing'}")
     print(f"    prefill {m['prefill_tokens_per_s']:.0f} input tok/s = {m['prefill_tokens_per_s_gpu']:.1f} tok/s per prefill GPU | "
           f"decode {m['decode_tokens_per_s']:.0f} output tok/s = {m['decode_tokens_per_s_gpu']:.1f} tok/s per decode GPU")
+    if AGENT and m["jct_s"]["p50"] is not None:
+        print(f"    session JCT p50/p99 {m['jct_s']['p50']:.1f}/{m['jct_s']['p99']:.1f} s ({m['jct_s']['sessions']} sessions)")
 
 
 try:
@@ -146,7 +173,7 @@ except subprocess.CalledProcessError as e:        # launcher rejected a case che
     sys.exit("invalid configuration (launcher):\n  " + (e.stderr or b"").decode().strip().splitlines()[-1])
 if args.capacity:
     c = steady.capacity(lambda r: run(r, max(args.requests, round(r * args.duration))), args.rate, args.rate * 2, steps=7)
-    print(f"capacity: {c['rate']:.3f} req/s")
+    print(f"capacity: {c['rate']:.3f} {UNIT}")
     if c["rate"]:
         show(c["at_rate"], c["rate"])
 else:

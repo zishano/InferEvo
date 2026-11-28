@@ -250,3 +250,40 @@ default to the off state. A–E per mechanism: A parent semantics, B best
 existing configuration, C mechanism on, D mechanism co-searched with
 existing variables, E controls (conservation, negative case, launch-cost
 robustness). Promotion is a fast-forward of the engine branch only.
+Amendment (M-RANKDISPATCH r0): a control must show the mechanism is
+exercised. r0's decode control decoded one call per attention group (16 x
+2048 prompts left prefill 0.6 s apart), so dispatch shares never split and
+the run was byte-identical to the parent; the verdict was withdrawn and the
+candidate revised (r1). Evaluation scripts now record the exercised regime
+(E0047 guards peak decode concurrency >= 2 per group); receipts of earlier
+attempts are archived, not overwritten.
+
+## D26 Semantics-changing mechanisms are opt-in and quality-flagged (ACCEPTED, user 2026-11-27)
+The user asked for decode-side precision mechanisms. The official checkpoint
+precision (U1: MXFP4 routed experts, BF16 elsewhere, BF16 MLA KV, FP32 KDA
+state) stays the baseline. A precision mechanism declares `[quality]` in its
+spec (status, sourced evidence and its limits); its verdict covers
+performance only; promotion records the quality status in the lineage;
+searches use it only with `--allow-fp8` (`Problem.allow_precision`) and
+results print the flag. Quality is never simulated here. First instance:
+M-FP8LINEAR (DeepSeek-V3 FP8 recipe; the cited <0.25 % loss gap is FP8
+training, not post-training quantization of a BF16-trained model).
+
+## D27 Tier-1 surrogates have non-negative coefficients (ACCEPTED)
+Every Tier-1 fit (graph-bound decode anchors, prefill round sums, load
+calibration inputs) is a non-negative least-squares fit of relative error
+(`adapters.tier1.nnls`): round time is monotone in every feature. Evidence:
+unconstrained fits cancelled collinear KV features and extrapolated decode
+recompute rows (preemption) to negative time, producing the zero-gap tokens
+of SIM-DEFECT-3; in-domain accuracy is unchanged by the constraint
+(prototype held-out TPOT −0.8 % both). As a cost-model-level change (D6) it
+re-evaluates the Tier-1 baselines: all surrogates refitted, E0052 Tier-1
+side, E0055 and E0057 re-scored.
+
+## D28 Evaluation scale: 128 GPUs (ACCEPTED, user 2026-11-28)
+All tests and evaluations use 128-GPU deployments: Tier-1 searches and
+capacity checks, Tier-2 confirmations and mechanism A–E evaluations. The
+per-instance (P1:D1, 32 GPUs) Tier-2 confirmations E0052 / E0060 and the
+P1:D1 mechanism bursts E0044 / E0047 / E0049 / E0051 stand as recorded;
+new confirmations run the full 128-GPU deployment (~5-6 h Tier-2, in the
+background). Surrogate fitting stays per layout (calibration, not a test).

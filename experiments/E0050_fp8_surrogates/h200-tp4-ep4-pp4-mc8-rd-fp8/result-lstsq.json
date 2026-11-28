@@ -1,0 +1,161 @@
+{
+ "layout": {
+  "hardware": "h200",
+  "tp": 4,
+  "ep": 4,
+  "pp": 4,
+  "groups": 1,
+  "efficiency": {},
+  "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396"
+ },
+ "decode_anchors": 120,
+ "prefill_heldout": {
+  "128": {
+   "median": 0.0043302877925968245,
+   "max": 0.009145744087457693
+  },
+  "512": {
+   "median": 0.013397398528202327,
+   "max": 0.015767568427119967
+  },
+  "2048": {
+   "median": 0.005358431768082069,
+   "max": 0.011835459976398194
+  }
+ },
+ "decode_heldout": {
+  "median": 0.013474279695754689,
+  "max": 0.11461956846651303
+ },
+ "scales": {
+  "prefill": 1.009497630596161,
+  "decode": 1.2855010151863095
+ },
+ "runs": {
+  "A": {
+   "tier2": {
+    "ttft_p50": 195.5497561193944,
+    "ttft_p99": 243.64343258617626,
+    "tpot_p50": 9.89685060367103
+   },
+   "rel_err": {
+    "ttft_p50": -0.009408209217702357,
+    "ttft_p99": -0.021772081799790954,
+    "tpot_p50": -0.2216277648319116
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 6.568273591689433e-08,
+    "ttft_p99": -0.010485968144276936,
+    "tpot_p50": 7.880988439623593e-08
+   }
+  },
+  "B": {
+   "tier2": {
+    "ttft_p50": 392.6906346499024,
+    "ttft_p99": 435.1155301284635,
+    "tpot_p50": 9.211853560506666
+   },
+   "rel_err": {
+    "ttft_p50": -0.009135632328800769,
+    "ttft_p99": -0.012064248482723916,
+    "tpot_p50": -0.16470192312650955
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 0.00027523140624130527,
+    "ttft_p99": -0.0025161809518352563,
+    "tpot_p50": 0.07342545525541966
+   }
+  }
+ },
+ "prefill": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 4,
+   "pp": 4,
+   "groups": 1,
+   "efficiency": {},
+   "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+   "stage": "p",
+   "target": "Tier-2 engine TTFT/rounds, budgets 128/512/2048, prompts to 40k; x1.0095 load calibration (run A)",
+   "options": {
+    "moe_chunks": 8,
+    "dispatch": "ranks",
+    "linear": "fp8"
+   }
+  },
+  "coef": [
+   0.007804521075767773,
+   4.76023929957274e-05,
+   -4.173218609206849e-08,
+   2.807070950506204e-05,
+   4.2549253352602936e-10,
+   0.07182726111970711,
+   2.8070709515027277e-05
+  ],
+  "train_n": 42,
+  "train_median_rel_err": 0.007557604772650217,
+  "train_p90_rel_err": 0.01444560144877081,
+  "notes": []
+ },
+ "decode": {
+  "key": {
+   "hardware": "h200",
+   "tp": 4,
+   "ep": 4,
+   "pp": 4,
+   "groups": 1,
+   "efficiency": {},
+   "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+   "stage": "d",
+   "max_requests": 32,
+   "target": "exported-graph bounds, <= 32 requests, KV to 48k; x1.2855 load calibration (run A)"
+  },
+  "coef": [
+   0.004748723210571743,
+   0.002680119931284355,
+   -0.0013400597106319864,
+   0.002680119931185239,
+   0.0013400600964961569,
+   -0.23821419732802862,
+   0.002680119931186637
+  ],
+  "train_n": 96,
+  "train_median_rel_err": 0.01933033037857123,
+  "train_p90_rel_err": 0.05548686490921474,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "d14d027b4c47bb565f2bd7a124ca5c56dd41e12e7a5238632d5aac36440b5669"
+  }
+ },
+ "quality": "UNVERIFIED (M-FP8LINEAR)",
+ "lowering": {
+  "kind": "grouped",
+  "moe_chunks": 8,
+  "dispatch": "ranks",
+  "linear": "fp8"
+ }
+}

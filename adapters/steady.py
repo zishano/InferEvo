@@ -38,6 +38,7 @@ def calls(result_jsonl: Path) -> list[dict]:
                 e += gap
                 emit.append(e)
             out.append({"arrival": t, "input": s["input_tokens"], "emit": emit, "ttft": lat[0],
+                        "request": r["request_id"], "session_arrival": r["arrival_time"],
                         "zero_gaps": sum(gap <= 1e-9 for gap in lat[1:]), "gaps": len(lat) - 1,
                         "tpot": statistics.fmean(lat[1:]) if len(lat) > 1 else 0.0})
             t = e
@@ -70,6 +71,12 @@ def metrics(result_jsonl: Path, gpus: int, slo: dict, warm: float = 0.1, cool: f
     decode_growth = decode(win[-third:]) / decode(win[:third]) if decode(win[:third]) > 0 else 1.0
     zero = sum(c["zero_gaps"] for c in win) / max(1, sum(c["gaps"] for c in win))
     prefilled = sum(c["input"] for c in cs if c["emit"] and w0 <= c["emit"][0] <= w1)
+    # session JCT (agent DAGs; = e2e for single calls): sessions starting in the window
+    ends = {}
+    for c in cs:
+        if w0 <= c["session_arrival"] <= w1:
+            ends[c["request"]] = max(ends.get(c["request"], 0.0), c["emit"][-1] - c["session_arrival"])
+    jct = sorted(ends.values())
     queue = ("invalid" if zero > 0.01 else "prefill" if prefill_queue
              else "decode" if decode_growth > 1.25 else None)
     return {"window_s": span, "window_calls": len(win), "offered_rate": (len(win) - 1) / span,
@@ -89,6 +96,7 @@ def metrics(result_jsonl: Path, gpus: int, slo: dict, warm: float = 0.1, cool: f
                                   "p10": 1 / _q([c["tpot"] for c in win if c["tpot"] > 0], .9)},
             "queue_growth": late / early if early else None, "decode_growth": decode_growth,
             "zero_gap_fraction": zero,
+            "jct_s": {"p50": _q(jct, .5), "p99": _q(jct, .99), "sessions": len(jct)},
             "queue": queue, "stable": queue is None}
 
 

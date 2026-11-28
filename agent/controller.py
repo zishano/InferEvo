@@ -30,14 +30,22 @@ DEFAULT_SLO = {"ttft_s": 2.0, "tpot_s": 0.05}   # assumption; recorded per entry
 # stage, PP), fitted and load-calibrated under the reference grouped Tier-2
 # lowering (MC-5, E0040). Fits from the per-request lowering (E0012-E0037)
 # describe a different Tier-2 and are no longer used.
-FITS = Path("E0040_grouped_surrogates")
-# Prefill surrogates with expert-chunk pipelining (M-MOECHUNK), name suffix -mc<k>.
-CHUNK_FITS = Path("E0045_moechunk_surrogates")
+FITS = (Path("E0040_grouped_surrogates"), Path("E0054_b300_surrogates"))
+# Prefill surrogates with mechanism lowering options; name suffix from
+# `option_suffix` (-mc<k> M-MOECHUNK, -rd M-RANKDISPATCH).
+OPTION_FITS = (Path("E0045_moechunk_surrogates"), Path("E0048_rankdispatch_surrogates"),
+               Path("E0050_fp8_surrogates"), Path("E0054_b300_surrogates"))
+
+
+def option_suffix(opts: dict) -> str:
+    return ((f"-mc{opts['moe_chunks']}" if "moe_chunks" in opts else "") + ("-rd" if "dispatch" in opts else "")
+            + ("-fp8" if opts.get("linear") == "fp8" else ""))
 # A fitted decode model is used only if its held-out loaded TPOT error (run B,
 # after calibration) is within this bound; otherwise the layout is prefill-only.
 DECODE_HELDOUT_MAX = 0.05
 # Decode models valid beyond 32 requests per round.
-LARGE_DECODE = {("h200", 4, 16, 1): "E0041_grouped_decode_batch/result.json"}
+LARGE_DECODE = {("h200", 4, 16, 1): "E0041_grouped_decode_batch/result.json",
+                ("b300", 4, 16, 1): "E0054_b300_surrogates/b300-tp4-ep16-pp1-b64/result.json"}
 
 
 def _validated_decode(fit: dict) -> dict | None:
@@ -45,15 +53,48 @@ def _validated_decode(fit: dict) -> dict | None:
     return fit["decode"] if err is None or abs(err) <= DECODE_HELDOUT_MAX else None
 
 
-def _surrogates(hardware: str, tp: int, ep: int = 16, pp: int = 1, moe_chunks: int = 1):
+def _surrogates(hardware: str, tp: int, ep: int = 16, pp: int = 1, opts: dict | None = None):
     """(prefill model, decode model or None, validated budgets) for one side's layout."""
-    name = f"{hardware}-tp{tp}-ep{ep}-pp{pp}" + (f"-mc{moe_chunks}" if moe_chunks > 1 else "")
-    path = E / (FITS if moe_chunks == 1 else CHUNK_FITS) / name / "result.json"
-    if not path.is_file():
+    name = f"{hardware}-tp{tp}-ep{ep}-pp{pp}" + option_suffix(opts or {})
+    dirs = OPTION_FITS if opts else FITS
+    path = next((p for p in (E / d / name / "result.json" for d in dirs) if p.is_file()), None)
+    if path is None:
         raise KeyError(f"no validated Tier-1 surrogate for {hardware} TP{tp} EP{ep} PP{pp}"
-                       + (f" MoE chunks {moe_chunks}" if moe_chunks > 1 else ""))
+                       + (f" options {opts}" if opts else ""))
     r = json.loads(path.read_text())
     return r["prefill"], _validated_decode(r), (128, 512, 2048)
+
+
+# Decode surrogates validated to larger rounds: <name>-b<N> (E0056: 128 on
+# EP16; E0062: EP32 b256, EP64 b512 — layouts that exist only as such fits).
+BATCH_FITS = (Path("E0056_decode_batch128"), Path("E0062_large_decode_instances"))
+BATCHES = (128, 256, 512)
+
+
+def _decode_model(dep: Deployment, opts: dict) -> dict:
+    """The decode model for `dep`: the first validated fit (base, then larger
+    validated batches) whose max_requests covers decode_max_batch. Batch fits
+    carry their own lowering options, so options never mix."""
+    layout = (dep.hardware, dep.decode_tp, dep.decode_ep, dep.decode_pp)
+    name = f"{dep.hardware}-tp{dep.decode_tp}-ep{dep.decode_ep}-pp{dep.decode_pp}" + option_suffix(opts)
+    try:
+        _, base, _ = _surrogates(*layout, opts)
+        bases = [base]
+    except KeyError:                       # a layout fitted only at large batch (E0062)
+        base, bases = None, []
+    paths = ([] if opts else [E / LARGE_DECODE[layout]] if layout in LARGE_DECODE else []) + \
+            [E / d / f"{name}-b{n}" / "result.json" for n in BATCHES for d in BATCH_FITS]
+    candidates = bases + [_validated_decode(json.loads(p.read_text())) for p in paths if p.is_file()]
+    for dec in candidates:
+        if dec is not None and dep.decode_max_batch <= dec["key"].get("max_requests", 32):
+            return dec
+    if not candidates:
+        raise KeyError(f"no validated Tier-1 surrogate for decode {dep.hardware} TP{dep.decode_tp} "
+                       f"EP{dep.decode_ep} PP{dep.decode_pp}")
+    if bases and base is None:
+        raise KeyError(f"decode surrogate for TP{dep.decode_tp} EP{dep.decode_ep} PP{dep.decode_pp} "
+                       f"failed held-out validation (> {DECODE_HELDOUT_MAX:.0%} TPOT error)")
+    raise KeyError(f"no decode surrogate validated for max batch {dep.decode_max_batch}")
 
 
 def models_for(dep: Deployment) -> dict:
@@ -62,19 +103,10 @@ def models_for(dep: Deployment) -> dict:
         raise KeyError("Tier-1 surrogates fitted at ETP1 only")
     if dep.prefill_max_batch > 32:
         raise KeyError("prefill surrogates fitted at max batch <= 32")
-    if dep.decode_moe_chunks != 1:
-        raise KeyError("decode surrogates fitted without MoE chunking (E0044: no decode gain)")
+    from adapters.topologies import options
     pre, _, budgets = _surrogates(dep.hardware, dep.prefill_tp, dep.prefill_ep, dep.prefill_pp,
-                                  dep.prefill_moe_chunks)
-    _, dec, _ = _surrogates(dep.hardware, dep.decode_tp, dep.decode_ep, dep.decode_pp)
-    if dec is None:
-        raise KeyError(f"decode surrogate for TP{dep.decode_tp} EP{dep.decode_ep} PP{dep.decode_pp} "
-                       f"failed held-out validation (> {DECODE_HELDOUT_MAX:.0%} TPOT error)")
-    if dep.decode_max_batch > dec["key"].get("max_requests", 32):
-        large = E / LARGE_DECODE.get((dep.hardware, dep.decode_tp, dep.decode_ep, dep.decode_pp), "-")
-        dec = _validated_decode(json.loads(large.read_text())) if large.is_file() else None
-        if dec is None or dep.decode_max_batch > dec["key"]["max_requests"]:
-            raise KeyError(f"no decode surrogate validated for max batch {dep.decode_max_batch}")
+                                  options(dep, "prefill"))
+    dec = _decode_model(dep, options(dep, "decode"))
     if dep.prefill_budget not in budgets:
         raise KeyError(f"prefill surrogate not validated for budget {dep.prefill_budget}")
     return {"p": tier1.Tier1Model(**pre), "d": tier1.Tier1Model(**dec)}

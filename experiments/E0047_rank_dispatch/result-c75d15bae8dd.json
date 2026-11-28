@@ -1,0 +1,263 @@
+{
+ "experiment": "E0047",
+ "mechanism": "M-RANKDISPATCH",
+ "cost_model_version": "c75d15bae8dd8c8708b4ab86b6f830cef61c1ddbd41804940fca0ae97db3bf3b",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/candidates/simthesizer-m-rankdispatch-r1",
+   "commit": "8d70c1508bbbd55bc4c1227fd1d323a2d2fce998",
+   "branch": "inferevo/cand/m-rankdispatch-r1",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "8075358d248370627ddab727c39d79254ec17934c171e759815e076f0afc63e9"
+  }
+ },
+ "runs": {
+  "p-PP1xEP16-leader-k1": {
+   "makespan_s": 19.064010082079708,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 10.721439522140864,
+   "tpot_p50_ms": 14.865902099198358,
+   "sha256": "73722f82e2f16527b096313f0b7f5f5d0700ea1a44624ae6d01a01fd5fca0a40"
+  },
+  "p-PP1xEP16-ranks-k1": {
+   "makespan_s": 8.378532443323609,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 4.7094099871431805,
+   "tpot_p50_ms": 14.877373521504644,
+   "sha256": "01def7a3765ba2d997394dad0dfb3d7e909d8e08fef5fd0739a54f15515db447"
+  },
+  "p-PP1xEP16-leader-k8": {
+   "makespan_s": 18.504745152468985,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 10.406856057268126,
+   "tpot_p50_ms": 14.87737352408125,
+   "sha256": "42553a44961dbf3450108e994c38ae12abfef0449bbf87fa8e7e6a0be4d88183"
+  },
+  "p-PP1xEP16-ranks-k8": {
+   "makespan_s": 7.806301041572318,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 4.387738528217127,
+   "tpot_p50_ms": 14.877373521504644,
+   "sha256": "938202c003085ae00bc1b9ffbd1028c379765a374a27eef8e1b3ed90ba3218ae"
+  },
+  "p-PP2xEP8-leader-k1": {
+   "makespan_s": 4.512382318827518,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 2.799661308859727,
+   "tpot_p50_ms": 14.861253875976477,
+   "sha256": "89988729eeef204df303651b80b863aa0e02aa7b06fb6642227808fa3c6c40a5"
+  },
+  "p-PP2xEP8-ranks-k1": {
+   "makespan_s": 3.217113536673203,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.99455619976445,
+   "tpot_p50_ms": 14.861253875148028,
+   "sha256": "c88a40cdf065cf9eec2596be98ba5794566caf1edf69dca79638946d411fb4ec"
+  },
+  "p-PP2xEP8-leader-k8": {
+   "makespan_s": 3.938428255417799,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 2.442945850931027,
+   "tpot_p50_ms": 14.861253875147806,
+   "sha256": "7b887d9f908a82464f7f59aaf46e6ace15c8f23526734dfcb7a3ae796ab31915"
+  },
+  "p-PP2xEP8-ranks-k8": {
+   "makespan_s": 2.9449097958035986,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.825430740649936,
+   "tpot_p50_ms": 14.861253875147806,
+   "sha256": "c1d18eaa5cb48111931b750f5753e99c9b05fb39181dbdcf4758cb8ba9df0430"
+  },
+  "p-PP4xEP4-leader-k1": {
+   "makespan_s": 2.6662629281067853,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.9379749622343843,
+   "tpot_p50_ms": 14.861253875148028,
+   "sha256": "adaa35f7debe4f3610cf8a98f71afe783d3a82aa55ffca7d30e9e88c3337e11c"
+  },
+  "p-PP4xEP4-ranks-k1": {
+   "makespan_s": 2.0538839848772574,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.4917545070774674,
+   "tpot_p50_ms": 14.861253875148028,
+   "sha256": "e49ce5c0a861461af16f9265f9c2b1362eb1ae1b93946417ccba406f9bd429b0"
+  },
+  "p-PP4xEP4-leader-k8": {
+   "makespan_s": 2.1943495680529943,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.5941369065707736,
+   "tpot_p50_ms": 14.861253875148028,
+   "sha256": "b20c2fc6f4709806990db5326fe967ce168b703162ed06bc754c7a91a9acfec8"
+  },
+  "p-PP4xEP4-ranks-k8": {
+   "makespan_s": 1.940328432322889,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.4090433236878046,
+   "tpot_p50_ms": 14.861253875147806,
+   "sha256": "297450a4842292d620a353d5acb9ec340bc776e74712a4acfca62a96ffccd785"
+  },
+  "d-PP1xEP16-leader-k1": {
+   "makespan_s": 1.5599193228618828,
+   "decode_concurrency": 64,
+   "ttft_p50_s": 0.8105878792843322,
+   "tpot_p50_ms": 22.016930681944817,
+   "sha256": "5a8e5bcb21a868600c2bd22813a534ae7e5ed123310cb2e1fd3d8cd10b85aab2"
+  },
+  "d-PP1xEP16-ranks-k1": {
+   "makespan_s": 1.5598880611400356,
+   "decode_concurrency": 64,
+   "ttft_p50_s": 0.8105714117129941,
+   "tpot_p50_ms": 21.886021492408073,
+   "sha256": "57a4e8f971deaa1e86588942f2a203f5556777b4193cc432c2a5967e719a8666"
+  }
+ },
+ "summary": {
+  "A_parent": {
+   "PP1xEP16": {
+    "leader-k1": {
+     "makespan_s": 19.064010082079708,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 10.721439522140864,
+     "tpot_p50_ms": 14.865902099198358,
+     "sha256": "73722f82e2f16527b096313f0b7f5f5d0700ea1a44624ae6d01a01fd5fca0a40"
+    },
+    "leader-k8": {
+     "makespan_s": 18.504745152468985,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 10.406856057268126,
+     "tpot_p50_ms": 14.87737352408125,
+     "sha256": "42553a44961dbf3450108e994c38ae12abfef0449bbf87fa8e7e6a0be4d88183"
+    }
+   },
+   "PP2xEP8": {
+    "leader-k1": {
+     "makespan_s": 4.512382318827518,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 2.799661308859727,
+     "tpot_p50_ms": 14.861253875976477,
+     "sha256": "89988729eeef204df303651b80b863aa0e02aa7b06fb6642227808fa3c6c40a5"
+    },
+    "leader-k8": {
+     "makespan_s": 3.938428255417799,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 2.442945850931027,
+     "tpot_p50_ms": 14.861253875147806,
+     "sha256": "7b887d9f908a82464f7f59aaf46e6ace15c8f23526734dfcb7a3ae796ab31915"
+    }
+   },
+   "PP4xEP4": {
+    "leader-k1": {
+     "makespan_s": 2.6662629281067853,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 1.9379749622343843,
+     "tpot_p50_ms": 14.861253875148028,
+     "sha256": "adaa35f7debe4f3610cf8a98f71afe783d3a82aa55ffca7d30e9e88c3337e11c"
+    },
+    "leader-k8": {
+     "makespan_s": 2.1943495680529943,
+     "decode_concurrency": 1,
+     "ttft_p50_s": 1.5941369065707736,
+     "tpot_p50_ms": 14.861253875148028,
+     "sha256": "b20c2fc6f4709806990db5326fe967ce168b703162ed06bc754c7a91a9acfec8"
+    }
+   }
+  },
+  "B_best_existing": {
+   "layout": "PP4xEP4",
+   "variant": "leader-k8",
+   "makespan_s": 2.1943495680529943,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.5941369065707736,
+   "tpot_p50_ms": 14.861253875148028,
+   "sha256": "b20c2fc6f4709806990db5326fe967ce168b703162ed06bc754c7a91a9acfec8"
+  },
+  "C_gain_ranks_vs_leader": {
+   "PP1xEP16 k1": 0.5605052448435556,
+   "PP1xEP16 k8": 0.578145984867521,
+   "PP2xEP8 k1": 0.28704765922646225,
+   "PP2xEP8 k8": 0.2522626782010037,
+   "PP4xEP4 k1": 0.2296768772404436,
+   "PP4xEP4 k8": 0.11576147184037477
+  },
+  "D_best_cosearch": {
+   "layout": "PP4xEP4",
+   "variant": "ranks-k8",
+   "makespan_s": 1.940328432322889,
+   "decode_concurrency": 1,
+   "ttft_p50_s": 1.4090433236878046,
+   "tpot_p50_ms": 14.861253875147806,
+   "sha256": "297450a4842292d620a353d5acb9ec340bc776e74712a4acfca62a96ffccd785",
+   "vs_B": 0.11576147184037477
+  },
+  "E_controls": {
+   "conservation": {
+    "PP1xEP16": {
+     "rel_diff": {
+      "hbm": -1.2822440641491184e-06,
+      "fabric": -1.8491546283083693e-06,
+      "compute": 1.532107773982716e-14
+     },
+     "operations": [
+      75327,
+      98879
+     ]
+    },
+    "PP2xEP8": {
+     "rel_diff": {
+      "hbm": -2.7492169171194902e-06,
+      "fabric": -1.3914227245837019e-05,
+      "compute": 1.532107773982716e-14
+     },
+     "operations": [
+      69831,
+      83079
+     ]
+    },
+    "PP4xEP4": {
+     "rel_diff": {
+      "hbm": -9.362798381373771e-06,
+      "fabric": -5.006219842529358e-05,
+      "compute": -8.548717289613705e-15
+     },
+     "operations": [
+      33552,
+      37600
+     ]
+    }
+   },
+   "launch_cost": {
+    "layout": "PP1xEP16",
+    "k": 8,
+    "overhead_us": 5.0,
+    "gain": 0.5658098632883422
+   },
+   "decode_tpot_ms": {
+    "leader-k1": 22.016930681944817,
+    "ranks-k1": 21.886021492408073
+   }
+  }
+ },
+ "best": {
+  "case": "p-PP4xEP4-ranks-k8",
+  "layout": "PP4xEP4",
+  "variant": "ranks-k8",
+  "sha256": "297450a4842292d620a353d5acb9ec340bc776e74712a4acfca62a96ffccd785"
+ }
+}

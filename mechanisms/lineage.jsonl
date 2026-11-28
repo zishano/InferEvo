@@ -9,3 +9,37 @@
 {"id": "M-MOECHUNK", "state": "REPLAYING", "time": "2026-11-27T10:21:31", "receipt": "mechanisms/receipts/M-MOECHUNK/evaluate.json", "verdict": "VERIFIED"}
 {"id": "M-MOECHUNK", "state": "VERIFIED", "time": "2026-11-27T10:23:15", "receipt": "mechanisms/receipts/M-MOECHUNK/replay.json"}
 {"id": "M-MOECHUNK", "state": "PROMOTED", "time": "2026-11-27T10:23:22", "engine_commits": {"simthesizer": "60dc2d034d95333d6b5bedc05df876beb6bf6d99"}}
+{"id": "M-RANKDISPATCH", "state": "DRAFT", "time": "2026-11-27T10:59:33", "parent": "simthesizer@60dc2d0", "spec": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/specs/M-RANKDISPATCH.toml", "spec_sha256": "53b48a1146bd52bec1c31476fc6f38cf1b3f12c72d615b4e6ab2187a943af702", "candidates": {"simthesizer": {"kind": "candidate", "repo": "simthesizer", "branch": "inferevo/cand/m-rankdispatch", "path": "mechanisms/candidates/simthesizer-m-rankdispatch", "parent_branch": "inferevo/phase1-base", "parent_commit": "60dc2d034d95333d6b5bedc05df876beb6bf6d99"}}}
+{"id": "M-RANKDISPATCH", "state": "CHECKING", "time": "2026-11-27T11:05:05"}
+{"id": "M-RANKDISPATCH", "state": "EVALUATING", "time": "2026-11-27T11:13:19", "receipt": "mechanisms/receipts/M-RANKDISPATCH/check.json"}
+{"id": "M-RANKDISPATCH", "state": "REPLAYING", "time": "2026-11-27T11:19:23", "receipt": "mechanisms/receipts/M-RANKDISPATCH/evaluate.json", "verdict": "VERIFIED"}
+{"id": "M-RANKDISPATCH", "state": "VERIFIED", "time": "2026-11-27T11:21:23", "receipt": "mechanisms/receipts/M-RANKDISPATCH/replay.json"}
+{"id": "M-RANKDISPATCH", "state": "FAILED", "time": "2026-11-27T11:26:05", "reason": "verdict withdrawn: E0047 decode control degenerate (<= 1 request per attention group, nothing to split); per-expert share remainders all on rank 0. Revised as r1.", "branch_kept": true}
+{"id": "M-RANKDISPATCH", "state": "DRAFT", "time": "2026-11-27T11:26:06", "parent": "simthesizer@60dc2d0", "spec": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/specs/M-RANKDISPATCH.toml", "spec_sha256": "1f81718c51cdd3b27bc0aa3552b1299f2e5fdc359750b28006692f3da49474a7", "candidates": {"simthesizer": {"kind": "candidate", "repo": "simthesizer", "branch": "inferevo/cand/m-rankdispatch-r1", "path": "mechanisms/candidates/simthesizer-m-rankdispatch-r1", "parent_branch": "inferevo/phase1-base", "parent_commit": "60dc2d034d95333d6b5bedc05df876beb6bf6d99"}}}
+{"id": "M-RANKDISPATCH", "state": "CHECKING", "time": "2026-11-27T11:27:49"}
+{"id": "M-RANKDISPATCH", "state": "EVALUATING", "time": "2026-11-27T11:36:07", "receipt": "mechanisms/receipts/M-RANKDISPATCH/check.json"}
+{"id": "M-RANKDISPATCH", "state": "FAILED", "time": "2026-11-27T11:43:24", "receipt": "mechanisms/receipts/M-RANKDISPATCH/evaluate.json", "verdict": "FAILED", "reason": "evaluation script exit 1"}
+{"id": "M-RANKDISPATCH", "state": "CHECKING", "time": "2026-11-27T11:47:56"}
+{"id": "M-RANKDISPATCH", "state": "EVALUATING", "time": "2026-11-27T11:55:12", "receipt": "mechanisms/receipts/M-RANKDISPATCH/check.json"}
+{"id": "M-RANKDISPATCH", "state": "REPLAYING", "time": "2026-11-27T12:10:55", "receipt": "mechanisms/receipts/M-RANKDISPATCH/evaluate.json", "verdict": "VERIFIED"}
+{"id": "M-RANKDISPATCH", "state": "VERIFIED", "time": "2026-11-27T12:13:05", "receipt": "mechanisms/receipts/M-RANKDISPATCH/replay.json"}
+{"id": "M-RANKDISPATCH", "state": "PROMOTED", "time": "2026-11-27T12:13:43", "engine_commits": {"simthesizer": "8d70c1508bbbd55bc4c1227fd1d323a2d2fce998"}}
+{"id": "M-FP8LINEAR", "state": "DRAFT", "time": "2026-11-27T14:02:12", "parent": "simthesizer@8d70c15", "spec": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/specs/M-FP8LINEAR.toml", "spec_sha256": "fa0e6dc4e72c774204539edbfc5c11b191fbceb89b04b9ef8966d06a7237e2e5", "candidates": {"simthesizer": {"kind": "candidate", "repo": "simthesizer", "branch": "inferevo/cand/m-fp8linear", "path": "mechanisms/candidates/simthesizer-m-fp8linear", "parent_branch": "inferevo/phase1-base", "parent_commit": "8d70c1508bbbd55bc4c1227fd1d323a2d2fce998"}}}
+{"id": "M-FP8LINEAR", "state": "CHECKING", "time": "2026-11-27T14:04:57"}
+{"id": "M-FP8LINEAR", "state": "EVALUATING", "time": "2026-11-27T14:14:03", "receipt": "mechanisms/receipts/M-FP8LINEAR/check.json"}
+{"id": "M-FP8LINEAR", "state": "REPLAYING", "time": "2026-11-27T14:23:43", "receipt": "mechanisms/receipts/M-FP8LINEAR/evaluate.json", "verdict": "VERIFIED"}
+{"id": "M-FP8LINEAR", "state": "VERIFIED", "time": "2026-11-27T14:34:11", "receipt": "mechanisms/receipts/M-FP8LINEAR/replay.json"}
+{"id": "M-FP8LINEAR", "state": "EVALUATING", "time": "2026-11-27T14:36:46", "reason": "verdict withdrawn: E0049 decode variants ran at different concurrency (48 vs 36-38 calls; burst limited by prefill), confounding TPOT; re-evaluated at fixed round size"}
+{"id": "M-FP8LINEAR", "state": "REPLAYING", "time": "2026-11-27T14:40:40", "receipt": "mechanisms/receipts/M-FP8LINEAR/evaluate.json", "verdict": "VERIFIED"}
+{"id": "M-FP8LINEAR", "state": "VERIFIED", "time": "2026-11-27T14:43:47", "receipt": "mechanisms/receipts/M-FP8LINEAR/replay.json"}
+{"id": "M-FP8LINEAR", "state": "PROMOTED", "time": "2026-11-27T14:44:11", "engine_commits": {"simthesizer": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975"}, "quality": "UNVERIFIED"}
+{"id": "M-KVRETAIN", "state": "DRAFT", "time": "2026-11-27T23:39:01", "parent": "simthesizer@88f77c2", "spec": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/mechanisms/specs/M-KVRETAIN.toml", "spec_sha256": "e33a1228290ba33db3616995b498954789c43980158056227fab44510b8a0615", "candidates": {"simthesizer": {"kind": "candidate", "repo": "simthesizer", "branch": "inferevo/cand/m-kvretain", "path": "mechanisms/candidates/simthesizer-m-kvretain", "parent_branch": "inferevo/phase1-base", "parent_commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975"}}}
+{"id": "M-KVRETAIN", "state": "CHECKING", "time": "2026-11-27T23:54:25"}
+{"id": "M-KVRETAIN", "state": "EVALUATING", "time": "2026-11-28T00:02:28", "receipt": "mechanisms/receipts/M-KVRETAIN/check.json"}
+{"id": "M-KVRETAIN", "state": "FAILED", "time": "2026-11-28T00:20:52", "receipt": "mechanisms/receipts/M-KVRETAIN/evaluate.json", "verdict": "FAILED", "reason": "evaluation script exit 1"}
+{"id": "M-KVRETAIN", "state": "FAILED", "time": "2026-11-28T00:39:29", "receipt": "mechanisms/receipts/M-KVRETAIN/evaluate.json", "verdict": "FAILED", "reason": "evaluation script exit 1"}
+{"id": "M-KVRETAIN", "state": "CHECKING", "time": "2026-11-28T00:58:45"}
+{"id": "M-KVRETAIN", "state": "EVALUATING", "time": "2026-11-28T01:06:43", "receipt": "mechanisms/receipts/M-KVRETAIN/check.json"}
+{"id": "M-KVRETAIN", "state": "REPLAYING", "time": "2026-11-28T01:16:56", "receipt": "mechanisms/receipts/M-KVRETAIN/evaluate.json", "verdict": "VERIFIED"}
+{"id": "M-KVRETAIN", "state": "VERIFIED", "time": "2026-11-28T01:17:03", "receipt": "mechanisms/receipts/M-KVRETAIN/replay.json"}
+{"id": "M-KVRETAIN", "state": "PROMOTED", "time": "2026-11-28T01:17:34", "engine_commits": {"simthesizer": "a2f0da6bc324a44ecf9f976583a597ab4601b4ef"}}

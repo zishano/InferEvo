@@ -29,13 +29,16 @@ from functools import lru_cache
 from pathlib import Path
 
 from adapters import tier1, steady, tier1_engine as te, workloads
-from adapters.topologies import MOE_CHUNKS, Deployment, check, tier2_config
+from adapters.topologies import DISPATCH, LINEAR, MOE_CHUNKS, Deployment, check, tier2_config
 from agent.controller import models_for
 
 BUDGETS = (128, 512, 2048)
 INSTANCE_GPUS = 16
 LAYOUTS = ((16, 1), (8, 2), (4, 4))          # (MoE ranks per stage, PP) with 16 GPUs
-DECODE_BATCHES = (32, 64, 128)
+# Decode may use wider instances: EP32 / EP64 halve / quarter each GPU's expert
+# bytes per token at the same per-GPU batch (E0062).
+DECODE_LAYOUTS = LAYOUTS + ((32, 1), (64, 1))
+DECODE_BATCHES = (32, 64, 128, 256, 512)
 GRANULARITIES = ("resource", "queue", "slo", "none")
 NODE_GPUS = 8                                # NVLink domain (H200 / B300 HGX)
 NETWORK_BOUND = 0.5                          # network elasticity that reorders moves
@@ -52,10 +55,24 @@ class Problem:
     tpot_s: float = 0.05
     requests: int = 600          # minimum requests per probe
     duration: float = 300.0      # seconds of arrivals per probe (D22)
+    # "fixed": Poisson calls of isl/osl tokens (rate in req/s); "agent":
+    # closed-loop coding sessions (workloads.agent_sessions, rate in
+    # sessions/s, >= `sessions` per probe, system wrapped in agent_dag).
+    workload: str = "fixed"
+    turns: int = 8
+    sessions: int = 150
+    # Semantics-changing mechanisms (M-FP8LINEAR) are searched only if allowed:
+    # the official checkpoint precision is the baseline (U1).
+    allow_precision: bool = False
 
     @property
     def slo(self):
         return {"ttft_s": self.ttft_s, "tpot_s": self.tpot_s}
+
+    @property
+    def context(self):
+        """Longest call context (input + output): the KV legality check."""
+        return workloads.agent_max_context(self.turns) if self.workload == "agent" else self.isl + self.osl
 
     @property
     def instances(self):
@@ -83,12 +100,17 @@ def _models(dep, speedup):
 
 
 def run(pb: Problem, dep: Deployment, rate: float, speedup=None) -> dict:
-    cfg = te.tier1_config(tier2_config(dep), _models(dep, speedup))
+    cfg = te.tier1_config(tier2_config(dep), _models(dep, speedup), retention=dep.kv_retention)
     with tempfile.TemporaryDirectory(prefix="opt-") as tmp:
         tmp = Path(tmp)
+        if pb.workload == "agent":
+            cfg = dict(cfg, system={"kind": "agent_dag", "inner": cfg["system"]})
+            rows = workloads.agent_sessions(max(pb.sessions, round(rate * pb.duration)), pb.turns, rate, seed=1,
+                                            streams=dep.kv_retention)
+        else:
+            rows = workloads.fixed(max(pb.requests, round(rate * pb.duration)), rate, pb.isl, pb.osl, seed=1)
         te.write_config(cfg, tmp / "c.toml")
-        n = max(pb.requests, round(rate * pb.duration))
-        wl = workloads.write(workloads.fixed(n, rate, pb.isl, pb.osl, seed=1), tmp / "w.jsonl")
+        wl = workloads.write(rows, tmp / "w.jsonl")
         te.run(tmp / "c.toml", wl, tmp / "r.jsonl")
         return steady.metrics(tmp / "r.jsonl", dep.gpus, pb.slo, sides=(
             dep.prefill_instances * dep.width("prefill"), dep.decode_instances * dep.width("decode")))
@@ -150,6 +172,7 @@ def evaluate(pb: Problem, dep: Deployment, speedup=None) -> dict:
             "prefill_tokens_per_s_gpu": m["prefill_tokens_per_s_gpu"] if m else 0.0,
             "decode_tokens_per_s_gpu": m["decode_tokens_per_s_gpu"] if m else 0.0,
             "ttft_p99_ms": m["ttft_ms"]["p99"] if m else None, "tpot_p50_ms": m["tpot_ms"]["p50"] if m else None,
+            "jct_p50_s": m["jct_s"]["p50"] if m else None, "jct_p99_s": m["jct_s"]["p99"] if m else None,
             "bottleneck": side, "evidence": evidence, "speedup": speedup or {},
             "resource": attribution(pb, dep, side) if side in ("prefill", "decode") else None,
             "wall_s": time.perf_counter() - t0}
@@ -158,7 +181,7 @@ def evaluate(pb: Problem, dep: Deployment, speedup=None) -> dict:
 def legal(pb: Problem, dep: Deployment) -> bool:
     """Deployments the engine accepts, memory holds (same check as
     simulate.sh) and Tier-1 surrogates cover."""
-    if check(dep, pb.isl + pb.osl):
+    if check(dep, pb.context):
         return False
     try:
         models_for(dep)
@@ -167,35 +190,65 @@ def legal(pb: Problem, dep: Deployment) -> bool:
     return True
 
 
+def refill(pb: Problem, d: Deployment) -> Deployment | None:
+    """`d` with as many decode instances as fill the GPU budget exactly (None
+    if the remainder is not a positive multiple of the decode width)."""
+    if d is None:
+        return None
+    rest = pb.gpus - d.prefill_instances * d.width("prefill")
+    width = d.width("decode")
+    if rest < width or rest % width:
+        return None
+    return replace(d, decode_instances=rest // width)
+
+
 def moves(pb: Problem, dep: Deployment, side: str, resource: dict | None = None) -> list[tuple[int, Deployment, str]]:
     """Moves targeted at `side` first (priority 0), then one probe per dimension
     (1). `resource` = attribution(side): if the side is network-bound, layouts
     whose MoE group fits one NVLink node lead, smallest EP first."""
     out = []
     b = BUDGETS.index(dep.prefill_budget)
-    shift_p = replace(dep, prefill_instances=dep.prefill_instances + 1, decode_instances=dep.decode_instances - 1)
-    shift_d = replace(dep, prefill_instances=dep.prefill_instances - 1, decode_instances=dep.decode_instances + 1)
+    # one decode instance <-> its width in prefill instances
+    k = max(1, dep.width("decode") // dep.width("prefill"))
+    shift_p = refill(pb, replace(dep, prefill_instances=dep.prefill_instances + k))
+    shift_d = refill(pb, replace(dep, prefill_instances=dep.prefill_instances - k)) \
+        if dep.prefill_instances > k else None
     other_tp = [replace(dep, prefill_tp=t, decode_tp=t) for t in pb.tps if t != dep.prefill_tp]
     k = DECODE_BATCHES.index(dep.decode_max_batch)
     batch = lambda j: replace(dep, decode_max_batch=DECODE_BATCHES[j], decode_budget=DECODE_BATCHES[j])
-    other_layout = {s: [(set_layout(dep, s, l), f"PP{l[1]} x EP{l[0]}") for l in LAYOUTS
-                        if l != side_layout(dep, s)] for s in ("prefill", "decode")}
+    other_layout = {"prefill": [(set_layout(dep, "prefill", l), f"PP{l[1]} x EP{l[0]}") for l in LAYOUTS
+                                if l != side_layout(dep, "prefill")],
+                    "decode": [(d, f"PP{l[1]} x EP{l[0]}") for l in DECODE_LAYOUTS if l != side_layout(dep, "decode")
+                               for d in [refill(pb, set_layout(dep, "decode", l))] if d is not None]}
     chunks = [(replace(dep, prefill_moe_chunks=c), c) for c in MOE_CHUNKS if c != dep.prefill_moe_chunks]
+    dispatch = [(replace(dep, prefill_dispatch=v), v) for v in DISPATCH if v != dep.prefill_dispatch]
+    linear = {s: [(replace(dep, **{f"{s}_linear": v}), v) for v in LINEAR if v != getattr(dep, f"{s}_linear")]
+              if pb.allow_precision else [] for s in ("prefill", "decode")}
+    # M-KVRETAIN keys on token streams, which only agent sessions declare.
+    retain = [replace(dep, kv_retention=not dep.kv_retention)] if pb.workload == "agent" else []
     if side == "prefill":
         if b + 1 < len(BUDGETS):
             out.append((0, replace(dep, prefill_budget=BUDGETS[b + 1]), "TTFT breaks first: larger prefill chunks"))
-        if dep.decode_instances > 1:
+        if shift_p is not None:
             out.append((0, shift_p, "TTFT breaks first: move one instance D->P"))
         out += [(0, d, f"TTFT breaks first: prefill layout {name}") for d, name in other_layout["prefill"]]
         out += [(0, d, f"TTFT breaks first: MoE chunks {c} (M-MOECHUNK)") for d, c in chunks
                 if c > dep.prefill_moe_chunks]
+        out += [(0, d, "TTFT breaks first: dispatch from every TP rank (M-RANKDISPATCH)")
+                for d, v in dispatch if v == "ranks"]
+        out += [(0, d, "TTFT breaks first: FP8 linears (M-FP8LINEAR, quality UNVERIFIED)")
+                for d, v in linear["prefill"] if v == "fp8"]
+        out += [(0, d, "prefill re-computes session history: keep it (M-KVRETAIN)")
+                for d in retain if d.kv_retention]
     elif side == "decode":
-        if dep.prefill_instances > 1:
+        if shift_d is not None:
             out.append((0, shift_d, "TPOT breaks first: move one instance P->D"))
         if k + 1 < len(DECODE_BATCHES):
             out.append((0, batch(k + 1), "decode saturates: larger decode batch"))
         out += [(0, d, "TPOT breaks first: other attention TP") for d in other_tp]
         out += [(0, d, f"TPOT breaks first: decode layout {name}") for d, name in other_layout["decode"]]
+        out += [(0, d, "decode HBM-bound: FP8 linears (M-FP8LINEAR, quality UNVERIFIED)")
+                for d, v in linear["decode"] if v == "fp8"]
     el = (resource or {}).get("elasticity", {})
     if side in ("prefill", "decode") and el and max(el, key=el.get) == "network" and el["network"] >= NETWORK_BOUND:
         local = sorted((d.key for d, _ in other_layout[side] if getattr(d, side + "_ep") <= NODE_GPUS
@@ -204,16 +257,19 @@ def moves(pb: Problem, dep: Deployment, side: str, resource: dict | None = None)
         lead = [m for k in local for m in out if m[1].key == k]
         out = [(0, d, f"{side} round network-bound (elasticity {el['network']:.2f}): {why.split(': ')[-1]}, EP inside one node")
                for _, d, why in lead] + [m for m in out if m[1].key not in local]
-    probes = ([(1, shift_p, "probe D->P")] if dep.decode_instances > 1 else []) + \
-             ([(1, shift_d, "probe P->D")] if dep.prefill_instances > 1 else []) + \
+    probes = ([(1, shift_p, "probe D->P")] if shift_p is not None else []) + \
+             ([(1, shift_d, "probe P->D")] if shift_d is not None else []) + \
              [(1, d, f"probe TP{d.prefill_tp}") for d in other_tp] + \
              [(1, replace(dep, prefill_budget=BUDGETS[j]), f"probe budget {BUDGETS[j]}")
               for j in (b - 1, b + 1) if 0 <= j < len(BUDGETS)] + \
              [(1, d, f"probe {s} layout {name}") for s, ds in other_layout.items() for d, name in ds] + \
              [(1, batch(j), f"probe decode batch {DECODE_BATCHES[j]}") for j in (k - 1, k + 1)
               if 0 <= j < len(DECODE_BATCHES)] + \
-             [(1, d, f"probe prefill MoE chunks {c}") for d, c in chunks]
-    return out + probes
+             [(1, d, f"probe prefill MoE chunks {c}") for d, c in chunks] + \
+             [(1, d, f"probe prefill dispatch {v}") for d, v in dispatch] + \
+             [(1, d, f"probe {s} linear {v}") for s, ds in linear.items() for d, v in ds] + \
+             [(1, d, f"probe kv retention {d.kv_retention}") for d in retain]
+    return [m for m in out + probes if m[1] is not None]
 
 
 def ordered(pb: Problem, dep: Deployment, side: str, resource: dict | None = None) -> list[tuple[Deployment, str]]:

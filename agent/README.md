@@ -27,3 +27,14 @@ Terminal interfaces (repo root):
   surrogate (`models_for`), else `--tier 2`.
   Both report total tok/s/GPU (output tokens / all GPUs) and per side:
   prefill input tok/s per prefill GPU, decode output tok/s per decode GPU.
+  `--p-moe-chunks` (M-MOECHUNK, Tier-1 for PP4xEP4 / PP2xEP8 at 8) is also
+  searched; optimize.sh `--feedback` sets the agent's feedback granularity
+  (D24, default resource).
+- Workloads: `--workload agent [--turns 8]` (closed-loop coding sessions,
+  capacity in sessions/s, session JCT); `simulate.sh --kv-retention`
+  (M-KVRETAIN, Tier-1) keeps session prefixes on prefill instances; the agent
+  search proposes it on agent workloads.
+- Mechanisms (Phase 4, D25): `./ie.sh -m mechanisms.manage plan|new|check|
+  evaluate|replay|promote|reject|status <ID>` over `mechanisms/specs/<ID>.toml`;
+  `./ie.sh -m mechanisms.registry show|impact|stats` for components, impact
+  and regression selection.

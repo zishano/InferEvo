@@ -13,6 +13,8 @@ mechanism genealogy and failure reasons are kept (spec 4.4.8).
                                                  tests, default-off identity, spec checks
     ./ie.sh -m mechanisms.manage evaluate <ID>   A-E ablation script against the candidate tree
     ./ie.sh -m mechanisms.manage replay <ID>     independent re-run of the script's replay case
+    ./ie.sh -m mechanisms.manage reopen <ID> --reason ...   withdraw a verdict for re-evaluation
+                                                 (same commits, passed check; e.g. a flawed control)
     ./ie.sh -m mechanisms.manage promote <ID>    fast-forward the engine branch (VERIFIED only)
     ./ie.sh -m mechanisms.manage reject <ID> --reason ...
     ./ie.sh -m mechanisms.manage status [ID]
@@ -72,6 +74,9 @@ def _receipt(mid, step, body):
     body = {"id": mid, "step": step, "time": time.strftime("%Y-%m-%dT%H:%M:%S"),
             "evaluator": {f: _sha(ROOT / f) for f in EVALUATOR}, **body}
     p = d / f"{step}.json"
+    if p.exists():                           # keep earlier evidence (retries, revisions)
+        old = json.loads(p.read_text())
+        p.rename(d / f"{step}-{old['time'].replace(':', '')}.json")
     p.write_text(json.dumps(body, indent=1))
     return str(p.relative_to(ROOT))
 
@@ -235,6 +240,14 @@ def cmd_replay(mid):
                    **({} if ok else {"reason": verdict.get("reason", "replay differs")}))
 
 
+def cmd_reopen(mid, reason):
+    if state(mid) not in ("REPLAYING", "VERIFIED", "EXPLORATORY") or not reason:
+        raise SystemExit(f"{mid} is {state(mid)}; reopen withdraws an evaluation verdict and needs --reason")
+    if not _checked(mid):
+        raise SystemExit(f"{mid}: candidate commits changed since the passed check; run check")
+    return _record(mid, "EVALUATING", reason=f"verdict withdrawn: {reason}")
+
+
 def cmd_promote(mid):
     if state(mid) != "VERIFIED":
         raise SystemExit(f"{mid} is {state(mid)}; only VERIFIED candidates are promoted")
@@ -250,7 +263,8 @@ def cmd_promote(mid):
         subprocess.run(["git", "-C", str(engine), "merge", "--ff-only", rec["branch"]], check=True, capture_output=True)
         subprocess.run(["git", "-C", str(engine), "worktree", "remove", str(_tree(rec))], check=True, capture_output=True)
         merged[repo] = repo_identity(repo, engine).commit
-    return _record(mid, "PROMOTED", engine_commits=merged)
+    quality = specs.load(mid).get("quality")      # semantics-changing mechanisms carry their flag
+    return _record(mid, "PROMOTED", engine_commits=merged, **({"quality": quality["status"]} if quality else {}))
 
 
 def cmd_reject(mid, reason):
@@ -263,14 +277,14 @@ def cmd_reject(mid, reason):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("cmd", choices=["plan", "new", "check", "evaluate", "replay", "promote", "reject", "status"])
+    p.add_argument("cmd", choices=["plan", "new", "check", "evaluate", "replay", "reopen", "promote", "reject", "status"])
     p.add_argument("id", nargs="?")
     p.add_argument("--reason", default="")
     a = p.parse_args()
     if a.cmd == "status":
         out = _events(a.id)
-    elif a.cmd == "reject":
-        out = cmd_reject(a.id, a.reason)
+    elif a.cmd in ("reject", "reopen"):
+        out = globals()[f"cmd_{a.cmd}"](a.id, a.reason)
     else:
         out = globals()[f"cmd_{a.cmd}"](a.id)
     print(json.dumps(out, indent=1))

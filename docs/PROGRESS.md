@@ -1,7 +1,8 @@
 # Progress
 
-Last update: 2026-11-25. Phase: **0, 1, 2 DONE**; **Phase 3 in progress** (docs/PHASE3_PLAN.md). Final Phase 1 cost model 62e82ce9837c; engines simthesizer
-d44343c, rooflang dbe1486.
+Last update: 2026-11-27. Phase: **0, 1, 2, 3 DONE** (docs/PHASE3_REPORT.md); **Phase 4 in progress**:
+lifecycle framework done (D25), first mechanism M-MOECHUNK PROMOTED. Engines: simthesizer
+60dc2d0, rooflang dbe1486 (Phase 1 cost model 62e82ce9837c; later bridge commits change its hash).
 
 ## How to resume
 1. Read `RESEARCH_SPEC.md`, `AGENTS.md` (layout), `docs/ARCHITECTURE.md`,
@@ -257,18 +258,104 @@ d44343c, rooflang dbe1486.
   8.9 req/s: prefill 1130 tok/s/GPU, decode 141 tok/s/GPU; 9.94: 1269 / 152.
   Prefill-side limit (OSL 2 capacity, TTFT SLO 5 s): 13.1 req/s = 1660
   tok/s/GPU, so prefill runs at ~68 % of its limit at 8.9 req/s.
-- Next: C-OVERLAP (dispatch/compute overlap) as an explicit mechanism;
-  SIM-DEFECT-3 root cause; decode KV feature collinearity (decode surrogates
-  are nearly KV-independent: max_group_kv and attn pairs coincide at q=1).
+- Search primitives moved to agent/search.py (Problem = frozen evaluator);
+  optimize.sh --feedback {resource,queue,slo,none}. Phase 3 acceptance E0042
+  (5/5 regimes match side counterfactuals) and held-out ablation E0043 (D24).
+- Phase 4 framework (D25): mechanisms/registry.py (290 components, ~850
+  scanned edges + components.toml), spec.py, identity.py, manage.py
+  (lifecycle, receipts, lineage.jsonl). Validated impact selection on past
+  commits 996bee1 / 53d777f (26 / 42 test targets).
+- M-MOECHUNK (C-OVERLAP, intra-MoE): spec -> candidate -> check (27 tests,
+  default-off identity) -> E0044 A–E VERIFIED -> replay -> PROMOTED. Prefill
+  makespan −17.7 % PP4xEP4; registered as design variable
+  (Deployment.prefill_moe_chunks, Tier-1 E0045). New 128xH200 8K/1K optimum:
+  P3 PP4xEP4 mc8 + D5 EP16 b64, 11.8 req/s, 93 tok/s/GPU (+19 % vs 9.94);
+  11.0 req/s recommended (stable, TTFT p99 2.6 s). Tier-1 evidence; no
+  loaded Tier-2 confirmation of the new optimum yet.
 
-## Next (Phase 3 wrap-up)
-1. Prefill-under-load correction: reconstruct prefill rounds from a Tier-2
-   graph trace (summary mode, deleted after use) and refit, or add a
-   load-dependent TTFT correction; re-check goodput near the SLO edge.
-2. Real LLM policy run vs D21 rules — waiting on user OK for an external
-   model service.
-3. Phase 3 report (docs/PHASE3_REPORT.md), then Phase 4: C-STATERESHARD,
-   C-DISPATCH, C-OVERLAP, C-EPNODE, C-KVRETAIN.
+- TBO screened out from E0039 evidence (catalog C-OVERLAP).
+- M-RANKDISPATCH (C-DISPATCH): r0 verdict withdrawn (degenerate decode
+  control, rank-0 share bias; D25 amendment), r1 VERIFIED + PROMOTED
+  (simthesizer 8d70c15). Prefill EP16 −56 %, PP4xEP4 with chunks −11.6 % vs
+  best existing. Lowering options generalised: Deployment
+  `{side}_moe_chunks`, `{side}_dispatch`, `topologies.options()`;
+  surrogates E0048. New optimum P3 PP4xEP4 mc8 + rank dispatch + D5 EP16
+  b64: sustainable ~13.0 req/s, 103 tok/s/GPU (600 s); recommended 12.5
+  req/s (99.4 tok/s/GPU, 43 tok/s/user, TTFT p99 2.2 s). Search needed 36
+  evals: new variables sit behind the expansion frontier.
+
+- User chose a precision-changing decode mechanism. Current precision (U1,
+  official checkpoint): MXFP4 routed experts (W4A16 on H200), BF16 other
+  linears, BF16 MLA KV, FP32 KDA state. Decode HBM at 64 calls x 8.7K:
+  experts 63 %, BF16 linears 28 %, MLA KV ~4 %, KDA state ~4 %; KV capacity
+  not binding at 8K/1K (176 requests/instance).
+- M-FP8LINEAR (D26: opt-in, quality UNVERIFIED): block-FP8 W8A8 linears per
+  DeepSeek-V3 3.3 (retention list verified in the primary source). r0
+  verdict withdrawn (`reopen`: concurrency confound); r1 decode TPOT −12.7 %
+  (batch 64), prefill −10 %; PROMOTED 88f77c2. Tier-1 E0050. With
+  `--allow-fp8`: P3 PP4xEP4 mc8 rd fp8 + D5 EP16 b64 fp8 stable at 15.0
+  req/s (600 s), 119 tok/s/GPU; recommended 14.5 (115 tok/s/GPU, 48.5
+  tok/s/user, TTFT p99 2.8 s); official precision ~13.0.
+
+- Credibility and Phase 6 (user: "确认", 2026-11-27): E0046 stopped (5 h,
+  superseded) -> E0052 per-instance Tier-2 confirmation (running). E0051:
+  all 5 mechanism claims ROBUST across 7 cost assumptions on H200 and 6 on
+  B300 (tier2_config takes a CM-4 efficiency profile). B300: surrogates
+  E0054, searches official / fp8, E0055 cross-hardware: B300 per GPU ~1.6x
+  H200 (HBM-bound decode), same optimum structure (P3 PP4xEP4 + D5 EP16 b64);
+  B300 is decode-bound, so prefill mechanisms add no B300 capacity; H200
+  optimum transfers to B300 losslessly, the reverse loses 10 %.
+
+- E0052 done: per-instance Tier-1 within ~1 % of Tier-2 for the official
+  and FP8 optima (validates the Tier-1 capacity claims).
+- Decode batch 128 validated (E0056). SIM-DEFECT-3 ROOT CAUSE FIXED (D27):
+  Tier-1 surrogates had negative coefficients (collinear KV features) and
+  priced decode recompute rows at <= 0; all 24 refitted with NNLS,
+  validation preserved. Current optima (600 s, Tier-1 NNLS, E0057):
+  H200 official P4 D4 b128 14.99 req/s (115 tok/s/GPU, TPOT 43 ms) or
+  balanced P3 D5 b128 rd 13.60 (38 tok/s/user); H200 FP8 16.17;
+  B300 official P3 D5 b128 rd 24.94 (199 tok/s/GPU, TPOT 18 ms); B300 FP8 26.62.
+
+- Agent workload (user: "开始，继续推进"): `search.Problem(workload="agent")`,
+  `optimize.sh / simulate.sh --workload agent`, session JCT in steady.metrics.
+  E0058: P:D flips to 5:3 (H200) / 6:2 (B300); 8K/1K optima lose 41 % / 44 %
+  on agent traffic (b128 ones are not even admissible at 20k contexts);
+  chunked MoE and rank dispatch matter more (prefill-bound), batch 128 is
+  +54 % on B300. Next: C-KVRETAIN (every turn re-prefills the history,
+  ~88k prefill tokens per session vs ~19k with retention).
+
+- M-KVRETAIN (C-KVRETAIN, Tier-1): token streams, KDA-state snapshot prefix
+  cache, cache-aware least-work routing (hash affinity rejected in
+  evaluation). PROMOTED a2f0da6. Agent optima with retention (600 s):
+  H200 P4 D4 5.97 sess/s (+68 %), B300 P4 D4 b128 rd 11.69 (+66 %).
+
+- E0060: agent workload Tier-1 vs Tier-2 per instance: Tier-1 optimistic
+  (TPOT −8 %, JCT −4..−9 %) -> agent capacities carry a ~5–9 % optimism
+  caveat; fix = long-context decode calibration run (open item).
+
+- PAUSED 2026-11-28 by the user ("全部暂停"), nothing running. Phase 5 step 1
+  (larger decode instances): graph bound EP16 b128 281 -> EP32 b256 387 ->
+  EP64 b512 493 tok/s/GPU (H200); E0062 EP32 b256 surrogates VALIDATED (H200
+  −1.6 %, B300 −2.0 %); search supports 32/64-GPU decode instances
+  (`search.refill`, DECODE_LAYOUTS). Stopped, to rerun from scratch:
+  E0062 EP64 b512 fits (`run.py h200-tp4-ep64-pp1-b512`, `b300-...`),
+  E0061 held-out run (`heldout.py`), 128-GPU 8K/1K searches with wide decode
+  (`optimize.sh --hardware h200|b300 --gpus 128 --evals 56`). Then: 600 s
+  re-scores, AFD against the wide-decode baseline.
+
+## Next (Phase 4)
+0. Long-context decode calibration (agent contexts 2–20k) for the decode
+   surrogates; re-score E0058/E0059 optima.
+1. Precision follow-ups (opt-in): FP8 MLA KV / BF16 KDA state (~2 % each at
+   8K, larger at long context and for KV capacity); credit freed FP8 weight
+   bytes to admission. Official-precision mechanisms: C-EPNODE /
+   C-EXPPLACE, C-KVRETAIN, C-STATERESHARD.
+2. E0046 Tier-2 confirmation (running; mc8 optimum, 128 GPUs) and a Tier-2
+   check of the rank-dispatch optimum.
+3. Open defects: none known in Tier-1 surrogates after D27 (KV collinearity
+   no longer produces negative weights; KV dependence still weak at q = 1).
+4. Real LLM policy run vs rules — waiting on user OK for an external model
+   service.
 
 ## Open questions for the user
 None.

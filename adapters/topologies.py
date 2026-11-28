@@ -52,6 +52,15 @@ class Deployment:
     # M-MOECHUNK: expert-chunk pipelined grouped MoE (1 = off, the grouped lowering)
     prefill_moe_chunks: int = 1
     decode_moe_chunks: int = 1
+    # M-RANKDISPATCH: MoE dispatch/combine from the group leader or every TP rank
+    prefill_dispatch: str = "leader"
+    decode_dispatch: str = "leader"
+    # M-FP8LINEAR (semantics-changing, opt-in): non-expert linear precision
+    prefill_linear: str = "bf16"
+    decode_linear: str = "bf16"
+    # M-KVRETAIN (Tier-1): prefill instances keep session prefixes (stream
+    # prefix cache with KDA state snapshots) and route a stream's calls together
+    kv_retention: bool = False
 
     @classmethod
     def of(cls, d: dict) -> "Deployment":
@@ -81,6 +90,9 @@ class Deployment:
         pp = "" if (self.prefill_pp, self.decode_pp) == (1, 1) else f"-pp{pair(self.prefill_pp, self.decode_pp)}"
         mc = (self.prefill_moe_chunks, self.decode_moe_chunks)
         mc = "" if mc == (1, 1) else f"-mc{pair(*mc)}"
+        mc += "".join(f"-rd{s[0]}" for s in ("prefill", "decode") if getattr(self, f"{s}_dispatch") == "ranks")
+        mc += "".join(f"-fp8{s[0]}" for s in ("prefill", "decode") if getattr(self, f"{s}_linear") == "fp8")
+        mc += "-kvr" if self.kv_retention else ""
         return (f"{self.hardware}-p{self.prefill_instances}x{self.prefill_tp}-"
                 f"d{self.decode_instances}x{self.decode_tp}-ep{ep}{etp}{pp}-"
                 f"b{self.prefill_budget}-{self.decode_budget}-m{self.prefill_max_batch}-{self.decode_max_batch}{mc}")
@@ -88,6 +100,8 @@ class Deployment:
 
 HEADS, EXPERTS = 96, 896      # Kimi-K3 attention heads, routed experts
 MOE_CHUNKS = (1, 2, 4, 8)     # M-MOECHUNK values (spec mechanisms/specs/M-MOECHUNK.toml)
+DISPATCH = ("leader", "ranks")  # M-RANKDISPATCH values
+LINEAR = ("bf16", "fp8")        # M-FP8LINEAR values; fp8 changes numerics (quality UNVERIFIED)
 
 
 def check(dep: Deployment, context: int | None = None) -> list[str]:
@@ -119,6 +133,10 @@ def check(dep: Deployment, context: int | None = None) -> list[str]:
             err.append(f"{side} {gpus} GPUs per stage (EP{ep} x ETP{etp}): must be a multiple of TP{tp}")
         if budget < 1 or batch < 1:
             err.append(f"{side} token budget {budget} / max batch {batch}: must be >= 1")
+        if getattr(dep, f"{side}_linear") not in LINEAR:
+            err.append(f"{side} linear {getattr(dep, f'{side}_linear')}: must be one of {LINEAR}")
+        if getattr(dep, f"{side}_dispatch") not in DISPATCH:
+            err.append(f"{side} dispatch {getattr(dep, f'{side}_dispatch')}: must be one of {DISPATCH}")
         if getattr(dep, f"{side}_moe_chunks") not in MOE_CHUNKS:
             err.append(f"{side} MoE chunks {getattr(dep, f'{side}_moe_chunks')}: must be one of {MOE_CHUNKS}")
     if dep.prefill_tp != dep.decode_tp:
@@ -147,14 +165,32 @@ def check(dep: Deployment, context: int | None = None) -> list[str]:
 LOWERING = "grouped"
 
 
-def lowering(chunks: int):
-    """The runner's `lowering` value for one side."""
-    return LOWERING if chunks == 1 else {"kind": LOWERING, "moe_chunks": chunks}
+DEFAULT_OPTIONS = {"moe_chunks": 1, "dispatch": "leader", "linear": "bf16"}
 
 
-def tier2_config(dep: Deployment) -> dict:
-    """Launcher config (cached per launcher arguments), lowering set per side."""
-    path = CACHE / f"{replace(dep, prefill_moe_chunks=1, decode_moe_chunks=1).key}.toml"
+def precision_changed(dep: Deployment) -> bool:
+    """True if numerics differ from the official checkpoint (opt-in mechanisms)."""
+    return "fp8" in (dep.prefill_linear, dep.decode_linear)
+
+
+def options(dep: Deployment, side: str) -> dict:
+    """The side's non-default lowering options (mechanism design variables)."""
+    return {k: getattr(dep, f"{side}_{k}") for k, v in DEFAULT_OPTIONS.items() if getattr(dep, f"{side}_{k}") != v}
+
+
+def lowering(opts: dict):
+    """The runner's `lowering` value for a side's options."""
+    return {"kind": LOWERING, **opts} if opts else LOWERING
+
+
+def tier2_config(dep: Deployment, efficiency: dict | None = None) -> dict:
+    """Launcher config (cached per launcher arguments), lowering set per side.
+    `efficiency`: CM-4/4b cost-model assumption {compute, memory, network:
+    (0, 1], kernel_overhead_us} (validation/cost_profiles.json; default peak)."""
+    plain = replace(dep, kv_retention=False,
+                    **{f"{s}_{k}": v for s in ("prefill", "decode") for k, v in DEFAULT_OPTIONS.items()})
+    eff = {k: v for k, v in sorted((efficiency or {}).items()) if v != (0.0 if k == "kernel_overhead_us" else 1.0)}
+    path = CACHE / (f"{plain.key}" + "".join(f"-{k[:3]}{v:g}" for k, v in eff.items()) + ".toml")
     if not path.exists():
         CACHE.mkdir(parents=True, exist_ok=True)
         hw = dep.hardware
@@ -170,6 +206,8 @@ def tier2_config(dep: Deployment) -> dict:
                 "--prefill-token-budget", str(dep.prefill_budget),
                 "--decode-token-budget", str(dep.decode_budget),
                 "--prefill-max-batch", str(dep.prefill_max_batch),
+                *[a for k, v in eff.items() for a in
+                  ((f"--{k.replace('_', '-')}", str(v)) if k == "kernel_overhead_us" else (f"--{k}-efficiency", str(v)))],
                 "--decode-max-batch", str(dep.decode_max_batch)]
         with tempfile.TemporaryDirectory(prefix="topo-") as tmp:
             out = Path(tmp) / "run"
@@ -180,10 +218,10 @@ def tier2_config(dep: Deployment) -> dict:
             os.replace(part, path)
         meta = path.with_suffix(".json")
         part = meta.with_name(f"{meta.name}.{os.getpid()}.part")
-        part.write_text(json.dumps(asdict(replace(dep, prefill_moe_chunks=1, decode_moe_chunks=1)), indent=1))
+        part.write_text(json.dumps({**asdict(plain), **({"efficiency": eff} if eff else {})}, indent=1))
         os.replace(part, meta)
     cfg = tomllib.loads(path.read_text())
     for side in ("prefill", "decode"):
         for leaf in cfg["system"][f"{side}_instances"]:
-            leaf["model_runner"]["lowering"] = lowering(getattr(dep, f"{side}_moe_chunks"))
+            leaf["model_runner"]["lowering"] = lowering(options(dep, side))
     return cfg

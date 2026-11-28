@@ -22,6 +22,6 @@ if __name__ == "__main__":
     tp, ep, pp, mc = (int(part[2:]) for part in rest)
     out = here / name
     out.mkdir(exist_ok=True)
-    result = fit(out, hw, tp, ep, pp, threads=24, moe_chunks=mc, log=lambda *a: print(*a, flush=True))
+    result = fit(out, hw, tp, ep, pp, threads=24, options={"moe_chunks": mc}, log=lambda *a: print(*a, flush=True))
     (out / "result.json").write_text(json.dumps(dict(result, source_identity=source_identity(),
                                                      lowering={"kind": "grouped", "moe_chunks": mc}), indent=1))

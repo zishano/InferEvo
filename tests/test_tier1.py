@@ -24,3 +24,19 @@ class Tier1Tests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NnlsTests(unittest.TestCase):
+    def test_matches_unconstrained_when_feasible_and_clips_otherwise(self):
+        import numpy as np
+        from adapters.tier1 import nnls
+        rng = np.random.default_rng(0)
+        a = rng.random((40, 4)) * np.array([1, 10, 1e4, 1e8])       # very different column scales
+        x_true = np.array([2.0, 0.5, 3e-3, 1e-7])
+        b = a @ x_true
+        np.testing.assert_allclose(nnls(a, b), x_true, rtol=1e-6)
+        x_neg = np.array([2.0, -0.5, 3e-3, 1e-7])                     # infeasible truth -> clipped
+        got = nnls(a, a @ x_neg)
+        self.assertTrue((got >= 0).all())
+        self.assertLess(np.linalg.norm(a @ got - a @ x_neg),
+                        np.linalg.norm(a @ np.clip(x_neg, 0, None) - a @ x_neg) + 1e-9)

@@ -12,8 +12,10 @@ resource bounding its rounds -> propose targeted moves (layouts with EP inside
 a node first when network-bound, prefill budget, P<->D instances, TP, decode
 batch) plus one probe per dimension -> expand the best-scoring deployment
 next (agent/search.py). Every evaluation and its rationale go to a
-JSONL ledger. Space: instances of 16 GPUs; per side PP1 x EP16, PP2 x EP8 or
-PP4 x EP4; decode max batch 32/64/128 — wherever Tier-1 surrogates exist.
+JSONL ledger. Space: prefill instances of 16 GPUs (PP1 x EP16, PP2 x EP8,
+PP4 x EP4); decode instances of 16 GPUs (same layouts) or 32 / 64 GPUs (EP32,
+EP64), counts filling the GPU budget exactly; decode max batch 32..512 —
+wherever Tier-1 surrogates exist (E0062 for the wide decode instances).
 """
 
 import argparse
@@ -36,6 +38,10 @@ def args_():
     a = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     a.add_argument("--gpus", type=int, default=128, help="total GPUs (multiple of 32)")
     a.add_argument("--hardware", default="h200", choices=["h200", "b300"])
+    a.add_argument("--workload", default="fixed", choices=["fixed", "agent"],
+                   help="fixed: Poisson calls of --isl/--osl (req/s); agent: closed-loop coding sessions "
+                        "of --turns calls (sessions/s, context 2k -> ~20k, tools 0.2-3 s)")
+    a.add_argument("--turns", type=int, default=8)
     a.add_argument("--isl", type=int, default=8192)
     a.add_argument("--osl", type=int, default=1024)
     a.add_argument("--requests", type=int, default=600, help="minimum requests per probe")
@@ -46,6 +52,9 @@ def args_():
     a.add_argument("--tpot-slo", type=float, default=0.05, help="seconds")
     a.add_argument("--evals", type=int, default=16, help="agent evaluation budget")
     a.add_argument("--parallel", type=int, default=4, help="candidates evaluated concurrently")
+    a.add_argument("--allow-fp8", action="store_true",
+                   help="also search FP8 linear layers (M-FP8LINEAR): numerics differ from the official "
+                        "checkpoint, model quality UNVERIFIED")
     a.add_argument("--feedback", default="resource", choices=search.GRANULARITIES,
                    help="feedback granularity the agent sees (Phase 3 ablation; default resource)")
     a.add_argument("--grid", action="store_true", help="evaluate the whole space instead")
@@ -55,12 +64,14 @@ def args_():
 
 A = args_()
 PB = search.Problem(hardware=A.hardware, gpus=A.gpus, isl=A.isl, osl=A.osl, ttft_s=A.ttft_slo,
-                    tpot_s=A.tpot_slo, requests=A.requests, duration=A.duration)
+                    tpot_s=A.tpot_slo, requests=A.requests, duration=A.duration, allow_precision=A.allow_fp8,
+                    workload=A.workload, turns=A.turns)
 N = PB.instances
 if A.gpus % EP or N < 2:
     raise SystemExit("--gpus must be a multiple of 16 and >= 32")
 TPS = PB.tps
 evaluate = partial(search.evaluate, PB)
+UNIT = "sess/s" if A.workload == "agent" else "req/s"     # capacity unit
 legal = partial(search.legal, PB)
 
 
@@ -71,6 +82,8 @@ def layout(d):
         f"MoE EP{getattr(d, side + '_ep')} x ETP{getattr(d, side + '_etp')} | "
         f"{getattr(d, side + '_budget')} tokens/round, max batch {getattr(d, side + '_max_batch')}"
         + (f", MoE chunks {getattr(d, side + '_moe_chunks')}" if getattr(d, side + "_moe_chunks") > 1 else "")
+        + (", dispatch from every TP rank" if getattr(d, side + "_dispatch") == "ranks" else "")
+        + (", FP8 linears (quality UNVERIFIED)" if getattr(d, side + "_linear") == "fp8" else "")
         for side in ("prefill", "decode"))
 
 
@@ -79,15 +92,30 @@ def moves(dep, e):
     return search.moves(PB, dep, side, e.get("resource") if A.feedback == "resource" else None)
 
 
+def new_ledger(stem: str) -> Path:
+    """A ledger path no other search uses (exclusive create; concurrent
+    searches started in the same second get -2, -3, ...)."""
+    folder = ROOT / "experiments" / "_optimize"
+    folder.mkdir(parents=True, exist_ok=True)
+    for n in itertools.count(1):
+        path = folder / (stem + (f"-{n}" if n > 1 else "") + ".jsonl")
+        try:
+            path.open("x").close()
+            return path
+        except FileExistsError:
+            continue
+
+
 def main():
-    ledger = A.ledger or ROOT / "experiments" / "_optimize" / time.strftime(
-        f"%Y%m%d-%H%M%S-{A.hardware}-{A.gpus}gpu-isl{A.isl}-osl{A.osl}.jsonl")
-    ledger.parent.mkdir(parents=True, exist_ok=True)
+    shape = f"agent{A.turns}" if A.workload == "agent" else f"isl{A.isl}-osl{A.osl}"
+    ledger = A.ledger or new_ledger(time.strftime(
+        f"%Y%m%d-%H%M%S-{A.hardware}-{A.gpus}gpu-{shape}" + ("-fp8" if A.allow_fp8 else "")))
     start = Deployment(hardware=A.hardware, prefill_instances=N // 2, decode_instances=N - N // 2, prefill_budget=512)
-    print(f"{A.gpus} x {A.hardware.upper()} ({N} instances x {EP} GPUs), ISL {A.isl} OSL {A.osl}, "
-          f"SLO TTFT<={A.ttft_slo}s TPOT<={A.tpot_slo*1e3:.0f}ms; score = SLO capacity (Tier-1)")
+    print(f"{A.gpus} x {A.hardware.upper()} ({N} instances x {EP} GPUs), "
+          + (f"agent sessions x {A.turns} turns, " if A.workload == "agent" else f"ISL {A.isl} OSL {A.osl}, ")
+          + f"SLO TTFT<={A.ttft_slo}s TPOT<={A.tpot_slo*1e3:.0f}ms; score = SLO capacity (Tier-1, {UNIT})")
     if not legal(start):
-        raise SystemExit("no legal start deployment:\n  " + "\n  ".join(check(start, A.isl + A.osl)))
+        raise SystemExit("no legal start deployment:\n  " + "\n  ".join(check(start, PB.context)))
     seen, tie = {}, itertools.count()
     if A.grid:
         todo = [(Deployment(hardware=A.hardware, prefill_instances=p, decode_instances=N - p, prefill_budget=b,
@@ -107,7 +135,7 @@ def main():
                 seen[d.key] = e
                 with ledger.open("a") as f:
                     f.write(json.dumps(e) + "\n")
-                print("  [%2d] %-46s %6.3f req/s  %5.1f tok/s/GPU  %6.1f tok/s/user  bottleneck=%-7s | %s" % (
+                print(("  [%2d] %-46s %6.3f " + UNIT + "  %5.1f tok/s/GPU  %6.1f tok/s/user  bottleneck=%-7s | %s") % (
                     len(seen), d.key, e["capacity_rps"], e["tokens_per_s_gpu"], e["tokens_per_s_user"],
                     e["bottleneck"], why), flush=True)
                 yield d, e
@@ -131,20 +159,21 @@ def main():
         and (o["tokens_per_s_gpu"] > e["tokens_per_s_gpu"] or o["tokens_per_s_user"] > e["tokens_per_s_user"])
         for o in ranked)]
     d = Deployment.of(best["deployment"])
-    print(f"\nbest: {best['key']}  capacity {best['capacity_rps']:.3f} req/s, {best['tokens_per_s_gpu']:.1f} tok/s/GPU, "
+    print(f"\nbest: {best['key']}  capacity {best['capacity_rps']:.3f} {UNIT}, {best['tokens_per_s_gpu']:.1f} tok/s/GPU, "
           f"{best['tokens_per_s_user']:.1f} tok/s/user, TTFT p99 {best['ttft_p99_ms']:.0f} ms, TPOT p50 {best['tpot_p50_ms']:.1f} ms")
     print(f"  per side: prefill {best['prefill_tokens_per_s_gpu']:.0f} input tok/s per prefill GPU, "
           f"decode {best['decode_tokens_per_s_gpu']:.1f} output tok/s per decode GPU")
     print(layout(d))
     print("Pareto (tok/s/GPU vs tok/s/user):")
     for e in sorted(front, key=lambda e: -e["tokens_per_s_gpu"]):
-        print("  %-46s %5.1f tok/s/GPU  %6.1f tok/s/user  %6.3f req/s" % (
+        print("  %-46s %5.1f tok/s/GPU  %6.1f tok/s/user  %6.3f " % (
             e["key"], e["tokens_per_s_gpu"], e["tokens_per_s_user"], e["capacity_rps"]))
     print(f"\nevaluations: {len(seen)}  ledger: {ledger}")
     print(f"reproduce: ./simulate.sh --hardware {A.hardware} --p {d.prefill_instances} --d {d.decode_instances} "
           f"--p-tp {d.prefill_tp} --p-ep {d.prefill_ep} --p-etp {d.prefill_etp} --p-pp {d.prefill_pp} "
           f"--d-tp {d.decode_tp} --d-ep {d.decode_ep} --d-etp {d.decode_etp} --d-pp {d.decode_pp} "
-          f"--p-budget {d.prefill_budget} --d-max-batch {d.decode_max_batch} --p-moe-chunks {d.prefill_moe_chunks} "
+          f"--p-budget {d.prefill_budget} --d-max-batch {d.decode_max_batch} --p-moe-chunks {d.prefill_moe_chunks} --p-dispatch {d.prefill_dispatch} "
+          f"--p-linear {d.prefill_linear} --d-linear {d.decode_linear} "
           f"--isl {A.isl} --osl {A.osl} "
           f"--rate {best['capacity_rps']!r} --requests {max(A.requests, round(best['capacity_rps'] * A.duration))} "
           f"--ttft-slo {A.ttft_slo} --tpot-slo {A.tpot_slo}")

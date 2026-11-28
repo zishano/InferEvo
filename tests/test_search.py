@@ -29,6 +29,13 @@ class MoveTests(unittest.TestCase):
         # an undirected list holds the same candidates
         self.assertEqual({d.key for d in order}, {d.key for d, _ in search.ordered(PB, DEP, "unknown")})
 
+    def test_precision_moves_are_opt_in(self):
+        from dataclasses import replace
+        default = [d for _, d, _ in search.moves(PB, DEP, "decode")]
+        self.assertFalse(any("fp8" in (d.prefill_linear, d.decode_linear) for d in default))
+        allowed = [d for p, d, _ in search.moves(replace(PB, allow_precision=True), DEP, "decode") if p == 0]
+        self.assertTrue(any(d.decode_linear == "fp8" for d in allowed))
+
     def test_speedup_scales_one_side(self):
         base, fast = models_for(DEP), search._models(DEP, {"d": 2.0})
         batch = [(i, 1, 9000) for i in range(16)]

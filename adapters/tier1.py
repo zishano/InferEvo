@@ -60,16 +60,17 @@ class Tier1Model:
         return max(1e-9, float(np.dot(self.coef, x)))
 
 
-def _template(hardware, tp, ep, stage, efficiency, pp=1):
+def _template(hardware, tp, ep, stage, efficiency, pp=1, options=None):
     """ep: MoE ranks per PP stage; the instance has pp x ep GPUs. Uses the
-    reference Tier-2 lowering, so graph bounds match Tier-2 runs."""
+    reference Tier-2 lowering (with mechanism `options`), so graph bounds
+    match Tier-2 runs."""
     enable_bridge_imports()
     from rooflang_bridge.kimi_k3_shared import KimiTemplate
-    from adapters.topologies import LOWERING
+    from adapters.topologies import lowering
     hw = {"gpu_model": hardware, "gpu_count": ep * pp}
     if efficiency:
         hw["efficiency"] = dict(efficiency)
-    return KimiTemplate(tp, ep, hw, 0, stage=stage, pp=pp, lowering=LOWERING)
+    return KimiTemplate(tp, ep, hw, 0, stage=stage, pp=pp, lowering=lowering(dict(options or {})))
 
 
 def sample_batches(stage: str, count: int, seed: int, max_requests: int,
@@ -101,6 +102,43 @@ def bound_of(template, batch, hardware) -> float:
     return round_bounds(ops, hardware).lower_s
 
 
+def nnls(a, b, tol=1e-12):
+    """min ||a x - b||, x >= 0 (Lawson-Hanson active set), columns scaled.
+
+    Round time cannot fall when work grows, so every surrogate coefficient is
+    non-negative. Unconstrained fits cancelled collinear KV features with
+    opposite signs (+/-0.0137 ms) and extrapolated q > 1 decode rows
+    (preemption recompute) to negative time -> zero-length rounds
+    (SIM-DEFECT-3)."""
+    scale = np.linalg.norm(a, axis=0)
+    scale[scale == 0] = 1.0
+    a = a / scale
+    n = a.shape[1]
+    active, x = np.zeros(n, bool), np.zeros(n)
+    w = a.T @ (b - a @ x)
+    for _ in range(3 * n):
+        if active.all() or w[~active].max() <= tol:
+            break
+        active[np.argmax(np.where(active, -np.inf, w))] = True
+        while True:
+            z = np.zeros(n)
+            z[active] = np.linalg.lstsq(a[:, active], b, rcond=None)[0]
+            if (z[active] > tol).all():
+                break
+            shrink = active & (z <= tol)
+            alpha = np.min(x[shrink] / (x[shrink] - z[shrink]))
+            x = x + alpha * (z - x)
+            active &= x > tol
+        x = z
+        w = a.T @ (b - a @ x)
+    return x / scale
+
+
+def _relative_fit(x, y):
+    """Coefficients >= 0 minimising relative error (rows scaled by 1/y)."""
+    return nnls(x / y[:, None], np.ones_like(y))
+
+
 def fit(hardware="h200", tp=4, ep=16, stage="d", efficiency=None, samples=120,
         seed=0, max_requests=32, max_kv=8192, max_q=512) -> Tier1Model:
     template = _template(hardware, tp, ep, stage, efficiency)
@@ -109,7 +147,7 @@ def fit(hardware="h200", tp=4, ep=16, stage="d", efficiency=None, samples=120,
     x = np.array([features(b, groups, stage) for b in batches])
     y = np.array([bound_of(template, b, hardware) for b in batches])
     # relative-error weighting: scale rows by 1/y
-    coef, *_ = np.linalg.lstsq(x / y[:, None], np.ones_like(y), rcond=None)
+    coef = _relative_fit(x, y)
     rel = np.abs(x @ coef - y) / y
     key = {"hardware": hardware, "tp": tp, "ep": ep, "groups": groups, "stage": stage,
            "efficiency": efficiency or {}, "cost_model_version": cost_model_version(),
@@ -123,7 +161,7 @@ def fit_samples(batches, targets, key: dict) -> Tier1Model:
     groups, stage = key["groups"], key["stage"]
     x = np.array([features(b, groups, stage) for b in batches])
     y = np.array(targets)
-    coef, *_ = np.linalg.lstsq(x / y[:, None], np.ones_like(y), rcond=None)
+    coef = _relative_fit(x, y)
     rel = np.abs(x @ coef - y) / y
     return Tier1Model(dict(key), coef.tolist(), len(y), float(np.median(rel)),
                       float(np.quantile(rel, 0.9)))
@@ -136,7 +174,7 @@ def fit_round_sums(samples, targets, key: dict) -> Tier1Model:
     x = np.array([np.sum([features(b, groups, stage) for b in rounds], axis=0)
                   for rounds in samples])
     y = np.array(targets)
-    coef, *_ = np.linalg.lstsq(x / y[:, None], np.ones_like(y), rcond=None)
+    coef = _relative_fit(x, y)
     rel = np.abs(x @ coef - y) / y
     return Tier1Model(dict(key), coef.tolist(), len(y), float(np.median(rel)),
                       float(np.quantile(rel, 0.9)))

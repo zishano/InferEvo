@@ -54,7 +54,7 @@ def agent_sessions(sessions: int, turns: int, rate: float, seed: int = 0,
                    system_prompt: int = 2000, user_tokens=(50, 400),
                    output_tokens=(50, 400), tool_output=(100, 2000),
                    tool_seconds=(0.2, 3.0), think_seconds=(0.0, 0.5),
-                   start: float = 1.0) -> list[dict]:
+                   start: float = 1.0, streams: bool = False) -> list[dict]:
     """Closed-loop coding-agent sessions (one request DAG per session).
 
     Turn k: LLM call whose input is the whole history (system prompt, prior
@@ -62,6 +62,9 @@ def agent_sessions(sessions: int, turns: int, rate: float, seed: int = 0,
     the history; the next LLM call is released only after the tool finishes.
     Sessions arrive as a seeded Poisson process at `rate` sessions/s.
     Synthetic: token/time ranges are assumptions, not a measured trace.
+    `streams`: each LLM call declares `token_stream` = session id (its input
+    is positions [0, input) of the session's token stream), which prefix
+    caching / KV retention keys on (M-KVRETAIN); engines before it reject it.
     """
     rng = random.Random(seed)
     rows, t = [], start
@@ -73,7 +76,8 @@ def agent_sessions(sessions: int, turns: int, rate: float, seed: int = 0,
             last = k == turns - 1
             subs.append({"kind": "llm", "input_tokens": history, "output_tokens": out,
                          "next": [] if last else [len(subs) + 1],
-                         **({"interval": rng.uniform(*think_seconds)} if k else {})})
+                         **({"interval": rng.uniform(*think_seconds)} if k else {}),
+                         **({"token_stream": s} if streams else {})})
             history += out
             if not last:
                 tool_out = rng.randint(*tool_output)
@@ -83,6 +87,12 @@ def agent_sessions(sessions: int, turns: int, rate: float, seed: int = 0,
         rows.append({"request_id": s, "arrival_time": t, "initial": [0], "sub_requests": subs})
         t += rng.expovariate(rate)
     return rows
+
+
+def agent_max_context(turns: int, system_prompt: int = 2000, user_tokens=(50, 400),
+                      output_tokens=(50, 400), tool_output=(100, 2000)) -> int:
+    """Largest LLM-call context agent_sessions can produce (input + output)."""
+    return system_prompt + user_tokens[1] + turns * output_tokens[1] + (turns - 1) * tool_output[1]
 
 
 def tiled(copies: int, rate: float, seed: int = 0, source: Path = REALISTIC,
