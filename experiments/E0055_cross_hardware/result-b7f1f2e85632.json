@@ -1,0 +1,263 @@
+{
+ "experiment": "E0055",
+ "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "bf9063cbdf98ecc1f73ec4ff14264d7058f1f66a6722504e2aed82b076353db8"
+  }
+ },
+ "probe_duration_s": 600,
+ "optima": {
+  "20261127-124014-h200-128gpu-isl8192-osl1024.jsonl": {
+   "hardware": "h200",
+   "prefill_instances": 3,
+   "decode_instances": 5,
+   "prefill_tp": 4,
+   "decode_tp": 4,
+   "prefill_ep": 4,
+   "decode_ep": 16,
+   "prefill_etp": 1,
+   "decode_etp": 1,
+   "prefill_pp": 4,
+   "decode_pp": 1,
+   "prefill_budget": 2048,
+   "decode_budget": 64,
+   "prefill_max_batch": 32,
+   "decode_max_batch": 64,
+   "prefill_moe_chunks": 8,
+   "decode_moe_chunks": 1,
+   "prefill_dispatch": "ranks",
+   "decode_dispatch": "leader",
+   "prefill_linear": "bf16",
+   "decode_linear": "bf16"
+  },
+  "20261127-151319-h200-128gpu-isl8192-osl1024.jsonl": {
+   "hardware": "h200",
+   "prefill_instances": 3,
+   "decode_instances": 5,
+   "prefill_tp": 4,
+   "decode_tp": 4,
+   "prefill_ep": 4,
+   "decode_ep": 16,
+   "prefill_etp": 1,
+   "decode_etp": 1,
+   "prefill_pp": 4,
+   "decode_pp": 1,
+   "prefill_budget": 2048,
+   "decode_budget": 64,
+   "prefill_max_batch": 32,
+   "decode_max_batch": 64,
+   "prefill_moe_chunks": 8,
+   "decode_moe_chunks": 1,
+   "prefill_dispatch": "ranks",
+   "decode_dispatch": "leader",
+   "prefill_linear": "fp8",
+   "decode_linear": "fp8"
+  },
+  "20261127-170525-b300-128gpu-isl8192-osl1024.jsonl": {
+   "hardware": "b300",
+   "prefill_instances": 3,
+   "decode_instances": 5,
+   "prefill_tp": 4,
+   "decode_tp": 4,
+   "prefill_ep": 4,
+   "decode_ep": 16,
+   "prefill_etp": 1,
+   "decode_etp": 1,
+   "prefill_pp": 4,
+   "decode_pp": 1,
+   "prefill_budget": 2048,
+   "decode_budget": 64,
+   "prefill_max_batch": 32,
+   "decode_max_batch": 64,
+   "prefill_moe_chunks": 8,
+   "decode_moe_chunks": 1,
+   "prefill_dispatch": "leader",
+   "decode_dispatch": "leader",
+   "prefill_linear": "bf16",
+   "decode_linear": "bf16"
+  },
+  "20261127-170525-b300-128gpu-isl8192-osl1024-fp8.jsonl": {
+   "hardware": "b300",
+   "prefill_instances": 3,
+   "decode_instances": 5,
+   "prefill_tp": 4,
+   "decode_tp": 4,
+   "prefill_ep": 4,
+   "decode_ep": 16,
+   "prefill_etp": 1,
+   "decode_etp": 1,
+   "prefill_pp": 4,
+   "decode_pp": 1,
+   "prefill_budget": 2048,
+   "decode_budget": 64,
+   "prefill_max_batch": 32,
+   "decode_max_batch": 64,
+   "prefill_moe_chunks": 8,
+   "decode_moe_chunks": 1,
+   "prefill_dispatch": "ranks",
+   "decode_dispatch": "leader",
+   "prefill_linear": "bf16",
+   "decode_linear": "fp8"
+  }
+ },
+ "rows": [
+  {
+   "ledger": "20261127-124014-h200-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "h200",
+   "run_on": "h200",
+   "deployment": "h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+   "precision_changed": false,
+   "score": {
+    "capacity_rps": 13.454342644059434,
+    "tokens_per_s_gpu": 105.00175752580216,
+    "tokens_per_s_user": 35.65151866514826,
+    "ttft_p99_ms": 3906.6388389074973,
+    "tpot_p50_ms": 28.049296003133996,
+    "prefill_tokens_per_s_gpu": 2276.971211347294,
+    "decode_tokens_per_s_gpu": 168.00281204128345,
+    "bottleneck": "decode"
+   }
+  },
+  {
+   "ledger": "20261127-124014-h200-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "h200",
+   "run_on": "b300",
+   "deployment": "h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+   "precision_changed": false,
+   "score": {
+    "capacity_rps": 20.97537938439623,
+    "tokens_per_s_gpu": 166.1109318890359,
+    "tokens_per_s_user": 58.19688112396805,
+    "ttft_p99_ms": 985.0180172357454,
+    "tpot_p50_ms": 17.183051405621732,
+    "prefill_tokens_per_s_gpu": 3573.8278232559255,
+    "decode_tokens_per_s_gpu": 265.7774910224574,
+    "bottleneck": "decode"
+   }
+  },
+  {
+   "ledger": "20261127-151319-h200-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "h200",
+   "run_on": "h200",
+   "deployment": "h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp-fp8p-fp8d",
+   "precision_changed": true,
+   "score": {
+    "capacity_rps": 15.156607852695725,
+    "tokens_per_s_gpu": 119.19326180739792,
+    "tokens_per_s_user": 44.449200047589315,
+    "ttft_p99_ms": 5584.169191187016,
+    "tpot_p50_ms": 22.497592733488002,
+    "prefill_tokens_per_s_gpu": 2564.7048751129173,
+    "decode_tokens_per_s_gpu": 190.70921889183666,
+    "bottleneck": "prefill"
+   }
+  },
+  {
+   "ledger": "20261127-151319-h200-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "h200",
+   "run_on": "b300",
+   "deployment": "h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp-fp8p-fp8d",
+   "precision_changed": true,
+   "score": {
+    "capacity_rps": 23.88652365266024,
+    "tokens_per_s_gpu": 188.94925685945537,
+    "tokens_per_s_user": 63.93850428913545,
+    "ttft_p99_ms": 1076.5747408974562,
+    "tpot_p50_ms": 15.640028041286568,
+    "prefill_tokens_per_s_gpu": 4086.3304911609234,
+    "decode_tokens_per_s_gpu": 302.3188109751286,
+    "bottleneck": "decode"
+   }
+  },
+  {
+   "ledger": "20261127-170525-b300-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "b300",
+   "run_on": "h200",
+   "deployment": "b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1",
+   "precision_changed": false,
+   "score": {
+    "capacity_rps": 11.94326182633012,
+    "tokens_per_s_gpu": 94.75055936185409,
+    "tokens_per_s_user": 44.84538610046698,
+    "ttft_p99_ms": 4980.591655678552,
+    "tpot_p50_ms": 22.298838006650296,
+    "prefill_tokens_per_s_gpu": 2022.5730554740285,
+    "decode_tokens_per_s_gpu": 151.60089497896655,
+    "bottleneck": "prefill"
+   }
+  },
+  {
+   "ledger": "20261127-170525-b300-128gpu-isl8192-osl1024.jsonl",
+   "found_on": "b300",
+   "run_on": "b300",
+   "deployment": "b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1",
+   "precision_changed": false,
+   "score": {
+    "capacity_rps": 20.97537938439623,
+    "tokens_per_s_gpu": 166.52005420033282,
+    "tokens_per_s_user": 60.12694873282037,
+    "ttft_p99_ms": 1514.6319924803606,
+    "tpot_p50_ms": 16.63147758326457,
+    "prefill_tokens_per_s_gpu": 3573.1168966947043,
+    "decode_tokens_per_s_gpu": 266.43208672053254,
+    "bottleneck": "decode"
+   }
+  },
+  {
+   "ledger": "20261127-170525-b300-128gpu-isl8192-osl1024-fp8.jsonl",
+   "found_on": "b300",
+   "run_on": "h200",
+   "deployment": "b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp-fp8d",
+   "precision_changed": true,
+   "score": {
+    "capacity_rps": 13.600850829748188,
+    "tokens_per_s_gpu": 107.85179410354148,
+    "tokens_per_s_user": 51.342540516365304,
+    "ttft_p99_ms": 4398.246568660284,
+    "tpot_p50_ms": 19.477026067326225,
+    "prefill_tokens_per_s_gpu": 2302.499028821082,
+    "decode_tokens_per_s_gpu": 172.56287056566637,
+    "bottleneck": "prefill"
+   }
+  },
+  {
+   "ledger": "20261127-170525-b300-128gpu-isl8192-osl1024-fp8.jsonl",
+   "found_on": "b300",
+   "run_on": "b300",
+   "deployment": "b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp-fp8d",
+   "precision_changed": true,
+   "score": {
+    "capacity_rps": 23.88652365266024,
+    "tokens_per_s_gpu": 189.60482409743963,
+    "tokens_per_s_user": 67.65368556689928,
+    "ttft_p99_ms": 1762.799599354878,
+    "tpot_p50_ms": 14.78116072495638,
+    "prefill_tokens_per_s_gpu": 4083.1162825942006,
+    "decode_tokens_per_s_gpu": 303.3677185559034,
+    "bottleneck": "decode"
+   }
+  }
+ ]
+}

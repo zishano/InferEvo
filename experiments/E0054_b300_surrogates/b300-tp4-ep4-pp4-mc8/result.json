@@ -1,0 +1,156 @@
+{
+ "layout": {
+  "hardware": "b300",
+  "tp": 4,
+  "ep": 4,
+  "pp": 4,
+  "groups": 1,
+  "efficiency": {},
+  "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396"
+ },
+ "decode_anchors": 120,
+ "prefill_heldout": {
+  "128": {
+   "median": 0.010876886108354904,
+   "max": 0.012929570275809996
+  },
+  "512": {
+   "median": 0.02087783267620637,
+   "max": 0.02555243147848436
+  },
+  "2048": {
+   "median": 0.010239738529119984,
+   "max": 0.01911878452624356
+  }
+ },
+ "decode_heldout": {
+  "median": 0.04176284910867245,
+  "max": 0.11131739115884548
+ },
+ "scales": {
+  "prefill": 1.0172715306282043,
+  "decode": 1.3180786967277527
+ },
+ "runs": {
+  "A": {
+   "tier2": {
+    "ttft_p50": 131.32145693766796,
+    "ttft_p99": 146.51547645689965,
+    "tpot_p50": 5.851879567618882
+   },
+   "rel_err": {
+    "ttft_p50": -0.016978296574630347,
+    "ttft_p99": -0.03246394565337629,
+    "tpot_p50": -0.24088970758543848
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": -7.115730338291826e-09,
+    "ttft_p99": -0.009719362813453425,
+    "tpot_p50": 1.332851984336969e-08
+   }
+  },
+  "B": {
+   "tier2": {
+    "ttft_p50": 263.3475031968171,
+    "ttft_p99": 289.13530873666815,
+    "tpot_p50": 5.851513051165626
+   },
+   "rel_err": {
+    "ttft_p50": -0.01672504413639031,
+    "ttft_p99": -0.019501554873413984,
+    "tpot_p50": -0.2405616227802383
+   },
+   "rel_err_calibrated": {
+    "ttft_p50": 0.00025761937976143123,
+    "ttft_p99": -0.002115247754347127,
+    "tpot_p50": 0.0006899488403147025
+   }
+  }
+ },
+ "prefill": {
+  "key": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 4,
+   "pp": 4,
+   "groups": 1,
+   "efficiency": {},
+   "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+   "stage": "p",
+   "target": "Tier-2 engine TTFT/rounds, budgets 128/512/2048, prompts to 40k; x1.0173 load calibration (run A)",
+   "options": {
+    "moe_chunks": 8
+   }
+  },
+  "coef": [
+   0.007343483312501523,
+   4.24627860870811e-05,
+   0.0,
+   3.8847289932856304e-05,
+   1.8416276235866964e-10,
+   0.04398985423406685,
+   0.0
+  ],
+  "train_n": 42,
+  "train_median_rel_err": 0.012547691776471928,
+  "train_p90_rel_err": 0.02089719477814532,
+  "notes": []
+ },
+ "decode": {
+  "key": {
+   "hardware": "b300",
+   "tp": 4,
+   "ep": 4,
+   "pp": 4,
+   "groups": 1,
+   "efficiency": {},
+   "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+   "stage": "d",
+   "max_requests": 32,
+   "target": "exported-graph bounds, <= 32 requests, KV to 48k; x1.3181 load calibration (run A)"
+  },
+  "coef": [
+   0.0030528770404782595,
+   0.0027801652911057,
+   4.073775663171584e-09,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "train_n": 96,
+  "train_median_rel_err": 0.03908407811672004,
+  "train_p90_rel_err": 0.10971628456348859,
+  "notes": []
+ },
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "52eb00cbd99e53b2c18ffe3368575fcf81b93ad597ba43774ff6c7c32d473f41"
+  }
+ },
+ "lowering": {
+  "kind": "grouped",
+  "moe_chunks": 8
+ }
+}
