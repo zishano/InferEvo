@@ -1,0 +1,24 @@
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1 {"capacity_rps": 11.94, "tokens_per_s_gpu": 94.75, "tokens_per_s_user": 44.75, "ttft_p99_ms": 5151.78, "tpot_p50_ms": 22.34, "bottleneck": "prefill"}
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1 {"capacity_rps": 11.94, "tokens_per_s_gpu": 94.73, "tokens_per_s_user": 40.0, "ttft_p99_ms": 5151.78, "tpot_p50_ms": 25.0, "bottleneck": "prefill"}
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-fp8p-fp8d null
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp {"capacity_rps": 13.31, "tokens_per_s_gpu": 104.7, "tokens_per_s_user": 37.55, "ttft_p99_ms": 3583.16, "tpot_p50_ms": 26.63, "bottleneck": "decode"}
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp {"capacity_rps": 13.6, "tokens_per_s_gpu": 107.84, "tokens_per_s_user": 37.21, "ttft_p99_ms": 4481.69, "tpot_p50_ms": 26.87, "bottleneck": "prefill"}
+h200-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp-fp8p-fp8d {"capacity_rps": 15.16, "tokens_per_s_gpu": 119.87, "tokens_per_s_user": 41.89, "ttft_p99_ms": 6011.41, "tpot_p50_ms": 23.87, "bottleneck": "prefill"}
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1 {"capacity_rps": 9.41, "tokens_per_s_gpu": 73.91, "tokens_per_s_user": 33.06, "ttft_p99_ms": 1235.74, "tpot_p50_ms": 30.25, "bottleneck": "decode"}
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1 {"capacity_rps": 14.05, "tokens_per_s_gpu": 109.56, "tokens_per_s_user": 23.71, "ttft_p99_ms": 1893.86, "tpot_p50_ms": 42.18, "bottleneck": "invalid"}
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-fp8p-fp8d null
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp {"capacity_rps": 9.31, "tokens_per_s_gpu": 73.01, "tokens_per_s_user": 32.42, "ttft_p99_ms": 1027.9, "tpot_p50_ms": 30.85, "bottleneck": "decode"}
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp {"capacity_rps": 14.05, "tokens_per_s_gpu": 109.15, "tokens_per_s_user": 24.34, "ttft_p99_ms": 1303.65, "tpot_p50_ms": 41.09, "bottleneck": "invalid"}
+h200-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp-fp8p-fp8d {"capacity_rps": 14.99, "tokens_per_s_gpu": 117.47, "tokens_per_s_user": 27.33, "ttft_p99_ms": 1158.81, "tpot_p50_ms": 36.59, "bottleneck": "invalid"}
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1 {"capacity_rps": 20.98, "tokens_per_s_gpu": 166.57, "tokens_per_s_user": 60.07, "ttft_p99_ms": 1527.17, "tpot_p50_ms": 16.65, "bottleneck": "decode"}
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1 {"capacity_rps": 22.63, "tokens_per_s_gpu": 180.12, "tokens_per_s_user": 59.55, "ttft_p99_ms": 4555.91, "tpot_p50_ms": 16.79, "bottleneck": "prefill"}
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-fp8p-fp8d null
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp {"capacity_rps": 20.98, "tokens_per_s_gpu": 166.14, "tokens_per_s_user": 58.58, "ttft_p99_ms": 989.62, "tpot_p50_ms": 17.07, "bottleneck": "decode"}
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp {"capacity_rps": 24.68, "tokens_per_s_gpu": 197.3, "tokens_per_s_user": 56.91, "ttft_p99_ms": 3681.14, "tpot_p50_ms": 17.57, "bottleneck": "prefill"}
+b300-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp-fp8p-fp8d {"capacity_rps": 26.62, "tokens_per_s_gpu": 212.69, "tokens_per_s_user": 64.42, "ttft_p99_ms": 4513.15, "tpot_p50_ms": 15.52, "bottleneck": "prefill"}
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1 {"capacity_rps": 14.67, "tokens_per_s_gpu": 115.7, "tokens_per_s_user": 51.07, "ttft_p99_ms": 608.39, "tpot_p50_ms": 19.58, "bottleneck": "decode"}
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1 {"capacity_rps": 22.14, "tokens_per_s_gpu": 174.22, "tokens_per_s_user": 35.9, "ttft_p99_ms": 771.27, "tpot_p50_ms": 27.85, "bottleneck": "decode"}
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-fp8p-fp8d null
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp {"capacity_rps": 14.67, "tokens_per_s_gpu": 114.9, "tokens_per_s_user": 45.9, "ttft_p99_ms": 541.16, "tpot_p50_ms": 21.79, "bottleneck": "decode"}
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp {"capacity_rps": 21.67, "tokens_per_s_gpu": 170.32, "tokens_per_s_user": 37.53, "ttft_p99_ms": 646.49, "tpot_p50_ms": 26.65, "bottleneck": "decode"}
+b300-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp-fp8p-fp8d {"capacity_rps": 23.12, "tokens_per_s_gpu": 183.15, "tokens_per_s_user": 42.1, "ttft_p99_ms": 598.35, "tpot_p50_ms": 23.75, "bottleneck": "decode"}

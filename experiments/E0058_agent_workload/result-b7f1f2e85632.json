@@ -1,0 +1,224 @@
+{
+ "experiment": "E0058",
+ "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "691fba89e45e75899199a967e5db29bedc3678adcbade5a71c5b7faa437250ab"
+  }
+ },
+ "rows": {
+  "h200 agent optimum (P5 D3 b64 mc8 rd)": {
+   "deployment": "h200-p5x4-d3x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+   "score": {
+    "capacity_rps": 3.5507529850530424,
+    "tokens_per_s_gpu": 47.951898189202176,
+    "tokens_per_s_user": 47.339246564695074,
+    "ttft_p99_ms": 4823.327050720707,
+    "tpot_p50_ms": 21.124121581305133,
+    "jct_p50_s": 67.57412268805945,
+    "jct_p99_s": 84.40458577745005,
+    "prefill_tokens_per_s_gpu": 2279.6211674928736,
+    "decode_tokens_per_s_gpu": 127.87172850453913,
+    "bottleneck": "prefill"
+   }
+  },
+  "h200  - rank dispatch": {
+   "deployment": "h200-p5x4-d3x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1",
+   "score": {
+    "capacity_rps": 3.118008800475674,
+    "tokens_per_s_gpu": 42.16948746775321,
+    "tokens_per_s_user": 52.127253274635024,
+    "ttft_p99_ms": 5911.816652303969,
+    "tpot_p50_ms": 19.18382299430684,
+    "jct_p50_s": 67.05510119310986,
+    "jct_p99_s": 84.64331740770251,
+    "prefill_tokens_per_s_gpu": 2002.574629702001,
+    "decode_tokens_per_s_gpu": 112.45196658067522,
+    "bottleneck": "prefill"
+   }
+  },
+  "h200  - rank dispatch - chunks": {
+   "deployment": "h200-p5x4-d3x4-ep4-16-pp4-1-b2048-64-m32-64",
+   "score": {
+    "capacity_rps": 2.5657400321575565,
+    "tokens_per_s_gpu": 34.826857147067926,
+    "tokens_per_s_user": 59.835708565496354,
+    "ttft_p99_ms": 6225.999875244554,
+    "tpot_p50_ms": 16.712428480819224,
+    "jct_p50_s": 65.17028990516641,
+    "jct_p99_s": 82.289908324875,
+    "prefill_tokens_per_s_gpu": 1652.9535244452568,
+    "decode_tokens_per_s_gpu": 92.8716190588478,
+    "bottleneck": "prefill"
+   }
+  },
+  "h200  b128": {
+   "deployment": "h200-p5x4-d3x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp",
+   "score": null
+  },
+  "h200  P6 D2": {
+   "deployment": "h200-p6x4-d2x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+   "score": {
+    "capacity_rps": 2.98581545658253,
+    "tokens_per_s_gpu": 40.278448595796284,
+    "tokens_per_s_user": 33.03837200881885,
+    "ttft_p99_ms": 1647.8472004683056,
+    "tpot_p50_ms": 30.267835223027106,
+    "jct_p50_s": 75.58418947052809,
+    "jct_p99_s": 95.77825727420162,
+    "prefill_tokens_per_s_gpu": 1595.2338018077708,
+    "decode_tokens_per_s_gpu": 161.11379438318514,
+    "bottleneck": "decode"
+   }
+  },
+  "h200  P4 D4": {
+   "deployment": "h200-p4x4-d4x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+   "score": {
+    "capacity_rps": 2.85922667678394,
+    "tokens_per_s_gpu": 38.76535328731856,
+    "tokens_per_s_user": 67.3830334064578,
+    "ttft_p99_ms": 5917.09525720205,
+    "tpot_p50_ms": 14.840531057246272,
+    "jct_p50_s": 60.04617867258412,
+    "jct_p99_s": 77.13116495134989,
+    "prefill_tokens_per_s_gpu": 2297.1537054378746,
+    "decode_tokens_per_s_gpu": 77.53070657463712,
+    "bottleneck": "prefill"
+   }
+  },
+  "h200 8K/1K optimum P3 D5 b128 rd": {
+   "deployment": "h200-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp",
+   "score": null
+  },
+  "h200 8K/1K max-throughput P4 D4 b128": {
+   "deployment": "h200-p4x4-d4x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1",
+   "score": null
+  },
+  "b300 agent optimum (P6 D2 b128 mc8)": {
+   "deployment": "b300-p6x4-d2x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1",
+   "score": {
+    "capacity_rps": 7.025008641493198,
+    "tokens_per_s_gpu": 94.15820416287544,
+    "tokens_per_s_user": 41.120789400641065,
+    "ttft_p99_ms": 2977.1985602690165,
+    "tpot_p50_ms": 24.31859929188057,
+    "jct_p50_s": 66.68865163796215,
+    "jct_p99_s": 84.28178971751458,
+    "prefill_tokens_per_s_gpu": 3739.513445916187,
+    "decode_tokens_per_s_gpu": 376.63281665150174,
+    "bottleneck": "decode"
+   }
+  },
+  "b300  + rank dispatch": {
+   "deployment": "b300-p6x4-d2x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp",
+   "score": {
+    "capacity_rps": 7.025008641493198,
+    "tokens_per_s_gpu": 94.56585679004701,
+    "tokens_per_s_user": 40.959622141073055,
+    "ttft_p99_ms": 1199.7062023677358,
+    "tpot_p50_ms": 24.414287723548863,
+    "jct_p50_s": 62.70700807572979,
+    "jct_p99_s": 80.36291544013551,
+    "prefill_tokens_per_s_gpu": 3759.718559214671,
+    "decode_tokens_per_s_gpu": 378.26342716018803,
+    "bottleneck": "decode"
+   }
+  },
+  "b300  - chunks": {
+   "deployment": "b300-p6x4-d2x4-ep4-16-pp4-1-b2048-128-m32-128",
+   "score": {
+    "capacity_rps": 5.7807232279081875,
+    "tokens_per_s_gpu": 78.01652624212933,
+    "tokens_per_s_user": 51.850246452259746,
+    "ttft_p99_ms": 4758.597430089083,
+    "tpot_p50_ms": 19.28631141456065,
+    "jct_p50_s": 61.59879870642101,
+    "jct_p99_s": 80.24908527422986,
+    "prefill_tokens_per_s_gpu": 3092.1882916276886,
+    "decode_tokens_per_s_gpu": 312.0661049685173,
+    "bottleneck": "prefill"
+   }
+  },
+  "b300  b64": {
+   "deployment": "b300-p6x4-d2x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1",
+   "score": {
+    "capacity_rps": 4.555154539026766,
+    "tokens_per_s_gpu": 62.22174892094633,
+    "tokens_per_s_user": 55.79241771270957,
+    "ttft_p99_ms": 988.1849233190678,
+    "tpot_p50_ms": 17.923582468665792,
+    "jct_p50_s": 50.8605570440499,
+    "jct_p99_s": 66.14974646599728,
+    "prefill_tokens_per_s_gpu": 2467.301975258728,
+    "decode_tokens_per_s_gpu": 248.88699568378533,
+    "bottleneck": "decode"
+   }
+  },
+  "b300  P7 D1": {
+   "deployment": "b300-p7x4-d1x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1",
+   "score": {
+    "capacity_rps": 3.512504320746599,
+    "tokens_per_s_gpu": 47.3859259781836,
+    "tokens_per_s_user": 37.133892740698435,
+    "ttft_p99_ms": 941.5855893572598,
+    "tpot_p50_ms": 26.929576357180792,
+    "jct_p50_s": 65.73542009404377,
+    "jct_p99_s": 81.20460245730507,
+    "prefill_tokens_per_s_gpu": 1613.574368560529,
+    "decode_tokens_per_s_gpu": 379.0874078254688,
+    "bottleneck": "decode"
+   }
+  },
+  "b300  P5 D3": {
+   "deployment": "b300-p5x4-d3x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1",
+   "score": {
+    "capacity_rps": 5.907304583757998,
+    "tokens_per_s_gpu": 79.75162282836604,
+    "tokens_per_s_user": 65.80033434170709,
+    "ttft_p99_ms": 4269.3383201153665,
+    "tpot_p50_ms": 15.197491167855006,
+    "jct_p50_s": 53.975306418949174,
+    "jct_p99_s": 70.32903195252476,
+    "prefill_tokens_per_s_gpu": 3792.119957936382,
+    "decode_tokens_per_s_gpu": 212.6709942089761,
+    "bottleneck": "prefill"
+   }
+  },
+  "b300 8K/1K optimum P3 D5 b128 rd": {
+   "deployment": "b300-p3x4-d5x4-ep4-16-pp4-1-b2048-128-m32-128-mc8-1-rdp",
+   "score": {
+    "capacity_rps": 3.9142882483508004,
+    "tokens_per_s_gpu": 53.19868395504849,
+    "tokens_per_s_user": 114.12291863315028,
+    "ttft_p99_ms": 4258.094356490233,
+    "tpot_p50_ms": 8.762481822030104,
+    "jct_p50_s": 43.608300775981206,
+    "jct_p99_s": 59.398888271686246,
+    "prefill_tokens_per_s_gpu": 4205.8109868528245,
+    "decode_tokens_per_s_gpu": 85.11789432807758,
+    "bottleneck": "prefill"
+   }
+  }
+ }
+}

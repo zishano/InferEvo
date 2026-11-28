@@ -1,0 +1,76 @@
+{
+ "experiment": "E0060",
+ "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "a2f0da6bc324a44ecf9f976583a597ab4601b4ef",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "8e14cf3338116c37525b88343ad42e6c1d1f8f5b41a181bc95b148b8744b014f"
+  }
+ },
+ "deployment": "h200-p1x4-d1x4-ep4-16-pp4-1-b2048-64-m32-64-mc8-1-rdp",
+ "workload": "agent_sessions(60, 8, 0.5, seed=60)",
+ "rel_err": {
+  "jct_p50": -0.04266629216956297,
+  "jct_p99": -0.0914816529765956,
+  "ttft_p50": -0.03502614900214296,
+  "ttft_p90": -0.035493442056887425,
+  "ttft_p99": -0.11666956403295414,
+  "tpot_p50": -0.08023465119236783,
+  "per_call_ttft_abs_err_p50": 0.10028958701317442,
+  "per_call_ttft_abs_err_p90": 0.44096457615773055
+ },
+ "tier1": {
+  "calls": 480,
+  "jct_s": {
+   "p50": 43.47859683383216,
+   "p99": 50.98205231785387,
+   "sessions": 60
+  },
+  "ttft_ms": {
+   "p50": 897.4121794697965,
+   "p90": 1424.1386946197422,
+   "p99": 1813.4861304924357
+  },
+  "tpot_ms": {
+   "p50": 12.20060172906098,
+   "p99": 13.83934619594099
+  }
+ },
+ "tier2": {
+  "calls": 480,
+  "jct_s": {
+   "p50": 45.416343828909746,
+   "p99": 56.115600180103485,
+   "sessions": 60
+  },
+  "ttft_ms": {
+   "p50": 929.9860079543123,
+   "p90": 1476.5464090330624,
+   "p99": 2053.009900544275
+  },
+  "tpot_ms": {
+   "p50": 13.264906907916924,
+   "p99": 16.50256616482505
+  }
+ }
+}
