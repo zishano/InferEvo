@@ -1,0 +1,176 @@
+{
+ "experiment": "E0052",
+ "cost_model_version": "b7f1f2e85632a7645a9585788a6cc8ca37655f709039465898bc59c5dd65d396",
+ "source_identity": {
+  "simthesizer": {
+   "name": "simthesizer",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/simthesizer",
+   "commit": "88f77c2ffa027b38c3115fe0ebf29bc123d9c975",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "rooflang": {
+   "name": "rooflang",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo/engines/rooflang",
+   "commit": "dbe1486bee78eb664c5dd98d6e519cbb3c6f658d",
+   "branch": "inferevo/phase1-base",
+   "dirty": false,
+   "dirty_digest": ""
+  },
+  "inferevo": {
+   "name": "inferevo",
+   "path": "/mnt/nvme1n1/data/lmk/PROJECT/TEST2/InferEvo",
+   "commit": "bae643d2c131a6c66f156754b5e8e526f66e7b8c",
+   "branch": "main",
+   "dirty": true,
+   "dirty_digest": "f4f531064dea726e0dfa29218837f1b3c7e9fb1dde6f1384b2b6f885390b46c5"
+  }
+ },
+ "cases": {
+  "official": {
+   "deployment": {
+    "hardware": "h200",
+    "prefill_instances": 1,
+    "decode_instances": 1,
+    "prefill_tp": 4,
+    "decode_tp": 4,
+    "prefill_ep": 4,
+    "decode_ep": 16,
+    "prefill_etp": 1,
+    "decode_etp": 1,
+    "prefill_pp": 4,
+    "decode_pp": 1,
+    "prefill_budget": 2048,
+    "decode_budget": 64,
+    "prefill_max_batch": 32,
+    "decode_max_batch": 64,
+    "prefill_moe_chunks": 8,
+    "decode_moe_chunks": 1,
+    "prefill_dispatch": "ranks",
+    "decode_dispatch": "leader",
+    "prefill_linear": "bf16",
+    "decode_linear": "bf16"
+   },
+   "workload": [
+    240,
+    2.4,
+    8192,
+    1024,
+    52
+   ]
+  },
+  "fp8": {
+   "deployment": {
+    "hardware": "h200",
+    "prefill_instances": 1,
+    "decode_instances": 1,
+    "prefill_tp": 4,
+    "decode_tp": 4,
+    "prefill_ep": 4,
+    "decode_ep": 16,
+    "prefill_etp": 1,
+    "decode_etp": 1,
+    "prefill_pp": 4,
+    "decode_pp": 1,
+    "prefill_budget": 2048,
+    "decode_budget": 64,
+    "prefill_max_batch": 32,
+    "decode_max_batch": 64,
+    "prefill_moe_chunks": 8,
+    "decode_moe_chunks": 1,
+    "prefill_dispatch": "ranks",
+    "decode_dispatch": "leader",
+    "prefill_linear": "fp8",
+    "decode_linear": "fp8"
+   },
+   "workload": [
+    240,
+    2.8,
+    8192,
+    1024,
+    52
+   ]
+  }
+ },
+ "rows": {
+  "official": {
+   "tier1": {
+    "tokens_per_s_gpu": 71.56432884449495,
+    "prefill_tokens_per_s_gpu": 1196.9985593141744,
+    "decode_tokens_per_s_gpu": 143.1286576889899,
+    "slo_attainment": 1.0,
+    "queue": null,
+    "ttft_ms": {
+     "p50": 914.6355001067263,
+     "p99": 1491.98423124691
+    },
+    "tpot_ms": {
+     "p50": 21.64892492908308,
+     "p99": 22.41686858851426
+    }
+   },
+   "tier2": {
+    "tokens_per_s_gpu": 71.52703831625703,
+    "prefill_tokens_per_s_gpu": 1196.9985593141744,
+    "decode_tokens_per_s_gpu": 143.05407663251407,
+    "slo_attainment": 1.0,
+    "queue": null,
+    "ttft_ms": {
+     "p50": 912.4408166453293,
+     "p99": 1501.5153881274407
+    },
+    "tpot_ms": {
+     "p50": 21.707390502312457,
+     "p99": 22.490970781476666
+    }
+   },
+   "rel_err": {
+    "ttft_p50": 0.0024052885637733112,
+    "ttft_p99": -0.006347691775851261,
+    "tpot_p50": -0.0026933487571041415,
+    "tpot_p99": -0.0032947529780900098,
+    "tokens_per_s_gpu": 0.000521348697160251
+   }
+  },
+  "fp8": {
+   "tier1": {
+    "tokens_per_s_gpu": 82.81027697518226,
+    "prefill_tokens_per_s_gpu": 1396.49831919987,
+    "decode_tokens_per_s_gpu": 165.62055395036452,
+    "slo_attainment": 1.0,
+    "queue": null,
+    "ttft_ms": {
+     "p50": 822.4222320041008,
+     "p99": 1377.604335489707
+    },
+    "tpot_ms": {
+     "p50": 18.8287242181759,
+     "p99": 19.792769658037027
+    }
+   },
+   "tier2": {
+    "tokens_per_s_gpu": 82.75878053142515,
+    "prefill_tokens_per_s_gpu": 1396.49831919987,
+    "decode_tokens_per_s_gpu": 165.5175610628503,
+    "slo_attainment": 1.0,
+    "queue": null,
+    "ttft_ms": {
+     "p50": 826.5756347157555,
+     "p99": 1393.5738890401979
+    },
+    "tpot_ms": {
+     "p50": 18.9381653339429,
+     "p99": 19.911019625908146
+    }
+   },
+   "rel_err": {
+    "ttft_p50": -0.005024830804603919,
+    "ttft_p99": -0.011459423627325327,
+    "tpot_p50": -0.005778865789647036,
+    "tpot_p99": -0.0059389207631161955,
+    "tokens_per_s_gpu": 0.0006222474935764222
+   }
+  }
+ }
+}
